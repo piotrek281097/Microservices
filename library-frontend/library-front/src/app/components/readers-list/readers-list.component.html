@@ -1,0 +1,32 @@
+<div class="main">
+
+<h1 style="text-align: center; margin-bottom: 20px">Reader Context: {{ readerFullName }}</h1>
+
+<h1 style="text-align: center">Readers list</h1>
+<table class="table table-bordered table-striped">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">No</th>
+    <th scope="col">Name</th>
+    <th scope="col">Surname</th>
+    <th scope="col">Pesel</th>
+    <th scope="col">Telephone</th>
+    <th scope="col">          </th>
+    <th scope="col">          </th>
+  </tr>
+  </thead>
+  <!--  <tr *ngFor="let reader of readers | paginate: config | filterBy: searchText; let i=index">-->
+  <tr *ngFor="let reader of readers | paginate: config; let i=index">
+    <td >{{ i + 1 }} </td>
+    <td >{{ reader.name }}</td>
+    <td >{{ reader.surname}}</td>
+    <td >{{ reader.pesel }}</td>
+    <td >{{ reader.telephone }}</td>
+    <td><button type="submit" class="btn btn-warning" (click)="editReader(reader.id)">Delete</button></td>
+    <td><button type="submit" class="btn btn-primary" (click)="goToDetails(reader.id)">Details</button></td>
+  </tr>
+</table>
+</div>
+
+<pagination-controls previousLabel="Previous" nextLabel="Next" (pageChange)="pageChanged($event)"></pagination-controls>
+

@@ -1,0 +1,27 @@
+<div class="container">
+  <h1>New Fine</h1>
+  <form class="form" [formGroup]="fineForm">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Note" formControlName="text" id="text" class="form-control"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="FormControl.hasError('required')">
+        Text is <strong>required!</strong> Length: <strong>2-30 signs</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Money" formControlName="money" id="money" class="form-control"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="FormControl.hasError('required')">
+        Money is <strong>required</strong>, use <strong> dot. </strong> Example: 100.00
+      </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <button type="submit" class="btn btn-success" (click)="onSubmit()">Add Fine</button>
+    <button type="submit" class="btn btn-primary" (click)="cancel()">Return to home page</button>
+  </form>
+</div>

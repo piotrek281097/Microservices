@@ -1,0 +1,59 @@
+<div class="container">
+  <h1>New Book</h1>
+  <form class="form" [formGroup]="bookForm">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Title" formControlName="title" id="title" class="form-control"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="FormControl.hasError('required')">
+        Title is <strong>required!</strong> Length: <strong>2-30 signs</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Author" formControlName="author" id="author" class="form-control"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="FormControl.hasError('required')">
+        Author is <strong>required!</strong> Length: <strong>2-30 signs</strong>, only letters
+      </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Identifier" formControlName="identifier" id="identifier" class="form-control"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="FormControl.hasError('required')">
+        Identifier is <strong>required!</strong> Length: <strong>10</strong>, only letters and digits
+      </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <mat-form-field class="selectField">
+      <mat-label> {{ bookKind }} </mat-label>
+      <mat-select #hasBackdrop>
+        <mat-option (click)="addBookKind('DRAMA')">Drama</mat-option>
+        <mat-option (click)="addBookKind('HORROR')">Horror</mat-option>
+        <mat-option (click)="addBookKind('ACTION')">Action</mat-option>
+        <mat-option (click)="addBookKind('SPORT')">Sport</mat-option>
+        <mat-option (click)="addBookKind('FANTASY')">Fantasy</mat-option>
+        <mat-option (click)="addBookKind('SCIENCE')">Science</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Release date" formControlName="releaseDate" id="releaseDate" class="form-control"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="FormControl.hasError('required')">
+        Release date is <strong>required</strong> Example format: <strong>2021-01-19</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <button type="submit" class="btn btn-success" (click)="onSubmit()">Add book</button>
+    <button type="submit" class="btn btn-primary" (click)="cancel()">Return to home page</button>
+  </form>
+</div>

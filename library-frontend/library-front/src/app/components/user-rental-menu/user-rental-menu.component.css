@@ -1,0 +1,28 @@
+.title {
+  margin-top: 70px;
+  margin-bottom: 20px;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+
+}
+
+.option {
+  margin-top: 30px;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 8px;
+  background-color: #f2e6ff;
+  color: black;
+  text-align: center;
+  font-size: 21px;
+  transition: 0.55s;
+}
+
+.option:hover {
+  color: white;
+  background-color: #673ab7;
+  cursor: pointer;
+}

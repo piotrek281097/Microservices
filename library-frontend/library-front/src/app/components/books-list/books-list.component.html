@@ -1,0 +1,57 @@
+<div class="main">
+  <h4>Search book by field:</h4>
+  <mat-tab-group >
+    <mat-tab label="Title">
+      <div >
+        <input class="form-control" type="text" name="search" [(ngModel)]="searchText.title" autocomplete="off" placeholder="&#61442;  Search by title">
+      </div>
+    </mat-tab>
+    <mat-tab label="Author">
+      <div >
+        <input class="form-control" type="text" name="search" [(ngModel)]="searchText.author" autocomplete="off" placeholder="&#61442;  Search by author">
+      </div>
+    </mat-tab>
+    <mat-tab label="Identifier">
+      <div >
+        <input class="form-control" type="text" name="search" [(ngModel)]="searchText.identifier" autocomplete="off" placeholder="&#61442;  Search by identifier">
+      </div>
+    </mat-tab>
+    <mat-tab label="Book kind">
+      <div >
+        <input class="form-control" type="text" name="search" [(ngModel)]="searchText.bookKind" autocomplete="off" placeholder="&#61442;  Search by kind">
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <br>
+<br>
+
+<h1 style="text-align: center">Books list</h1>
+<table class="table table-bordered table-striped">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">No</th>
+    <th scope="col">Title</th>
+    <th scope="col">Author</th>
+    <th scope="col">Identifier</th>
+    <th scope="col">Book kind</th>
+    <th scope="col">Release date</th>
+    <th scope="col">          </th>
+    <th scope="col">          </th>
+  </tr>
+  </thead>
+
+  <tr *ngFor="let book of books | paginate: config | filterBy: searchText; let i=index">
+<!--  <tr *ngFor="let book of books | paginate: config; let i=index">-->
+    <td (click)="onClickField(book.id)">{{ i + 1 }} </td>
+    <td (click)="onClickField(book.id)">{{ book.title }}</td>
+    <td (click)="onClickField(book.id)">{{ book.author}}</td>
+    <td (click)="onClickField(book.id)">{{ book.identifier }}</td>
+    <td (click)="onClickField(book.id)">{{ book.bookKind }}</td>
+    <td (click)="onClickField(book.id)">{{ book.releaseDate }}</td>
+    <td><button [disabled]="book.bookStatus === 'RESERVED'" type="submit" class="btn btn-success" (click)="reserveBook(book.id)">Reserve</button></td>
+    <td><button type="submit" class="btn btn-danger" (click)="deleteBook(book.id)">Delete</button></td>
+  </tr>
+</table>
+</div>
+
+<pagination-controls previousLabel="Previous" nextLabel="Next" (pageChange)="pageChanged($event)"></pagination-controls>

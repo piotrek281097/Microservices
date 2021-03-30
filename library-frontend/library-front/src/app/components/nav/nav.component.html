@@ -1,0 +1,21 @@
+<header>
+  <div class="container">
+    <a routerLink="/" class="logo">{{ appTitle }}</a>
+    <nav>
+      <ul>
+<!--        <li><a routerLink="/home">Home</a></li>-->
+<!--        <li><a routerLink="/add-reader">Add reader</a></li>-->
+<!--        <li><a routerLink="/add-book">Add book</a></li>-->
+<!--        <li><a routerLink="/books">Books</a></li>-->
+        <li><a *ngIf="userService.getRole() === null" routerLink="/register">Register</a></li>
+        <li><a *ngIf="userService.getRole() === null" routerLink="/login">Login</a></li>
+        <li><a *ngIf="userService.getRole() !== null && userService.getRole() === 'ADMIN'" routerLink="/users-list">Users</a></li>
+        <li><a *ngIf="userService.getRole() !== null" routerLink="/classic-library-menu">Classic library</a></li>
+        <li><a *ngIf="userService.getRole() !== null" routerLink="/user-rental-menu">User rental service</a></li>
+        <li><a *ngIf="userService.getRole() !== null" routerLink="/add-book">Ratings</a></li>
+        <li><a *ngIf="userService.getRole() !== null && userService.getRole() === 'USER'" routerLink="/books">My profile</a></li>
+        <li><a *ngIf="userService.getRole() !== null" (click)="logout()" routerLink="/login">Logout</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

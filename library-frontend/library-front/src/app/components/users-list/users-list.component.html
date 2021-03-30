@@ -1,0 +1,31 @@
+<div class="main">
+
+  <h1 style="text-align: center">Users list</h1>
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Name</th>
+      <th scope="col">Surname</th>
+      <th scope="col">Pesel</th>
+      <th scope="col">Telephone</th>
+      <th scope="col">          </th>
+      <th scope="col">          </th>
+    </tr>
+    </thead>
+    <!--  <tr *ngFor="let reader of readers | paginate: config | filterBy: searchText; let i=index">-->
+    <tr *ngFor="let user of users  | paginate: config; let i=index">
+      <td >{{ i + 1 }} </td>
+      <td >{{ user.name }}</td>
+      <td >{{ user.surname}}</td>
+      <td >{{ user.pesel }}</td>
+      <td >{{ user.telephone }}</td>
+      <td><button type="submit" class="btn btn-primary" (click)="goToDetails(user.id)">Details</button></td>
+      <td><button type="submit" class="btn btn-danger" (click)="deleteUser(user.id)">Delete</button></td>
+    </tr>
+  </table>
+</div>
+
+<pagination-controls previousLabel="Previous" nextLabel="Next" (pageChange)="pageChanged($event)"></pagination-controls>
+
+

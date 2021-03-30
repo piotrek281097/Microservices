@@ -1,0 +1,6 @@
+<h1 class="title">Classic library service</h1>
+
+<mat-card class="option" (click)="chooseOption(1)">Books</mat-card>
+<mat-card *ngIf="role==='USER'" class="option" (click)="chooseOption(2)">Your reservations</mat-card>
+<mat-card *ngIf="role==='ADMIN'" class="option" (click)="chooseOption(3)">Add book</mat-card>
+

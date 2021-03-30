@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>Login Page</h1>
+  <form class="form" [formGroup]="loginForm">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Username" formControlName="username" id="username" class="form-control"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="FormControl.hasError('required')">
+        Username is <strong>required!</strong> Length: <strong>2-30 signs</strong>, only letters and digits
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Password" [type]="'password'" formControlName="password" id="password" class="form-control"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="FormControl.hasError('required')">
+        Password is <strong>required!</strong> Length: <strong>2-30 signs</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <button type="submit" class="btn btn-success" (click)="onSubmit()">Login</button>
+    <button type="submit" class="btn btn-primary" (click)="cancel()">Return to register page</button>
+  </form>
+</div>

@@ -1,0 +1,47 @@
+<div class="container">
+  <h1>New Reader</h1>
+  <form class="form" [formGroup]="readerForm">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Name" formControlName="name" id="name" class="form-control"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="FormControl.hasError('required')">
+        Name is <strong>required!</strong> Length: <strong>2-30 signs</strong>, only letters
+      </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Surname" formControlName="surname" id="surname" class="form-control"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="FormControl.hasError('required')">
+        Surname is <strong>required!</strong> Length: <strong>2-30 signs</strong>, only letters
+      </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Telephone" formControlName="telephone" id="telephone" class="form-control"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="FormControl.hasError('required')">
+        Telephone is <strong>required!</strong> Length: <strong>9</strong>, only digits
+      </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="PESEL" formControlName="pesel" id="pesel" class="form-control"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="FormControl.hasError('required')">
+        Pesel is <strong>required</strong>  Length: <strong>11</strong>, only digits
+      </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <button type="submit" class="btn btn-success" (click)="onSubmit()">Add reader</button>
+    <button type="submit" class="btn btn-primary" (click)="cancel()">Return to home page</button>
+  </form>
+</div>

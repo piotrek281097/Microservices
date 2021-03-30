@@ -1,0 +1,37 @@
+micronaut:
+  application:
+    name: gateway
+  server:
+    port: 8081
+    cors:
+      enabled: true
+  security:
+    authentication: bearer
+    token:
+      propagation:
+        enabled: true
+        service-id-regex: "registration"
+credentials:
+  users:
+    smith: smith123
+  roles:
+    smith: ADMIN
+datasources:
+  default:
+    url: jdbc:mysql://localhost:3306/library_micronaut?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+    dialect: MYSQL
+jpa:
+  default:
+    packages-to-scan:
+      - 'gateway.domain'
+    properties:
+      hibernate:
+        bytecode:
+          provider: none
+        hbm2ddl:
+          auto: update
+        show_sql: true
+
