@@ -4,6 +4,7 @@ import {ReaderService} from '../../services/reader.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import {UserData} from '../../models/user-data';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-users-list',
@@ -22,6 +23,7 @@ export class UsersListComponent implements OnInit {
   pageNumber = 0;
 
   constructor(private userService: UserService,
+              private toastrService: ToastrService,
               private router: Router) {
     this.config = {
       itemsPerPage: 10,
@@ -37,13 +39,23 @@ export class UsersListComponent implements OnInit {
     });
   }
 
-  deleteUser(userId: string) {
-    console.log("delete " + userId);
-    // this.router.navigate(['/edit-reader/' + userId]);
+  deleteUser(userId: number) {
+    // zabezpieczyc popuem
+    this.userService.deleteUserById(userId).toPromise()
+      .then((res: Response) => {
+          this.toastrService.success('User deleted');
+          setTimeout( () => {
+            window.location.reload();
+          }, 3000);
+        }
+      )
+      .catch((res: Response) => {
+        this.toastrService.error('Error! Unknown cause');
+      });
   }
 
-  goToDetails(userId: string) {
-    this.router.navigate(['/reader-details/' + userId]);
+  goToDetails(username: string) {
+    this.router.navigate(['/user-details/' + username]);
   }
 
   pageChanged(event) {

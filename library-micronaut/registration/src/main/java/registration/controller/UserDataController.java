@@ -1,10 +1,8 @@
 package registration.controller;
 
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.annotation.Body;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.Post;
+import io.micronaut.http.HttpStatus;
+import io.micronaut.http.annotation.*;
 import registration.domain.UserData;
 import registration.service.UserDataService;
 
@@ -30,6 +28,28 @@ public class UserDataController {
     @Get("/users")
     public HttpResponse<List<UserData>> getUsers() {
         return HttpResponse.ok(userDataService.getAllUsers());
+    }
+
+//    @Get("/users/{userId}")
+//    public HttpResponse<UserData> getUserById(@PathVariable long userId) {
+//        return HttpResponse.ok(userDataService.getUserById(userId));
+//    }
+
+    @Get("/users/{username}")
+    public HttpResponse<UserData> getUserByUsername(@PathVariable String username) {
+        return HttpResponse.ok(userDataService.getUserByUsername(username));
+    }
+
+    @Delete("/users/delete/{userId}")
+    public HttpResponse<?> deleteUserById(@PathVariable long userId) {
+        userDataService.deleteUserById(userId);
+        return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
+    }
+
+    @Post("users/update")
+    public HttpResponse updateUser(@Body UserData userData) {
+        userDataService.updateUser(userData);
+        return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
     }
 
 //    @Post("/test-admin")

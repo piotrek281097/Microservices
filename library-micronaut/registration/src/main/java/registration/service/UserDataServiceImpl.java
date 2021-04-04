@@ -51,4 +51,26 @@ public class UserDataServiceImpl implements UserDataService {
     public List<UserData> getAllUsers() {
         return (List<UserData>) userDataRepository.findAll();
     }
+
+    @Override
+    public void deleteUserById(long userId) {
+        userDataRepository.deleteById(userId);
+    }
+
+    @Override
+    public UserData getUserById(long userId) {
+        Optional<UserData> user = userDataRepository.findById(userId);
+        return user.orElse(null);
+    }
+
+    @Override
+    public UserData getUserByUsername(String username) {
+        Optional<UserData> user = userDataRepository.findByUsername(username);
+        return user.orElse(null);
+    }
+
+    @Override
+    public void updateUser(UserData userData) {
+        userDataRepository.update(userData);
+    }
 }

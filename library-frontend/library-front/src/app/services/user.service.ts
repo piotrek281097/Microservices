@@ -8,6 +8,7 @@ import {PageableReaderResponse} from '../models/pageableReaderResponse';
 import {UserData} from '../models/user-data';
 import {LoginData} from '../models/login-data';
 import {Api} from '../../util/api';
+import jwtDecode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,23 @@ export class UserService {
     return this.http.get<UserData[]>(`${Api.USER_END_POINT}/users`);
   }
 
+  deleteUserById(userId: number): Observable<any> {
+    return this.http.delete(`${Api.USER_END_POINT}/users/delete/` + userId);
+  }
+
+  findByUserId(userId: number): Observable<UserData> {
+    console.log("userId find " + this.getUserDetails().sub);
+    return this.http.get<UserData>(`${Api.USER_END_POINT}/users/` + userId);
+  }
+
+  findByUsername(username: string): Observable<UserData> {
+    return this.http.get<UserData>(`${Api.USER_END_POINT}/users/` + username);
+  }
+
+  updateUser(userToUpdate: UserData) {
+    return this.http.post(`${Api.USER_END_POINT}/users/update`, userToUpdate);
+  }
+
   saveToken(token: string): void {
     localStorage.setItem('token', token);
   }
@@ -51,10 +69,10 @@ export class UserService {
   isLogged(): boolean {
     return localStorage.getItem('token') !==  null;
   }
-  //
-  // getUserDetails(): any {
-  //   return jwtDecode(localStorage.getItem('token'));
-  // }
+
+  getUserDetails(): any {
+    return jwtDecode(localStorage.getItem('token'));
+  }
 
   // private headersObject: HttpHeaders;
   //
@@ -119,5 +137,7 @@ export class UserService {
   //       this.toastrService.success('Error! Unknown cause. Try again. Login not successful');
   //     });
   // }
+
+
 
 }

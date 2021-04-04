@@ -6,6 +6,7 @@ export class Book {
   bookKind: string;
   bookStatus: string;
   releaseDate: string;
+  ownerUsername: string;
 
   constructor() {}
 }

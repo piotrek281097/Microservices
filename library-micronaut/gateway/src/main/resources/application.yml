@@ -10,12 +10,12 @@ micronaut:
     token:
       propagation:
         enabled: true
-        service-id-regex: "registration"
+        service-id-regex: "registration|books"
 credentials:
   users:
-    smith: smith123
+    admin: admin123
   roles:
-    smith: ADMIN
+    admin: ADMIN
 datasources:
   default:
     url: jdbc:mysql://localhost:3306/library_micronaut?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC

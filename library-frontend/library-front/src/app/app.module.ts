@@ -38,6 +38,10 @@ import { ClassicLibraryMenuComponent } from './components/classic-library-menu/c
 import { UserRentalMenuComponent } from './components/user-rental-menu/user-rental-menu.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import {Interceptor} from '../util/interceptor';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { ClassicLibraryBooksListComponent } from './components/classic-library-books-list/classic-library-books-list.component';
+import { RentalServiceBooksListComponent } from './components/rental-service-books-list/rental-service-books-list.component';
 
 
 
@@ -60,6 +64,10 @@ import {Interceptor} from '../util/interceptor';
     ClassicLibraryMenuComponent,
     UserRentalMenuComponent,
     UsersListComponent,
+    UserDetailsComponent,
+    EditUserComponent,
+    ClassicLibraryBooksListComponent,
+    RentalServiceBooksListComponent,
   ],
     imports: [
         ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),

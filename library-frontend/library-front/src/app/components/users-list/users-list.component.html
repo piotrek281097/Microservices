@@ -20,7 +20,7 @@
       <td >{{ user.surname}}</td>
       <td >{{ user.pesel }}</td>
       <td >{{ user.telephone }}</td>
-      <td><button type="submit" class="btn btn-primary" (click)="goToDetails(user.id)">Details</button></td>
+      <td><button type="submit" class="btn btn-primary" (click)="goToDetails(user.username)">Details</button></td>
       <td><button type="submit" class="btn btn-danger" (click)="deleteUser(user.id)">Delete</button></td>
     </tr>
   </table>

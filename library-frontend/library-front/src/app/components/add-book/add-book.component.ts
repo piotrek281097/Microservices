@@ -5,6 +5,8 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { FormBuilder, NgForm, FormGroup, Validators, FormControl, FormGroupDirective } from '@angular/forms';
 import {BookService} from '../../services/book.service';
 import {Book} from '../../models/book';
+import {UserService} from '../../services/user.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -32,7 +34,8 @@ export class AddBookComponent implements OnInit {
     private formBuilder: FormBuilder,
     private bookService: BookService,
     private router: Router,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private userService: UserService
   ) {
     this.bookKind = 'Drama';
   }
@@ -57,9 +60,34 @@ export class AddBookComponent implements OnInit {
     bookToAdd.bookKind = this.bookKind;
     bookToAdd.releaseDate = this.bookForm.value.releaseDate;
     bookToAdd.bookStatus = 'AVAILABLE';
+    bookToAdd.ownerUsername = this.userService.getUserDetails().sub;
 
     if (!this.bookForm.invalid) {
-      this.bookService.save(bookToAdd);
+      this.bookService.save(bookToAdd).toPromise()
+        .then((res: Response) => {
+            this.toastrService.success('Book added');
+            setTimeout( () => {
+              if (this.userService.getUserDetails().sub === 'admin') {
+                this.router.navigate(['books/classic-library']);
+              } else {
+                this.router.navigate(['books/rental-service']);
+              }
+            }, 3000);
+          }
+        )
+        .catch(error => {
+          // do poprawy, moze error ze bookIdentifier istnieje
+          if (error instanceof HttpErrorResponse && (error.status === 409 || error.status === 400)) {
+            if (error.status === 409) {
+              this.toastrService.error('Error! Book with this identifier already exists! Error! Book not added');
+            } else if (error.status === 400) {
+              this.toastrService.error('Error! Unknown cause. Try again data. Error! Book not added');
+            }
+          }
+        })
+        .catch((res: Response) => {
+          this.toastrService.success('Error! Book not added');
+        });
     } else {
       this.toastrService.error('Error! Incorrect data.');
     }
