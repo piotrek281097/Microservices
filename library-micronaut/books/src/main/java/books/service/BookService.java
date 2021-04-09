@@ -1,6 +1,7 @@
 package books.service;
 
 import books.domain.Book;
+import books.dto.OpinionDto;
 
 import java.util.List;
 
@@ -13,4 +14,12 @@ public interface BookService {
     List<Book> getUserRentalServiceBooks();
 
     void deleteBookById(long bookId);
+
+    Book getBookById(long bookId);
+
+    void updateBook(Book book);
+
+    void changeBookStatus(String identifier);
+
+    void addOpinion(OpinionDto opinion);
 }

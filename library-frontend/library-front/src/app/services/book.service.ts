@@ -8,6 +8,7 @@ import {Book} from '../models/book';
 import {PageableBookResponse} from '../models/pageableBookResponse';
 import {UserData} from '../models/user-data';
 import {Api} from '../../util/api';
+import {Opinion} from '../models/opinion';
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +69,19 @@ export class BookService {
     return this.http.delete(`${Api.BOOKS_END_POINT}/delete/` + bookId);
   }
 
+  updateBook(book: Book) {
+    return this.http.post(`${Api.BOOKS_END_POINT}/update`, book);
+  }
+
+  changeBookStatus(identifier: string): Observable<any> {
+    return this.http.post(`${Api.BOOKS_END_POINT}/change-status/` + identifier, null);
+  }
+
+
+  addOpinion(opinion: Opinion) {
+    return this.http.post(`${Api.BOOKS_END_POINT}/add-opinion/`, opinion);
+
+  }
   // public save(book: Book) {
   //   this.prepareHeader();
   //
@@ -100,26 +114,32 @@ export class BookService {
     this.http.put(this.booksUrl + '/delete/' + bookId, {headers: this.headersObject}).subscribe(a => a);
   }
 
+  findBookById(bookId: number): Observable<Book> {
+    return this.http.get<Book>(`${Api.BOOKS_END_POINT}/` + bookId);
+  }
+
+
+
   public findByBookId(bookId: number): Observable<Book> {
     this.prepareHeader();
     return this.http.get<Book>(this.booksUrl + '/find-book/' + bookId, {headers: this.headersObject});
   }
 
-  public updateBook(bookId: number, book: Book) {
-    this.prepareHeader();
-
-    return this.http.put(this.booksUrl + '/update/' + bookId, book, {headers: this.headersObject}).toPromise()
-      .then((res: Response) => {
-          this.toastrService.success('Book edited');
-          setTimeout( () => {
-            this.router.navigate(['/books/']);
-          }, 3000);
-        }
-      )
-      .catch((res: Response) => {
-        this.toastrService.success('Error! Book not edited');
-      });
-  }
+  // public updateBook(bookId: number, book: Book) {
+  //   this.prepareHeader();
+  //
+  //   return this.http.put(this.booksUrl + '/update/' + bookId, book, {headers: this.headersObject}).toPromise()
+  //     .then((res: Response) => {
+  //         this.toastrService.success('Book edited');
+  //         setTimeout( () => {
+  //           this.router.navigate(['/books/']);
+  //         }, 3000);
+  //       }
+  //     )
+  //     .catch((res: Response) => {
+  //       this.toastrService.success('Error! Book not edited');
+  //     });
+  // }
 
   public findBookByAuthor(author: string): Observable<Book[]> {
     this.prepareHeader();
@@ -134,4 +154,5 @@ export class BookService {
         })
       );
   }
+
 }

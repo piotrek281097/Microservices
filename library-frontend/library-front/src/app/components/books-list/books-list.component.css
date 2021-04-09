@@ -6,6 +6,10 @@
   width: 100%;
 }
 
+.btn-warning {
+  width: 100%;
+}
+
 .table-bordered{
   width:100%;
   border-collapse:collapse;

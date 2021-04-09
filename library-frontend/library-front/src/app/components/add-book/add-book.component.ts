@@ -37,7 +37,7 @@ export class AddBookComponent implements OnInit {
     private toastrService: ToastrService,
     private userService: UserService
   ) {
-    this.bookKind = 'Drama';
+    this.bookKind = 'DRAMA';
   }
 
   ngOnInit() {
@@ -61,6 +61,8 @@ export class AddBookComponent implements OnInit {
     bookToAdd.releaseDate = this.bookForm.value.releaseDate;
     bookToAdd.bookStatus = 'AVAILABLE';
     bookToAdd.ownerUsername = this.userService.getUserDetails().sub;
+    bookToAdd.avgRate = 0;
+    bookToAdd.opinions = [];
 
     if (!this.bookForm.invalid) {
       this.bookService.save(bookToAdd).toPromise()

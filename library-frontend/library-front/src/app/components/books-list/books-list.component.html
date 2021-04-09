@@ -35,8 +35,11 @@
     <th scope="col">Identifier</th>
     <th scope="col">Book kind</th>
     <th scope="col">Release date</th>
+    <th scope="col">Owner</th>
+    <th *ngIf="role === 'USER'" scope="col">          </th>
     <th scope="col">          </th>
-    <th scope="col">          </th>
+    <th *ngIf="role === 'USER'" scope="col">          </th>
+
   </tr>
   </thead>
 
@@ -47,9 +50,12 @@
     <td (click)="onClickField(book.id)">{{ book.author}}</td>
     <td (click)="onClickField(book.id)">{{ book.identifier }}</td>
     <td (click)="onClickField(book.id)">{{ book.bookKind }}</td>
-    <td (click)="onClickField(book.id)">{{ book.releaseDate }}</td>
-    <td><button [disabled]="book.bookStatus === 'RESERVED'" type="submit" class="btn btn-success" (click)="reserveBook(book.id)">Reserve</button></td>
-    <td><button type="submit" class="btn btn-danger" (click)="deleteBook(book.id)">Delete</button></td>
+    <td (click)="onClickField(book.id)">{{ book.releaseDate | date:'yyyy-MM-dd' }}</td>
+    <td *ngIf="book.ownerUsername !== 'admin'" (click)="onClickField(book.id)">{{ book.ownerUsername }}</td>
+    <td *ngIf="book.ownerUsername === 'admin'" (click)="onClickField(book.id)">Library</td>
+    <td *ngIf="role === 'USER'"><button [disabled]="book.bookStatus === 'RESERVED' || book.ownerUsername === username" type="submit" class="btn btn-success" (click)="reserveBook(book.id)">Reserve</button></td>
+    <td><button type="submit" class="btn btn-danger" [disabled]="book.ownerUsername !== username" (click)="deleteBook(book.id)">Delete</button></td>
+    <td *ngIf="role === 'USER'"><button type="submit" class="btn btn-warning" (click)="rateBook(book)">Rate</button></td>
   </tr>
 </table>
 </div>

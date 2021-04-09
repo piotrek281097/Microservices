@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-user-rental-menu',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class UserRentalMenuComponent implements OnInit {
   role: string;
 
-  constructor() { }
+  constructor(public userService: UserService) { }
 
   ngOnInit() {
     this.role = localStorage.getItem('role');

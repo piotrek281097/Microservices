@@ -1,13 +1,13 @@
-import {Reader} from './reader';
-import {Book} from './book';
-
 export class ReservationDto {
   id: number;
+  reservationIdentifier: string;
   startDate: string;
   endDate: string;
   reservationStatus: string;
-  reader: Reader;
-  book: Book;
+  bookTitle: string;
+  bookIdentifier: string;
+  borrowerUsername: string;
+  ownerUsername: string;
 
   constructor() {
   }

@@ -13,4 +13,12 @@ public interface BooksOperations {
     HttpResponse getUserRentalServiceBooks();
 
     HttpResponse deleteBookById(@PathVariable long bookId);
+
+    HttpResponse getBookById(@PathVariable long bookId);
+
+    HttpResponse updateBook(@Body String book);
+
+    HttpResponse changeBookStatus(@PathVariable String identifier);
+
+    HttpResponse addOpinion(@Body String opinionDto);
 }

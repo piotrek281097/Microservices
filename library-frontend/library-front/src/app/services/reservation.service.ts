@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {Book} from '../models/book';
 import {PageableBookResponse} from '../models/pageableBookResponse';
 import {ReservationDto} from '../models/reservationDto';
+import {Api} from '../../util/api';
 
 @Injectable({
   providedIn: 'root'
@@ -50,21 +51,45 @@ export class ReservationService {
     return this.http.get<PageableBookResponse>(this.reservationsUrl + '/pageable', options);
   }
 
-  public save(reservationDto: ReservationDto) {
-    this.prepareHeader();
-
-    return this.http.post(this.reservationsUrl + '/add', reservationDto, {headers: this.headersObject}).toPromise()
-      .then((res: Response) => {
-          this.toastrService.success('Reservation added');
-          setTimeout(() => {
-            this.router.navigate(['/books/']);
-          }, 3000);
-        }
-      )
-      .catch((res: Response) => {
-        this.toastrService.success('Error! Reservation not added');
-      });
+  public save(reservationDto: ReservationDto): Observable<any> {
+    return this.http.post(`${Api.RESERVATIONS_END_POINT}/add`, reservationDto);
   }
+
+  getClassicLibraryReservations(): Observable<ReservationDto[]> {
+    return this.http.get<ReservationDto[]>(`${Api.RESERVATIONS_END_POINT}/classic-library`);
+  }
+
+  getUserRentalServiceReservations(): Observable<ReservationDto[]> {
+    return this.http.get<ReservationDto[]>(`${Api.RESERVATIONS_END_POINT}/rental-service`);
+  }
+
+  getClassicLibraryReservationsForUser(username: string): Observable<ReservationDto[]> {
+    return this.http.get<ReservationDto[]>(`${Api.RESERVATIONS_END_POINT}/classic-library/` + username);
+  }
+
+  getUserRentalServiceReservationsForUser(username: string): Observable<ReservationDto[]> {
+    return this.http.get<ReservationDto[]>(`${Api.RESERVATIONS_END_POINT}/rental-service/` + username);
+  }
+
+  updateReservation(reservation: ReservationDto): Observable<any> {
+    return this.http.post(`${Api.RESERVATIONS_END_POINT}/update`, reservation);
+  }
+
+  // public save(reservationDto: ReservationDto) {
+  //   this.prepareHeader();
+  //
+  //   return this.http.post(this.reservationsUrl + '/add', reservationDto, {headers: this.headersObject}).toPromise()
+  //     .then((res: Response) => {
+  //         this.toastrService.success('Reservation added');
+  //         setTimeout(() => {
+  //           this.router.navigate(['/books/']);
+  //         }, 3000);
+  //       }
+  //     )
+  //     .catch((res: Response) => {
+  //       this.toastrService.success('Error! Reservation not added');
+  //     });
+  // }
 
   public update(reservationDto: ReservationDto) {
     this.prepareHeader();

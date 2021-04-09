@@ -1,3 +1,5 @@
+import {Opinion} from './opinion';
+
 export class Book {
   id: number;
   title: string;
@@ -7,6 +9,10 @@ export class Book {
   bookStatus: string;
   releaseDate: string;
   ownerUsername: string;
+  avgRate: number;
+  opinions: Opinion[];
 
-  constructor() {}
+  constructor() {
+  }
+
 }

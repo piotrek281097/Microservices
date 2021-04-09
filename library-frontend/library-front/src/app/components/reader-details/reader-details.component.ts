@@ -69,8 +69,8 @@ export class ReaderDetailsComponent implements OnInit {
     reservationToUpdate.endDate = reservation.endDate;
     reservationToUpdate.reservationStatus = 'FINISHED';
     reservation.book.bookStatus = 'AVAILABLE';
-    reservationToUpdate.book = reservation.book;
-    reservationToUpdate.reader = this.readerService.getReaderFromContext();
+    // reservationToUpdate.book = reservation.book;
+    // reservationToUpdate.reader = this.readerService.getReaderFromContext();
     console.log(reservationToUpdate);
 
     this.reservationService.update(reservationToUpdate);

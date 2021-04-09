@@ -1,27 +1,19 @@
 <div class="container">
   <h2>New Reservation</h2>
 
-  <form class="form" [formGroup]="reservationForm">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Start date" formControlName="startDate" id="startDate" class="form-control"
-             [errorStateMatcher]="matcher">
-      <mat-error *ngIf="FormControl.hasError('required')">
-        Start date is <strong>required</strong> Example format: <strong>2021-01-19</strong>
-      </mat-error>
+  <form class="form">
+    <h3>Start date: <span class="text-secondary"> {{ startDate }}</span></h3><br>
+
+    <mat-form-field class="selectField">
+      <mat-label> {{ monthsToEndReservationString }} </mat-label>
+      <mat-select #hasBackdrop>
+        <mat-option (click)="setEndDate(1)">1 month</mat-option>
+        <mat-option (click)="setEndDate(2)">2 months</mat-option>
+        <mat-option (click)="setEndDate(3)">3 months</mat-option>
+      </mat-select>
     </mat-form-field>
 
-    <br><br>
-
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="End date" formControlName="endDate" id="endDate" class="form-control"
-             [errorStateMatcher]="matcher">
-      <mat-error *ngIf="FormControl.hasError('required')">
-        End date is <strong>required</strong> Example format: <strong>2021-01-19</strong>
-      </mat-error>
-    </mat-form-field>
-
-    <br><br>
-
+    <h3>End date: <span class="text-secondary"> {{ endDate }}</span></h3><br>
     <h3>Title: <span class="text-secondary"> {{ bookFromDatabase?.title }}</span></h3><br>
     <h3>Author: <span class="text-secondary"> {{ bookFromDatabase?.author }}</span></h3><br>
     <h3>Identifier: <span class="text-secondary"> {{ bookFromDatabase?.identifier }}</span></h3><br>

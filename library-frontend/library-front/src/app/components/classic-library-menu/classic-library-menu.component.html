@@ -1,7 +1,7 @@
 <h1 class="title">Classic library service</h1>
 
 <mat-card class="option" routerLink="/books/classic-library">Books</mat-card>
-<mat-card *ngIf="role==='USER'" class="option" (click)="chooseOption(2)">Your reservations</mat-card>
-<mat-card *ngIf="role==='ADMIN'" class="option" (click)="chooseOption(2)">Reservations</mat-card>
+<mat-card *ngIf="role==='USER'" class="option" [routerLink]="['/reservations/classic-library/' + userService.getUserDetails().sub]">Your reservations</mat-card>
+<mat-card *ngIf="role==='ADMIN'" class="option" routerLink="/reservations/classic-library">Reservations</mat-card>
 <mat-card *ngIf="role==='ADMIN'" class="option" routerLink="/add-book">Add book</mat-card>
 

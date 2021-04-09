@@ -45,7 +45,7 @@ export class UserService {
     return this.http.get<UserData>(`${Api.USER_END_POINT}/users/` + username);
   }
 
-  updateUser(userToUpdate: UserData) {
+  updateUser(userToUpdate: UserData): Observable<any> {
     return this.http.post(`${Api.USER_END_POINT}/users/update`, userToUpdate);
   }
 

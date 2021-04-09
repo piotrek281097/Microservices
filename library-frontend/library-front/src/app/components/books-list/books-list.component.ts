@@ -3,6 +3,11 @@ import {BookService} from '../../services/book.service';
 import {Book} from '../../models/book';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {UserService} from '../../services/user.service';
+import {MatDialog} from '@angular/material';
+import {RateBookComponent} from '../rate-book/rate-book.component';
+import {Opinion} from '../../models/opinion';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-books-list',
@@ -19,9 +24,13 @@ export class BooksListComponent implements OnInit {
   pageNumber = 0;
 
   searchText: any = { title: '', author: '', identifier: '', bookKind: ''};
+  role: string;
+  username: string;
 
   constructor(private bookService: BookService,
+              private userService: UserService,
               private toastrService: ToastrService,
+              private dialog: MatDialog,
               private router: Router) {
     this.config = {
       itemsPerPage: 10,
@@ -35,10 +44,13 @@ export class BooksListComponent implements OnInit {
     //   this.books = data.books;
     //   this.config.totalItems = data.totalPages * this.pageSize;
     // });
+    this.role = localStorage.getItem('role');
+    this.username = this.userService.getUserDetails().sub;
     if (this.books !== undefined) {
       this.config.totalItems = this.books.length;
     }
 
+    console.log("username " + this.username);
   }
 
   onClickField(bookId: number) {
@@ -71,5 +83,32 @@ export class BooksListComponent implements OnInit {
     //   this.books = data.books;
     //   this.config.totalItems = data.totalPages * this.pageSize;
     // });
+  }
+
+  rateBook(book: Book): void {
+    const dialogRef = this.dialog.open(RateBookComponent, {
+      data: book,
+    });
+
+    dialogRef.afterClosed().subscribe((result: Opinion) => {
+        result.book = book;
+        this.bookService.addOpinion(result).toPromise()
+          .then((res: Response) => {
+              this.toastrService.success('Opinion added');
+            }
+          )
+          .catch((res: Response) => {
+            this.toastrService.error('Error! Opinion not added');
+          });
+
+      //   if (result) {
+    //     this.preparePlayerBoardToSend();
+    //     const battleshipGameRequest = new BattleshipGameRequest(
+    //       result.level, result.startPlayer, this.playerBoard, this.userService.getUserDetails().sub
+    //     );
+    //     this.battleshipsService.setBattleshipGameRequest(battleshipGameRequest);
+    //     this.route.navigate(['/battleships-game']);
+    //   }
+    });
   }
 }

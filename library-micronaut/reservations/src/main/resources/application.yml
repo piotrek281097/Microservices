@@ -1,3 +1,27 @@
 micronaut:
   application:
     name: reservations
+  server:
+    port: 8083
+    cors:
+      enabled: true
+#  security:
+#    authentication: bearer
+datasources:
+  default:
+    url: jdbc:mysql://localhost:3306/micronaut_reservations?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+    dialect: MYSQL
+jpa:
+  default:
+    packages-to-scan:
+      - 'reservations.domain'
+    properties:
+      hibernate:
+        bytecode:
+          provider: none
+        hbm2ddl:
+          auto: update
+        show_sql: true

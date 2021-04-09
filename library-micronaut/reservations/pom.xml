@@ -89,6 +89,40 @@
       <artifactId>micronaut-test-junit5</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>io.micronaut.configuration</groupId>
+      <artifactId>micronaut-jdbc-hikari</artifactId>
+      <version>2.2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.22</version>
+    </dependency>
+    <dependency>
+      <groupId>io.micronaut.data</groupId>
+      <artifactId>micronaut-data-hibernate-jpa</artifactId>
+      <version>${micronaut.data.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-crypto</artifactId>
+      <version>5.2.1.RELEASE</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <!--    <dependency>-->
+    <!--      <groupId>io.micronaut.security</groupId>-->
+    <!--      <artifactId>micronaut-security-annotations</artifactId>-->
+    <!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>io.micronaut.security</groupId>-->
+    <!--      <artifactId>micronaut-security-jwt</artifactId>-->
+    <!--    </dependency>-->
   </dependencies>
 
   <build>
@@ -122,6 +156,11 @@
               <artifactId>micronaut-validation</artifactId>
               <version>${micronaut.version}</version>
             </path>
+            <path>
+              <groupId>io.micronaut.data</groupId>
+              <artifactId>micronaut-data-processor</artifactId>
+              <version>2.1.0</version>
+            </path>
           </annotationProcessorPaths>
           <compilerArgs>
             <arg>-Amicronaut.processing.group=reservations</arg>
@@ -145,6 +184,11 @@
                   <groupId>io.micronaut</groupId>
                   <artifactId>micronaut-validation</artifactId>
                   <version>${micronaut.version}</version>
+                </path>
+                <path>
+                  <groupId>io.micronaut.data</groupId>
+                  <artifactId>micronaut-data-processor</artifactId>
+                  <version>2.1.0</version>
                 </path>
               </annotationProcessorPaths>
             </configuration>

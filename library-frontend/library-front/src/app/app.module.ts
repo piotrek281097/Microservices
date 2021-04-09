@@ -8,7 +8,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import {MatNativeDateModule} from '@angular/material/core';
 
-import {MatMenuModule, MatIconModule, MatTableModule, MatGridListModule} from '@angular/material';
+import {MatMenuModule, MatIconModule, MatTableModule, MatGridListModule, MatRadioModule} from '@angular/material';
 import { BrowserAnimationsModule, NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { MatInputModule } from "@angular/material/input";
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -42,6 +42,13 @@ import { UserDetailsComponent } from './components/user-details/user-details.com
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { ClassicLibraryBooksListComponent } from './components/classic-library-books-list/classic-library-books-list.component';
 import { RentalServiceBooksListComponent } from './components/rental-service-books-list/rental-service-books-list.component';
+import { ClassicLibraryReservationsListComponent } from './components/classic-library-reservations-list/classic-library-reservations-list.component';
+import { RentalServiceReservationsListComponent } from './components/rental-service-reservations-list/rental-service-reservations-list.component';
+import { ReservationsListComponent } from './components/reservations-list/reservations-list.component';
+import { ClassicLibraryUserReservationsListComponent } from './components/classic-library-user-reservations-list/classic-library-user-reservations-list.component';
+import { RentalServiceUserReservationsListComponent } from './components/rental-service-user-reservations-list/rental-service-user-reservations-list.component';
+import { RateBookComponent } from './components/rate-book/rate-book.component';
+import {NgbRatingModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -68,42 +75,50 @@ import { RentalServiceBooksListComponent } from './components/rental-service-boo
     EditUserComponent,
     ClassicLibraryBooksListComponent,
     RentalServiceBooksListComponent,
+    ClassicLibraryReservationsListComponent,
+    RentalServiceReservationsListComponent,
+    ReservationsListComponent,
+    ClassicLibraryUserReservationsListComponent,
+    RentalServiceUserReservationsListComponent,
+    RateBookComponent,
   ],
-    imports: [
-        ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        FormsModule,
-        MatMenuModule,
-        MatIconModule,
-        MatToolbarModule,
-        MatDialogModule,
-        MatButtonModule,
-        MatTableModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatCardModule,
-        MatTabsModule,
-        MatNativeDateModule,
-        NoopAnimationsModule,
-        BrowserAnimationsModule,
-        FilterPipeModule,
-        MatAutocompleteModule,
-        NgxPaginationModule,
-        NgHttpLoaderModule.forRoot(),
-        ToastrModule.forRoot({
-            timeOut: 3000,
-            progressBar: true,
-            extendedTimeOut: 2000,
-            easeTime: 500,
-            resetTimeoutOnDuplicate: true
-        }),
-        MatGridListModule,
-    ],
-  entryComponents: [],
+  imports: [
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatMenuModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCardModule,
+    MatTabsModule,
+    MatNativeDateModule,
+    NoopAnimationsModule,
+    BrowserAnimationsModule,
+    FilterPipeModule,
+    MatAutocompleteModule,
+    NgxPaginationModule,
+    NgHttpLoaderModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      progressBar: true,
+      extendedTimeOut: 2000,
+      easeTime: 500,
+      resetTimeoutOnDuplicate: true
+    }),
+    MatGridListModule,
+    MatRadioModule,
+    NgbRatingModule,
+  ],
+  entryComponents: [RateBookComponent],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }],
   bootstrap: [AppComponent]
 })

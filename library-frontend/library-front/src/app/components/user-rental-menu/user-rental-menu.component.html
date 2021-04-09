@@ -1,6 +1,6 @@
 <h1 class="title">User rental service</h1>
 
 <mat-card class="option" routerLink="/books/rental-service">Books</mat-card>
-<mat-card *ngIf="role==='USER'" class="option" (click)="chooseOption(2)">Your reservations</mat-card>
-<mat-card *ngIf="role==='ADMIN'" class="option" (click)="chooseOption(2)">Reservations</mat-card>
+<mat-card *ngIf="role==='USER'" class="option" [routerLink]="['/reservations/rental-service/' + userService.getUserDetails().sub]">Your reservations</mat-card>
+<mat-card *ngIf="role==='ADMIN'" class="option" routerLink="/reservations/rental-service">Reservations</mat-card>
 <mat-card *ngIf="role==='USER'" class="option" routerLink="/add-book">Add book</mat-card>

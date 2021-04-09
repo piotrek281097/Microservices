@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Book {
@@ -38,6 +39,11 @@ public class Book {
 //    @JsonIgnore
 //    @OneToMany(mappedBy = "book")
 //    private Set<Reservation> reservations;
+
+    private double avgRate;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "book")
+    private Set<Opinion> opinions;
 
     @Version
     private int optLock;
@@ -104,6 +110,22 @@ public class Book {
 
     public void setOwnerUsername(String ownerUsername) {
         this.ownerUsername = ownerUsername;
+    }
+
+    public double getAvgRate() {
+        return avgRate;
+    }
+
+    public void setAvgRate(double avgRate) {
+        this.avgRate = avgRate;
+    }
+
+    public Set<Opinion> getOpinions() {
+        return opinions;
+    }
+
+    public void setOpinions(Set<Opinion> opinions) {
+        this.opinions = opinions;
     }
 
     public int getOptLock() {

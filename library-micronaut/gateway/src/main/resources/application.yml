@@ -10,7 +10,7 @@ micronaut:
     token:
       propagation:
         enabled: true
-        service-id-regex: "registration|books"
+        service-id-regex: "registration|books|reservations"
 credentials:
   users:
     admin: admin123

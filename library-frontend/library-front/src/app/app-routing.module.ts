@@ -19,6 +19,10 @@ import {UserDetailsComponent} from './components/user-details/user-details.compo
 import {EditUserComponent} from './components/edit-user/edit-user.component';
 import {ClassicLibraryBooksListComponent} from './components/classic-library-books-list/classic-library-books-list.component';
 import {RentalServiceBooksListComponent} from './components/rental-service-books-list/rental-service-books-list.component';
+import {ClassicLibraryReservationsListComponent} from './components/classic-library-reservations-list/classic-library-reservations-list.component';
+import {RentalServiceReservationsListComponent} from './components/rental-service-reservations-list/rental-service-reservations-list.component';
+import {ClassicLibraryUserReservationsListComponent} from './components/classic-library-user-reservations-list/classic-library-user-reservations-list.component';
+import {RentalServiceUserReservationsListComponent} from './components/rental-service-user-reservations-list/rental-service-user-reservations-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -33,6 +37,10 @@ const routes: Routes = [
   { path: 'edit-user/:username', component: EditUserComponent },
   { path: 'books/classic-library', component: ClassicLibraryBooksListComponent },
   { path: 'books/rental-service', component: RentalServiceBooksListComponent },
+  { path: 'reservations/classic-library', component: ClassicLibraryReservationsListComponent },
+  { path: 'reservations/rental-service', component: RentalServiceReservationsListComponent },
+  { path: 'reservations/classic-library/:username', component: ClassicLibraryUserReservationsListComponent },
+  { path: 'reservations/rental-service/:username', component: RentalServiceUserReservationsListComponent },
   { path: 'books', component: BooksListComponent },
   { path: 'add-reader', component: AddReaderComponent },
   { path: 'add-book', component: AddBookComponent },

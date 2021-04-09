@@ -1,6 +1,8 @@
 package books.controller;
 
 import books.domain.Book;
+import books.domain.Opinion;
+import books.dto.OpinionDto;
 import books.service.BookService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.*;
@@ -39,4 +41,27 @@ public class BookController {
         return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
     }
 
+    @Get("/books/{bookId}")
+    public HttpResponse<Book> getBookById(@PathVariable long bookId) {
+        return HttpResponse.ok(bookService.getBookById(bookId));
+    }
+
+    @Post("/books/update")
+    public HttpResponse updateBook(@Body Book book) {
+        bookService.updateBook(book);
+        return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
+    }
+
+    @Post("/books/change-status/{identifier}")
+    public HttpResponse changeBookStatus(@PathVariable String identifier) {
+        bookService.changeBookStatus(identifier);
+        return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
+    }
+
+    @Post("/books/add-opinion")
+    public HttpResponse addOpinion(@Body OpinionDto opinionDto) {
+        bookService.addOpinion(opinionDto);
+        return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
+    }
 }
+

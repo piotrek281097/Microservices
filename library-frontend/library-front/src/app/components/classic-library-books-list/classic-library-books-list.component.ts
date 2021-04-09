@@ -16,6 +16,7 @@ export class ClassicLibraryBooksListComponent implements OnInit {
   ngOnInit() {
     this.bookService.getClassicLibraryBooks().subscribe(data => {
       this.books = data;
+      console.log(this.books[0].opinions);
     });
   }
 

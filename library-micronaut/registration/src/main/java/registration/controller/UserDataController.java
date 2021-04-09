@@ -46,7 +46,7 @@ public class UserDataController {
         return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
     }
 
-    @Post("users/update")
+    @Post("/users/update")
     public HttpResponse updateUser(@Body UserData userData) {
         userDataService.updateUser(userData);
         return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
