@@ -4,12 +4,14 @@ import books.domain.Book;
 import books.domain.Opinion;
 import books.dto.OpinionDto;
 import books.enums.BookStatus;
+import books.exception.BookIdentifierAlreadyExists;
 import books.repository.BookRepository;
 import books.repository.OpinionRepository;
 
 import javax.inject.Singleton;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Singleton
 public class BookServiceImpl implements BookService {
@@ -25,7 +27,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void addBook(Book book) {
-        bookRepository.save(book);
+        if (bookRepository.findByIdentifier(book.getIdentifier()).isEmpty()) {
+            bookRepository.save(book);
+        } else {
+            throw new BookIdentifierAlreadyExists();
+        }
+
     }
 
     @Override
@@ -67,8 +74,6 @@ public class BookServiceImpl implements BookService {
     @Override
     public void addOpinion(OpinionDto opinionDto) {
         Opinion opinion = convertToOpinion(opinionDto);
-        opinionRepository.save(opinion);
-
         Book book = opinionDto.getBook();
         double avgRate = book.getAvgRate();
         if (book.getOpinions() != null) {
@@ -78,6 +83,13 @@ public class BookServiceImpl implements BookService {
             book.setAvgRate(opinion.getGrade());
         }
         bookRepository.update(book);
+        opinionRepository.save(opinion);
+    }
+
+    @Override
+    public List<Book> getBooksOrderedByAvgRate() {
+        return ((List<Book>) bookRepository.listOrderByAvgRateDesc()).stream()
+                .filter(book -> book.getAvgRate() != 0).collect(Collectors.toList());
     }
 
     private Opinion convertToOpinion(OpinionDto opinionDto) {

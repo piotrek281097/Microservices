@@ -1,0 +1,35 @@
+.selectField {
+  width: 30%;
+  font-size: 25px;
+}
+
+.details {
+  margin-top: 50px;
+  margin-left: 40%;
+}
+
+.btn-danger {
+  width: 100%;
+}
+
+.btn-success {
+  width: 100%;
+}
+
+.btn-primary {
+  width: 100%;
+}
+
+.btn-warning {
+  /*width: 100%;*/
+  margin-left: 20px;
+  margin-top: 5px;
+  font-size: 18px;
+  width: 100px;
+  font-weight: bold;
+}
+
+.title {
+  float: left;
+
+}

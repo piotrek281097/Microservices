@@ -8,7 +8,8 @@ import io.micronaut.retry.annotation.Recoverable;
 
 import java.util.Collections;
 
-@Client("http://localhost:8080")
+@Client(id = "registration",
+        errorType=Object.class)
 @Recoverable(api = AuthorizationOperations.class)
 public interface AuthorizationClient extends AuthorizationOperations {
 

@@ -1,8 +1,10 @@
 package gateway.controller;
 
 import gateway.books.BooksOperations;
+import gateway.exception.BooksException;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.*;
+import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 
@@ -20,7 +22,11 @@ public class BooksController {
     @Post("/books/add")
     @Secured({"ADMIN", "USER"})
     public HttpResponse addBook(@Body String book) {
-        return booksOperations.addBook(book);
+        try {
+            return booksOperations.addBook(book);
+        } catch (HttpClientResponseException exception) {
+            throw new BooksException(exception.getMessage());
+        }
     }
 
     @Get("/books/classic-library")
@@ -63,5 +69,11 @@ public class BooksController {
     @Secured("USER")
     public HttpResponse addOpinion(@Body String opinionDto) {
         return booksOperations.addOpinion(opinionDto);
+    }
+
+    @Get("/books/ratings")
+    @Secured({"ADMIN", "USER"})
+    public HttpResponse getBooksOrderedByAvgRate() {
+        return booksOperations.getBooksOrderedByAvgRate();
     }
 }

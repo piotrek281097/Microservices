@@ -9,7 +9,7 @@ import io.micronaut.http.annotation.Post;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.retry.annotation.Recoverable;
 
-@Client("http://localhost:8083")
+@Client(id = "reservations")
 @Recoverable(api = ReservationsOperations.class)
 public interface ReservationsClient extends ReservationsOperations {
 

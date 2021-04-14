@@ -16,4 +16,6 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     Iterable<Book> findByOwnerUsernameNotEquals(String ownerUsername);
 
     Optional<Book> findByIdentifier(String identifier);
+
+    Iterable<Book> listOrderByAvgRateDesc();
 }

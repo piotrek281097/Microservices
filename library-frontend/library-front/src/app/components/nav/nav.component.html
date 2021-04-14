@@ -12,7 +12,7 @@
         <li><a *ngIf="userService.getRole() !== null && userService.getRole() === 'ADMIN'" routerLink="/users-list">Users</a></li>
         <li><a *ngIf="userService.getRole() !== null" routerLink="/classic-library-menu">Classic library</a></li>
         <li><a *ngIf="userService.getRole() !== null" routerLink="/user-rental-menu">User rental service</a></li>
-        <li><a *ngIf="userService.getRole() !== null" routerLink="/add-book">Ratings</a></li>
+        <li><a *ngIf="userService.getRole() !== null" routerLink="/ratings">Ratings</a></li>
         <li><a *ngIf="userService.getRole() !== null && userService.getRole() === 'USER'" [routerLink]="['/user-details/' + userService.getUserDetails().sub]">My profile</a></li>
         <li><a *ngIf="userService.getRole() !== null" (click)="logout()" routerLink="/login">Logout</a></li>
       </ul>

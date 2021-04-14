@@ -5,8 +5,15 @@ micronaut:
     port: 8083
     cors:
       enabled: true
-#  security:
-#    authentication: bearer
+---
+micronaut:
+  security:
+    token:
+      jwt:
+        signatures:
+          secret:
+            validation:
+              secret: '"${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecretForANewOne}"'
 datasources:
   default:
     url: jdbc:mysql://localhost:3306/micronaut_reservations?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC

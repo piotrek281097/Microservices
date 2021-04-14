@@ -1,0 +1,25 @@
+.btn-primary {
+  margin-left: 5px;
+}
+
+.form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.container {
+  margin-top: 50px;
+}
+
+.btn-success {
+  margin-top: 10px;
+}
+
+.btn-primary {
+  margin-top: 10px;
+}

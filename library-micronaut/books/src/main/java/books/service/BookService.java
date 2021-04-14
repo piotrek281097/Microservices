@@ -22,4 +22,6 @@ public interface BookService {
     void changeBookStatus(String identifier);
 
     void addOpinion(OpinionDto opinion);
+
+    List<Book> getBooksOrderedByAvgRate();
 }

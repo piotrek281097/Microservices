@@ -3,6 +3,8 @@ package registration.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import registration.domain.UserData;
+import registration.exception.UserEmailAlreadyExistsException;
+import registration.exception.UsernameAlreadyExistsException;
 import registration.repository.UserDataRepository;
 
 import javax.inject.Singleton;
@@ -32,13 +34,11 @@ public class UserDataServiceImpl implements UserDataService {
                 userDataRepository.save(userData);
             }
             else {
-                System.out.println("username exists");
-                //throw new UsernameAlreadyExistsException();
+                throw new UsernameAlreadyExistsException();
             }
         }
         else {
-            System.out.println("email exists");
-//            throw new UserEmailAlreadyExistsException();
+            throw new UserEmailAlreadyExistsException();
         }
     }
 

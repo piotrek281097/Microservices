@@ -1,3 +1,16 @@
+#micronaut:
+#  application:
+#    name: gateway
+#  server:
+#    port: 8081
+#    cors:
+#      enabled: true
+#  security:
+#    authentication: bearer
+#    token:
+#      propagation:
+#        enabled: true
+#        service-id-regex: "registration|books|reservations"
 micronaut:
   application:
     name: gateway
@@ -5,12 +18,45 @@ micronaut:
     port: 8081
     cors:
       enabled: true
+endpoints:
+  health:
+    enabled: true
+---
+#tag::security[]
+micronaut:
   security:
-    authentication: bearer
+    authentication: bearer # <1>
+    token:
+      jwt:
+        signatures:
+          secret:
+            generator: # <3>
+              secret: '"${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecretForANewOne}"' # <4>
+#end::security[]
+#tag::tokenpropagation[]
+---
+micronaut:
+  security:
     token:
       propagation:
-        enabled: true
-        service-id-regex: "registration|books|reservations"
+        enabled: true # <1>
+        service-id-regex: "registration|books|reservations" # <2>
+#end::tokenpropagation[]
+---
+#tag::httpservices[]
+micronaut:
+  http:
+    services:
+      registration:
+        urls:
+          - "http://localhost:8080" # <1>
+      books:
+        urls:
+          - - "http://localhost:8082" # <1>
+      reservations:
+        urls:
+          - - "http://localhost:8083" # <1>
+#end::httpservices[]
 credentials:
   users:
     admin: admin123
@@ -18,7 +64,7 @@ credentials:
     admin: ADMIN
 datasources:
   default:
-    url: jdbc:mysql://localhost:3306/library_micronaut?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/micronaut_users?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password: root
     driverClassName: com.mysql.cj.jdbc.Driver

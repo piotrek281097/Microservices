@@ -2,6 +2,7 @@ package gateway.auth;
 
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Body;
+import io.micronaut.http.annotation.Header;
 import io.micronaut.http.annotation.PathVariable;
 
 public interface AuthorizationOperations {

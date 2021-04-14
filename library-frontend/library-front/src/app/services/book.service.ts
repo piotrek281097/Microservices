@@ -18,6 +18,8 @@ export class BookService {
   private booksUrl: string;
   private headersObject: HttpHeaders;
 
+  private book: Book;
+
   prepareHeader() {
     this.headersObject = new HttpHeaders();
     this.headersObject = this.headersObject.append('Content-Type', 'application/json');
@@ -29,6 +31,14 @@ export class BookService {
     private router: Router,
     private toastrService: ToastrService) {
     this.booksUrl = 'http://localhost:8081/api/books';
+  }
+
+  setBookContext(book: Book) {
+    this.book = book;
+  }
+
+  getBookContext() {
+    return this.book;
   }
 
   public getAllBooks(): Observable<Book[]> {
@@ -55,6 +65,10 @@ export class BookService {
 
   public save(book: Book): Observable<any> {
     return this.http.post(`${Api.BOOKS_END_POINT}/add`, book);
+  }
+
+  getBooksOrderedByAvgRate(): Observable<Book[]> {
+    return this.http.get<Book[]>(`${Api.BOOKS_END_POINT}/ratings`);
   }
 
   getClassicLibraryBooks(): Observable<Book[]> {
@@ -154,5 +168,6 @@ export class BookService {
         })
       );
   }
+
 
 }

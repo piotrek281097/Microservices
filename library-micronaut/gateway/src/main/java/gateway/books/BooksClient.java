@@ -9,7 +9,7 @@ import io.micronaut.retry.annotation.Recoverable;
 import java.util.Collections;
 
 
-@Client("http://localhost:8082")
+@Client(id = "books")
 @Recoverable(api = BooksOperations.class)
 public interface BooksClient extends BooksOperations {
 
@@ -37,4 +37,6 @@ public interface BooksClient extends BooksOperations {
     @Post("/books/add-opinion")
     HttpResponse addOpinion(@Body String opinionDto);
 
+    @Get("/books/ratings")
+    HttpResponse getBooksOrderedByAvgRate();
 }

@@ -1,8 +1,11 @@
 package gateway.controller;
 
 import gateway.auth.AuthorizationOperations;
+import gateway.exception.RegisterException;
 import io.micronaut.http.HttpResponse;
+import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
+import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 
@@ -19,7 +22,11 @@ public class AuthorizationController {
     @Post("/register")
     @Secured(SecurityRule.IS_ANONYMOUS)
     public HttpResponse register(@Body String userData) {
-        return authorizationOperations.register(userData);
+        try {
+            return authorizationOperations.register(userData);
+        } catch (HttpClientResponseException exception) {
+            throw new RegisterException(exception.getMessage());
+        }
     }
 
     @Get("/users")
