@@ -1,0 +1,11 @@
+<div class="main">
+  <h1 style="text-align: center">Reviews</h1>
+  <h4 style="text-align: center;"> <span class="badge badge-secondary"> Book: {{book.title}}</span></h4>
+  <table class="table table-bordered table-striped">
+    <tr *ngFor="let opinion of book.opinions | paginate: config; let i=index">
+      <mat-card class="option">{{opinion.review}}</mat-card>
+    </tr>
+  </table>
+</div>
+<pagination-controls previousLabel="Previous" nextLabel="Next" (pageChange)="pageChanged($event)"></pagination-controls>
+

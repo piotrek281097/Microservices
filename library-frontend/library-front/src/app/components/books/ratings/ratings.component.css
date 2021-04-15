@@ -1,0 +1,72 @@
+.btn-danger {
+  width: 100%;
+}
+
+.btn-success {
+  width: 100%;
+}
+
+.btn-primary {
+  width: 100%;
+}
+
+.table-bordered{
+  width:100%;
+  border-collapse:collapse;
+}
+.table-bordered td{
+  padding:7px; border:#9A10F6 1px solid;
+  cursor: pointer;
+}
+/* Define the default color for all the table rows */
+.table-bordered tr{
+  background: #FEFEFE;
+}
+/* Define the hover highlight color for the table row */
+.table-bordered tr:hover {
+  background-color: #D7BCE9;
+}
+
+.main {
+  margin-top: 60px;
+}
+
+.form-control{
+  height: 40px;
+  padding: 0px;
+  font-size: 30px;
+  margin: 5px 0;
+}
+
+.form-control::-webkit-input-placeholder {
+  font-family: FontAwesome;
+  font-weight: normal;
+  overflow: visible;
+  vertical-align: top;
+  display: inline-block !important;
+  padding-left: 5px;
+  padding-top: 2px;
+  color: #401F7C
+}
+
+.form-control::-moz-placeholder  {
+  font-family: FontAwesome;
+  font-weight: normal;
+  overflow: visible;
+  vertical-align: top;
+  display: inline-block !important;
+  padding-left: 5px;
+  padding-top: 2px;
+  color: #401F7C
+}
+
+.form-control:-ms-input-placeholder  {
+  font-family: FontAwesome;
+  font-weight: normal;
+  overflow: visible;
+  vertical-align: top;
+  display: inline-block !important;
+  padding-left: 5px;
+  padding-top: 2px;
+  color: #401F7C
+}
