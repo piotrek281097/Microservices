@@ -1,5 +1,6 @@
 package books.configuration;
 
+import books.kafka.ReservationsClient;
 import books.repository.BookRepository;
 import books.repository.OpinionRepository;
 import books.service.BookService;
@@ -12,8 +13,8 @@ public class Configuration {
 
     @Bean
     @Singleton
-    BookService bookService(BookRepository bookRepository, OpinionRepository opinionRepository) {
-        return new BookServiceImpl(bookRepository, opinionRepository);
+    BookService bookService( ReservationsClient reservationsClient, BookRepository bookRepository, OpinionRepository opinionRepository) {
+        return new BookServiceImpl(reservationsClient, bookRepository, opinionRepository);
     }
 
 }

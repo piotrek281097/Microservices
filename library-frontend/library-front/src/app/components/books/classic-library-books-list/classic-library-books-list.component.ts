@@ -9,14 +9,15 @@ import {Book} from '../../../models/book';
 })
 export class ClassicLibraryBooksListComponent implements OnInit {
 
-  private books: Book[];
+  books: Book[];
+  libraryType: string;
 
   constructor(private bookService: BookService) { }
 
   ngOnInit() {
     this.bookService.getClassicLibraryBooks().subscribe(data => {
       this.books = data;
-      console.log(this.books[0].opinions);
+      this.libraryType = 'classic-library';
     });
   }
 

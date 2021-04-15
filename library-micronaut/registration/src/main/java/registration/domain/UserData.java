@@ -1,15 +1,7 @@
 package registration.domain;
 
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -40,6 +32,9 @@ public class UserData {
 
     @NotBlank
     private String pesel;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Address address;
 
     public UserData() {
     }
@@ -106,6 +101,14 @@ public class UserData {
 
     public void setPesel(String pesel) {
         this.pesel = pesel;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }
 

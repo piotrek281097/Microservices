@@ -59,13 +59,6 @@ public class BookController {
         return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
     }
 
-    @Post("/books/change-status/{identifier}")
-    @Secured({"ADMIN", "USER"})
-    public HttpResponse changeBookStatus(@PathVariable String identifier) {
-        bookService.changeBookStatus(identifier);
-        return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
-    }
-
     @Post("/books/add-opinion")
     @Secured("USER")
     public HttpResponse addOpinion(@Body OpinionDto opinionDto) {

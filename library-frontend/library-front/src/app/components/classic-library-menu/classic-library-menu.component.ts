@@ -14,10 +14,5 @@ export class ClassicLibraryMenuComponent implements OnInit {
 
   ngOnInit() {
     this.role = localStorage.getItem('role');
-    console.log("classic role " + this.role);
-  }
-
-  chooseOption(option: number) {
-    console.log("option " + option)
   }
 }

@@ -18,8 +18,6 @@ public interface BooksOperations {
 
     HttpResponse updateBook(@Body String book);
 
-    HttpResponse changeBookStatus(@PathVariable String identifier);
-
     HttpResponse addOpinion(@Body String opinionDto);
 
     HttpResponse getBooksOrderedByAvgRate();

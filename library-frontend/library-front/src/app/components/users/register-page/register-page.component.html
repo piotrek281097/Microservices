@@ -56,6 +56,37 @@
         Pesel is <strong>required</strong>  Length: <strong>11</strong>, only digits
       </mat-error>
     </mat-form-field>
+    <h2> <span class="badge badge-secondary"> Adress</span></h2>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="City" formControlName="city" id="city" class="form-control"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="FormControl.hasError('required')">
+        City is <strong>required!</strong> Length: <strong>2-30 signs</strong>, only letters and digits
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Postal code" formControlName="postalCode" id="postalCode" class="form-control"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="FormControl.hasError('required')">
+        Postal code is <strong>required!</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Street" formControlName="street" id="street" class="form-control"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="FormControl.hasError('required')">
+        Street is <strong>required!</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Apartment number" formControlName="apartmentNumber" id="apartmentNumber" class="form-control"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="FormControl.hasError('required')">
+        Apartment number is <strong>required!</strong>
+      </mat-error>
+    </mat-form-field>
     <button type="submit" class="btn btn-success" (click)="onSubmit()">Register</button>
     <button type="submit" class="btn btn-primary" (click)="cancel()">Return to login page</button>
   </form>

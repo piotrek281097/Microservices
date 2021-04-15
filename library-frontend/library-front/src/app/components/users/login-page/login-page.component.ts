@@ -41,16 +41,11 @@ export class LoginPageComponent implements OnInit {
   onSubmit() {
     const loginData: UserData = new UserData();
 
-    console.log(this.loginForm.value.name);
     loginData.username = this.loginForm.value.username;
     loginData.password = this.loginForm.value.password;
-    console.log(loginData);
 
     if (!this.loginForm.invalid) {
       this.userService.login(loginData).subscribe((response) => {
-          console.log(response.access_token);
-          console.log("ROLES" + response.roles[0]);
-
           this.userService.saveToken(response.access_token);
           this.userService.saveRole(response.roles[0]);
           this.router.navigate(['/classic-library-menu']);

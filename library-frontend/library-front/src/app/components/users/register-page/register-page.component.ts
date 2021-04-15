@@ -6,6 +6,7 @@ import {UserService} from '../../../services/user.service';
 import {UserData} from '../../../models/user-data';
 import {MyErrorStateMatcher} from '../../../../util/my-error-state-matcher';
 import {HttpErrorResponse} from '@angular/common/http';
+import {Address} from '../../../models/address';
 
 @Component({
   selector: 'app-register-page',
@@ -38,14 +39,18 @@ export class RegisterPageComponent implements OnInit {
       telephone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern('^[0-9]*$')]],
       pesel: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11),
         Validators.pattern('^[0-9]*$')]],
+      city: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern('^[A-Za-z0-9 ]*$')]],
+      postalCode: ['', [Validators.required]],
+      street: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9 /.]*$')]],
+      apartmentNumber: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9 /]*$')]],
     });
   }
 
 
   onSubmit() {
     const userDataToRegister: UserData = new UserData();
+    const address: Address = new Address();
 
-    console.log(this.registerForm.value.name);
     userDataToRegister.username = this.registerForm.value.username;
     userDataToRegister.password = this.registerForm.value.password;
     userDataToRegister.email = this.registerForm.value.email;
@@ -53,7 +58,13 @@ export class RegisterPageComponent implements OnInit {
     userDataToRegister.surname = this.registerForm.value.surname;
     userDataToRegister.telephone = this.registerForm.value.telephone;
     userDataToRegister.pesel = this.registerForm.value.pesel;
-    console.log(userDataToRegister);
+    address.city = this.registerForm.value.city;
+    address.postalCode = this.registerForm.value.postalCode;
+    address.street = this.registerForm.value.street;
+    address.apartmentNumber = this.registerForm.value.apartmentNumber;
+    userDataToRegister.address = address;
+
+    console.log(userDataToRegister)
 
     if (!this.registerForm.invalid) {
       this.userService.register(userDataToRegister).toPromise()

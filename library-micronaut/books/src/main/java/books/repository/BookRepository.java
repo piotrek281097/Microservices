@@ -18,4 +18,5 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     Optional<Book> findByIdentifier(String identifier);
 
     Iterable<Book> listOrderByAvgRateDesc();
+
 }

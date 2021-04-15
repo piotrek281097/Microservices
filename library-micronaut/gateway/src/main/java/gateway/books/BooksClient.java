@@ -31,9 +31,6 @@ public interface BooksClient extends BooksOperations {
     @Post("/books/update")
     HttpResponse updateBook(@Body String book);
 
-    @Post("/books/change-status/{identifier}")
-    HttpResponse changeBookStatus(@PathVariable String identifier);
-
     @Post("/books/add-opinion")
     HttpResponse addOpinion(@Body String opinionDto);
 

@@ -1,13 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Reader} from '../../../models/reader';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ReaderService} from '../../../services/reader.service';
-import {FineService} from '../../../services/fine.service';
 import {ReservationService} from '../../../services/reservation.service';
-import {Reservation} from '../../../models/reservation';
 import {ReservationDto} from '../../../models/reservationDto';
-import {Fine} from '../../../models/fine';
-import {FineDto} from '../../../models/fineDto';
 import {Book} from '../../../models/book';
 import {UserService} from '../../../services/user.service';
 import {ToastrService} from 'ngx-toastr';
@@ -33,7 +27,6 @@ export class ReservationsListComponent implements OnInit {
     private route: ActivatedRoute,
     private bookService: BookService,
     private userService: UserService,
-    private fineService: FineService,
     private toastrService: ToastrService,
     private reservationService: ReservationService,
     private router: Router
@@ -56,22 +49,9 @@ export class ReservationsListComponent implements OnInit {
   }
 
   returnBook(reservation: ReservationDto) {
-    console.log("return reservation" + reservation);
-
     this.reservationToUpdate = reservation;
     this.reservationToUpdate.reservationStatus = 'FINISHED';
 
-    this.bookService.changeBookStatus(this.reservationToUpdate.bookIdentifier).toPromise()
-      .then((res: Response) => {
-          this.updateReservation();
-        }
-      )
-      .catch((res: Response) => {
-        this.toastrService.error('Error! Book not returned');
-      });
-  }
-
-  private updateReservation() {
     this.reservationService.updateReservation(this.reservationToUpdate).toPromise()
       .then((res: Response) => {
           this.toastrService.success('Book returned');
@@ -86,41 +66,10 @@ export class ReservationsListComponent implements OnInit {
       )
       .catch((res: Response) => {
         this.toastrService.error('Error! Book not returned');
-        this.rollbackBookUpdate();
       });
-
   }
-
-  private rollbackBookUpdate() {
-    this.bookToUpdate.bookStatus = 'AVAILABLE';
-    this.bookService.changeBookStatus(this.reservationToUpdate.bookIdentifier).toPromise()
-      .then((res: Response) => { })
-      .catch((res: Response) => { });
-  }
-
-  // onSubmit() {
-  //   console.log("fine make")
-  //   this.router.navigate(['/add-fine/']);
-  // }
-  //
-  // payForUser(fine: Fine) {
-  //   console.log("pay fine" + fine);
-  //   const fineToUpdate: FineDto = new FineDto();
-  //
-  //   fineToUpdate.id = fine.id;
-  //   fineToUpdate.text = fine.text;
-  //   fineToUpdate.money = fine.money;
-  //   fineToUpdate.reader = this.readerService.getReaderFromContext();
-  //   console.log(fineToUpdate);
-  //
-  //   this.fineService.update(fineToUpdate);
-  // }
 
   pageChangedReservations(event) {
     this.configReservationsPage.currentPage = event;
-  }
-
-  private updateBook() {
-
   }
 }

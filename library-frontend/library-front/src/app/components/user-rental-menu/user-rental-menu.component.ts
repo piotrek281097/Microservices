@@ -13,10 +13,5 @@ export class UserRentalMenuComponent implements OnInit {
 
   ngOnInit() {
     this.role = localStorage.getItem('role');
-    console.log("user rental role " + this.role);
-  }
-
-  chooseOption(option: number) {
-    console.log("option " + option)
   }
 }

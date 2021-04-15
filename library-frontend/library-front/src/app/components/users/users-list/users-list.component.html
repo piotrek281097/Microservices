@@ -10,7 +10,7 @@
       <th scope="col">Pesel</th>
       <th scope="col">Telephone</th>
       <th scope="col">          </th>
-      <th scope="col">          </th>
+<!--      <th scope="col">          </th>-->
     </tr>
     </thead>
     <!--  <tr *ngFor="let reader of readers | paginate: config | filterBy: searchText; let i=index">-->
@@ -21,7 +21,7 @@
       <td >{{ user.pesel }}</td>
       <td >{{ user.telephone }}</td>
       <td><button type="submit" class="btn btn-primary" (click)="goToDetails(user.username)">Details</button></td>
-      <td><button type="submit" class="btn btn-danger" (click)="deleteUser(user)">Delete</button></td>
+<!--      <td><button type="submit" class="btn btn-danger" (click)="deleteUser(user)">Delete</button></td>-->
     </tr>
   </table>
 </div>

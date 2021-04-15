@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {Reader} from '../../../models/reader';
-import {ReaderService} from '../../../services/reader.service';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {UserData} from '../../../models/user-data';
@@ -16,8 +14,6 @@ import {ConfirmDeleteUserComponent} from '../../confirm-delete-user/confirm-dele
 export class UsersListComponent implements OnInit {
 
   users: UserData[];
-
-  readerFullName: string;
 
   config: any;
 
@@ -43,7 +39,6 @@ export class UsersListComponent implements OnInit {
   }
 
   deleteUser(user: UserData) {
-    // zabezpieczyc popuem
     return this.dialog.open(ConfirmDeleteUserComponent, {
       panelClass: 'dialog-container',
       disableClose: true,
@@ -52,17 +47,6 @@ export class UsersListComponent implements OnInit {
         user
       }
     });
-    // this.userService.deleteUserById(userId).toPromise()
-    //   .then((res: Response) => {
-    //       this.toastrService.success('User deleted');
-    //       setTimeout( () => {
-    //         window.location.reload();
-    //       }, 3000);
-    //     }
-    //   )
-    //   .catch((res: Response) => {
-    //     this.toastrService.error('Error! Unknown cause');
-    //   });
   }
 
   goToDetails(username: string) {
@@ -73,12 +57,4 @@ export class UsersListComponent implements OnInit {
     this.config.currentPage = event;
   }
 
-  // pageChanged(event) {
-  //   this.config.currentPage = event;
-  //   console.log('current page' + this.config.currentPage);
-  //   this.readerService.getPageableReaders(this.config.currentPage - 1, this.pageSize).subscribe(data => {
-  //     this.readers = data.readers;
-  //     this.config.totalItems = data.totalPages * this.pageSize;
-  //   });
-  // }
 }

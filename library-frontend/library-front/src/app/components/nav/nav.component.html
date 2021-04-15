@@ -3,10 +3,6 @@
     <a routerLink="/" class="logo">{{ appTitle }}</a>
     <nav>
       <ul>
-<!--        <li><a routerLink="/home">Home</a></li>-->
-<!--        <li><a routerLink="/add-reader">Add reader</a></li>-->
-<!--        <li><a routerLink="/add-book">Add book</a></li>-->
-<!--        <li><a routerLink="/books">Books</a></li>-->
         <li><a *ngIf="userService.getRole() === null" routerLink="/register">Register</a></li>
         <li><a *ngIf="userService.getRole() === null" routerLink="/login">Login</a></li>
         <li><a *ngIf="userService.getRole() !== null && userService.getRole() === 'ADMIN'" routerLink="/users-list">Users</a></li>

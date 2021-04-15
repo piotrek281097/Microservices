@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {ErrorStateMatcher} from '@angular/material/core';
-import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ReaderService} from '../../../services/reader.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {ReservationService} from '../../../services/reservation.service';
@@ -10,7 +8,6 @@ import {BookService} from '../../../services/book.service';
 import {ReservationDto} from '../../../models/reservationDto';
 import {formatDate} from '@angular/common';
 import {UserService} from '../../../services/user.service';
-import {MyErrorStateMatcher} from '../../../../util/my-error-state-matcher';
 
 @Component({
   selector: 'app-make-reservation',
@@ -19,19 +16,14 @@ import {MyErrorStateMatcher} from '../../../../util/my-error-state-matcher';
 })
 export class MakeReservationComponent implements OnInit {
 
-  reservationForm: FormGroup;
   bookId: number;
   bookFromDatabase: Book;
   reservationToAdd: ReservationDto;
   bookToUpdate: Book;
-  matcher = new MyErrorStateMatcher();
 
-  FormControl = new FormControl('', [
-    Validators.required,
-  ]);
   monthsToEndReservationString: string;
-  private startDate: string;
-  private endDate: string;
+  startDate: string;
+  endDate: string;
 
 
   constructor(
@@ -63,33 +55,16 @@ export class MakeReservationComponent implements OnInit {
 
     this.reservationToAdd.startDate = this.startDate;
     this.reservationToAdd.endDate = this.endDate;
-    this.reservationToAdd.reservationStatus = 'ACTIVE';
+    this.reservationToAdd.reservationStatus = 'CANCELED';
     this.reservationToAdd.bookTitle = this.bookFromDatabase.title;
     this.reservationToAdd.bookIdentifier = this.bookFromDatabase.identifier;
     this.reservationToAdd.ownerUsername = this.bookFromDatabase.ownerUsername;
     this.reservationToAdd.borrowerUsername = this.userService.getUserDetails().sub;
-    console.log(this.reservationToAdd);
 
 
     this.bookToUpdate = this.bookFromDatabase;
     this.bookToUpdate.bookStatus = 'RESERVED';
 
-    this.updateBook();
-
-  }
-
-  private updateBook() {
-    this.bookService.updateBook(this.bookToUpdate).toPromise()
-      .then((res: Response) => {
-          this.makeReservation();
-        }
-      )
-      .catch((res: Response) => {
-        this.toastrService.error('Error! Reservation not added');
-      });
-  }
-
-  private makeReservation() {
     this.reservationService.save(this.reservationToAdd).toPromise()
       .then((res: Response) => {
           this.toastrService.success('Reservation added');
@@ -103,18 +78,9 @@ export class MakeReservationComponent implements OnInit {
         }
       )
       .catch((res: Response) => {
-        this.rollbackBookUpdate();
         this.toastrService.error('Error! Reservation not added');
       });
 
-  }
-
-  private rollbackBookUpdate() {
-    this.bookToUpdate.bookStatus = 'AVAILABLE';
-    this.bookService.updateBook(this.bookToUpdate).toPromise()
-      .catch((res: Response) => {
-        this.toastrService.error('Error! Reservation not added');
-      });
   }
 
   cancel() {

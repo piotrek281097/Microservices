@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
-import {Reader} from '../../../models/reader';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ReaderService} from '../../../services/reader.service';
 import {ToastrService} from 'ngx-toastr';
 import {UserData} from '../../../models/user-data';
 import {UserService} from '../../../services/user.service';
@@ -23,7 +21,7 @@ export class EditUserComponent implements OnInit {
   pesel: string;
   telephone: string;
   userFromDatabase: UserData;
-  isUserFromDataBaseLoaded: boolean = false;
+  isUserFromDataBaseLoaded = false;
 
   matcher = new MyErrorStateMatcher();
 
@@ -67,8 +65,6 @@ export class EditUserComponent implements OnInit {
     userToUpdate.email = this.userEditForm.value.email;
     userToUpdate.telephone = this.userEditForm.value.telephone;
     userToUpdate.pesel = this.pesel;
-
-    console.log(userToUpdate);
 
     if (!this.userEditForm.invalid) {
       this.userService.updateUser(userToUpdate).toPromise()

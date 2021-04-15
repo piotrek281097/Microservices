@@ -32,3 +32,9 @@ jpa:
         hbm2ddl:
           auto: update
         show_sql: true
+kafka:
+  bootstrap:
+    servers: localhost:9092
+  producers:
+    default:
+      retries: 5

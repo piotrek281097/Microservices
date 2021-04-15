@@ -10,12 +10,14 @@ import {BookService} from '../../../services/book.service';
 export class RentalServiceBooksListComponent implements OnInit {
 
   private books: Book[];
+  private libraryType: string;
 
   constructor(private bookService: BookService) { }
 
   ngOnInit() {
     this.bookService.getUserRentalServiceBooks().subscribe(data => {
       this.books = data;
+      this.libraryType = 'rental-service';
     });
   }
 

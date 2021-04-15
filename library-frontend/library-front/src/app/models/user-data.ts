@@ -1,3 +1,5 @@
+import {Address} from './address';
+
 export class UserData {
   id: number;
   username: string;
@@ -7,4 +9,5 @@ export class UserData {
   surname: string;
   telephone: string;
   pesel: string;
+  address: Address;
 }

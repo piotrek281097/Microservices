@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {BookService} from '../../../services/book.service';
 import {Book} from '../../../models/book';
 import {Router} from '@angular/router';
@@ -7,7 +7,6 @@ import {UserService} from '../../../services/user.service';
 import {MatDialog} from '@angular/material';
 import {RateBookComponent} from '../rate-book/rate-book.component';
 import {Opinion} from '../../../models/opinion';
-import {HttpErrorResponse} from '@angular/common/http';
 import {ConfirmDeleteBookComponent} from '../../confirm-delete-book/confirm-delete-book.component';
 
 @Component({
@@ -18,6 +17,7 @@ import {ConfirmDeleteBookComponent} from '../../confirm-delete-book/confirm-dele
 export class BooksListComponent implements OnInit {
 
   @Input() books: Book[];
+  @Input() libraryType: string;
 
   config: any;
 
@@ -41,25 +41,23 @@ export class BooksListComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.bookService.getPageableBooks(this.pageNumber, this.pageSize).subscribe(data => {
-    //   this.books = data.books;
-    //   this.config.totalItems = data.totalPages * this.pageSize;
-    // });
     this.role = localStorage.getItem('role');
     this.username = this.userService.getUserDetails().sub;
     if (this.books !== undefined) {
       this.config.totalItems = this.books.length;
     }
-
-    console.log("username " + this.username);
   }
 
-  onClickField(bookId: number) {
-    console.log("bookId" + bookId);
+  checkIfDeleteVisible(): boolean {
+    return !(this.role === 'USER' && this.libraryType === 'classic-library')
+      && !(this.role === 'ADMIN' && this.libraryType === 'rental-service');
+  }
+
+  checkIfReservePossible(book: Book): boolean {
+    return book.bookStatus === 'RESERVED' || book.ownerUsername === this.username;
   }
 
   reserveBook(bookId: number) {
-    console.log("reserve " + bookId);
     this.router.navigate(['/make-reservation/' + bookId]);
   }
 
@@ -76,11 +74,6 @@ export class BooksListComponent implements OnInit {
 
   pageChanged(event) {
     this.config.currentPage = event;
-    console.log('current page' + this.config.currentPage);
-    // this.bookService.getPageableBooks(this.config.currentPage - 1, this.pageSize).subscribe(data => {
-    //   this.books = data.books;
-    //   this.config.totalItems = data.totalPages * this.pageSize;
-    // });
   }
 
   rateBook(book: Book): void {
@@ -98,15 +91,14 @@ export class BooksListComponent implements OnInit {
           .catch((res: Response) => {
             this.toastrService.error('Error! Opinion not added');
           });
-
-      //   if (result) {
-    //     this.preparePlayerBoardToSend();
-    //     const battleshipGameRequest = new BattleshipGameRequest(
-    //       result.level, result.startPlayer, this.playerBoard, this.userService.getUserDetails().sub
-    //     );
-    //     this.battleshipsService.setBattleshipGameRequest(battleshipGameRequest);
-    //     this.route.navigate(['/battleships-game']);
-    //   }
     });
+  }
+
+  checkIfDeletePossible(book: Book) {
+    return book.ownerUsername !== this.username || book.bookStatus !== 'AVAILABLE';
+  }
+
+  setOwnerName(book: Book): string {
+    return book.ownerUsername !== 'admin' ? book.ownerUsername : 'Library';
   }
 }

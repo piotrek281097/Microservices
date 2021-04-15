@@ -2,25 +2,34 @@ package books.service;
 
 import books.domain.Book;
 import books.domain.Opinion;
+import books.dto.BookUpdateStatusDto;
 import books.dto.OpinionDto;
+import books.dto.ReservationUpdateStatusDto;
+import books.enums.BookKind;
 import books.enums.BookStatus;
 import books.exception.BookIdentifierAlreadyExists;
+import books.kafka.ReservationsClient;
 import books.repository.BookRepository;
 import books.repository.OpinionRepository;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Singleton
 public class BookServiceImpl implements BookService {
 
+    protected ReservationsClient reservationsClient;
+
     protected BookRepository bookRepository;
 
     protected OpinionRepository opinionRepository;
 
-    public BookServiceImpl(BookRepository bookRepository, OpinionRepository opinionRepository) {
+    public BookServiceImpl(ReservationsClient reservationsClient, BookRepository bookRepository, OpinionRepository opinionRepository) {
+        this.reservationsClient = reservationsClient;
         this.bookRepository = bookRepository;
         this.opinionRepository = opinionRepository;
     }
@@ -48,7 +57,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteBookById(long bookId) {
-        bookRepository.deleteById(bookId);
+        Optional<Book> optionalBook = bookRepository.findById(bookId);
+        if (optionalBook.isPresent() && BookStatus.AVAILABLE.equals(optionalBook.get().getBookStatus())) {
+            opinionRepository.findByBookId(bookId).forEach(opinion -> opinionRepository.delete(opinion));
+            bookRepository.deleteById(bookId);
+        }
     }
 
     @Override
@@ -60,15 +73,6 @@ public class BookServiceImpl implements BookService {
     @Override
     public void updateBook(Book book) {
         bookRepository.update(book);
-    }
-
-    @Override
-    public void changeBookStatus(String identifier) {
-        Optional<Book> book = bookRepository.findByIdentifier(identifier);
-        if (book.isPresent()) {
-            book.get().setBookStatus(BookStatus.AVAILABLE);
-            bookRepository.update(book.get());
-        }
     }
 
     @Override
@@ -90,6 +94,23 @@ public class BookServiceImpl implements BookService {
     public List<Book> getBooksOrderedByAvgRate() {
         return ((List<Book>) bookRepository.listOrderByAvgRateDesc()).stream()
                 .filter(book -> book.getAvgRate() != 0).collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateBookStatus(BookUpdateStatusDto bookUpdateStatusDto) {
+        Optional<Book> book = bookRepository.findByIdentifier(bookUpdateStatusDto.getBookIdentifier());
+        if (book.isPresent()) {
+            book.get().setBookStatus(BookStatus.valueOf(bookUpdateStatusDto.getNewBookStatus()));
+            bookRepository.update(book.get());
+        }
+
+        if (BookStatus.AVAILABLE.toString().equals(bookUpdateStatusDto.getNewBookStatus())) {
+            reservationsClient.updateReservationStatus("key",
+                    new ReservationUpdateStatusDto("FINISHED", bookUpdateStatusDto.getReservationId()));
+        } else {
+            reservationsClient.updateReservationStatus("key",
+                    new ReservationUpdateStatusDto("ACTIVE", bookUpdateStatusDto.getReservationId()));
+        }
     }
 
     private Opinion convertToOpinion(OpinionDto opinionDto) {

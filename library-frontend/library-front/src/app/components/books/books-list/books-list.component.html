@@ -37,7 +37,7 @@
     <th scope="col">Release date</th>
     <th scope="col">Owner</th>
     <th *ngIf="role === 'USER'" scope="col">          </th>
-    <th scope="col">          </th>
+    <th *ngIf="checkIfDeleteVisible()" scope="col">          </th>
     <th *ngIf="role === 'USER'" scope="col">          </th>
 
   </tr>
@@ -45,16 +45,17 @@
 
   <tr *ngFor="let book of books | paginate: config | filterBy: searchText; let i=index">
 <!--  <tr *ngFor="let book of books | paginate: config; let i=index">-->
-    <td (click)="onClickField(book.id)">{{ i + 1 }} </td>
-    <td (click)="onClickField(book.id)">{{ book.title }}</td>
-    <td (click)="onClickField(book.id)">{{ book.author}}</td>
-    <td (click)="onClickField(book.id)">{{ book.identifier }}</td>
-    <td (click)="onClickField(book.id)">{{ book.bookKind }}</td>
-    <td (click)="onClickField(book.id)">{{ book.releaseDate | date:'yyyy-MM-dd' }}</td>
-    <td *ngIf="book.ownerUsername !== 'admin'" (click)="onClickField(book.id)">{{ book.ownerUsername }}</td>
-    <td *ngIf="book.ownerUsername === 'admin'" (click)="onClickField(book.id)">Library</td>
-    <td *ngIf="role === 'USER'"><button [disabled]="book.bookStatus === 'RESERVED' || book.ownerUsername === username" type="submit" class="btn btn-success" (click)="reserveBook(book.id)">Reserve</button></td>
-    <td><button type="submit" class="btn btn-danger" [disabled]="book.ownerUsername !== username" (click)="deleteBook(book)">Delete</button></td>
+    <td>{{ i + 1 }} </td>
+    <td>{{ book.title }}</td>
+    <td>{{ book.author}}</td>
+    <td>{{ book.identifier }}</td>
+    <td>{{ book.bookKind }}</td>
+    <td>{{ book.releaseDate | date:'yyyy-MM-dd' }}</td>
+    <td>{{ setOwnerName(book) }}</td>
+    <td *ngIf="role === 'USER'"><button [disabled]="checkIfReservePossible(book)" type="submit" class="btn btn-success" (click)="reserveBook(book.id)">Reserve</button></td>
+    <td *ngIf="checkIfDeleteVisible()">
+      <button type="submit" class="btn btn-danger" [disabled]="checkIfDeletePossible(book)" (click)="deleteBook(book)">Delete</button>
+    </td>
     <td *ngIf="role === 'USER'"><button type="submit" class="btn btn-warning" (click)="rateBook(book)">Rate</button></td>
   </tr>
 </table>

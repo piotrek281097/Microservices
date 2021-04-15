@@ -1,6 +1,7 @@
 package books.service;
 
 import books.domain.Book;
+import books.dto.BookUpdateStatusDto;
 import books.dto.OpinionDto;
 
 import java.util.List;
@@ -19,9 +20,9 @@ public interface BookService {
 
     void updateBook(Book book);
 
-    void changeBookStatus(String identifier);
-
     void addOpinion(OpinionDto opinion);
 
     List<Book> getBooksOrderedByAvgRate();
+
+    void updateBookStatus(BookUpdateStatusDto bookUpdateStatusDto);
 }

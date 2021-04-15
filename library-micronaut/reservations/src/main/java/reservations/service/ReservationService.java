@@ -1,6 +1,7 @@
 package reservations.service;
 
 import reservations.domain.Reservation;
+import reservations.dto.ReservationUpdateStatusDto;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface ReservationService {
     List<Reservation> getUserRentalServiceReservationsForUser(String username);
 
     void updateReservation(Reservation reservation);
+
+    void updateReservationStatus(ReservationUpdateStatusDto reservationUpdateStatusDto);
 }

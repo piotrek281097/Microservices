@@ -59,12 +59,6 @@ public class BooksController {
         return booksOperations.updateBook(book);
     }
 
-    @Post("/books/change-status/{identifier}")
-    @Secured({"ADMIN", "USER"})
-    public HttpResponse changeBookStatus(@PathVariable String identifier) {
-        return booksOperations.changeBookStatus(identifier);
-    }
-
     @Post("/books/add-opinion")
     @Secured("USER")
     public HttpResponse addOpinion(@Body String opinionDto) {
