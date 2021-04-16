@@ -24,7 +24,7 @@ public class UserData {
     @NotBlank
     private String name;
 
-    @NotBlank
+    @NotBlank //zmien na notNull
     private String surname;
 
     @NotBlank
