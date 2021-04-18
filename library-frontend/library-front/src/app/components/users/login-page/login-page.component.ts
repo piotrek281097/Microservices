@@ -45,7 +45,11 @@ export class LoginPageComponent implements OnInit {
     loginData.password = this.loginForm.value.password;
 
     if (!this.loginForm.invalid) {
+      console.log("przed");
       this.userService.login(loginData).subscribe((response) => {
+        console.log("token " + response.access_token);
+          console.log("roles " + response.roles[0]);
+
           this.userService.saveToken(response.access_token);
           this.userService.saveRole(response.roles[0]);
           this.router.navigate(['/classic-library-menu']);

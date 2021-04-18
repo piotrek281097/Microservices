@@ -1,6 +1,7 @@
 package pp.users.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pp.users.domain.UserData;
 import pp.users.repository.UserDataRepository;
@@ -13,12 +14,16 @@ public class UserDataServiceImpl implements UserDataService {
 
     private UserDataRepository userDataRepository;
 
-    public UserDataServiceImpl(UserDataRepository userDataRepository) {
+    private PasswordEncoder encoder;
+
+    public UserDataServiceImpl(UserDataRepository userDataRepository, PasswordEncoder encoder) {
         this.userDataRepository = userDataRepository;
+        this.encoder = encoder;
     }
 
     @Override
     public void register(UserData userData) {
+        userData.setPassword(encoder.encode(userData.getPassword()));
         this.userDataRepository.save(userData);
     }
 
