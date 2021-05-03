@@ -27,8 +27,8 @@
         <td *ngIf="reservation.borrowerUsername !== 'admin'">{{ reservation.borrowerUsername }}</td>
         <td *ngIf="reservation.borrowerUsername === 'admin'">Library</td>
         <td>{{ reservation.reservationStatus }}</td>
-        <td><button *ngIf="reservation.reservationStatus === 'ACTIVE' && reservation.ownerUsername === 'admin' && role ==='ADMIN'
-                    || reservation.reservationStatus === 'ACTIVE' && reservation.ownerUsername === username && role ==='USER'" class="btn btn-success" (click)="returnBook(reservation)">Return book</button></td>
+        <td><button *ngIf="reservation.reservationStatus === 'ACTIVE' && reservation.ownerUsername === 'admin' && role ==='ROLE_ADMIN'
+                    || reservation.reservationStatus === 'ACTIVE' && reservation.ownerUsername === username && role ==='ROLE_USER'" class="btn btn-success" (click)="returnBook(reservation)">Return book</button></td>
       </ng-container>
     </tr>
   </table>

@@ -1,8 +1,10 @@
 package pp.zuul.domain;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +16,8 @@ import javax.validation.constraints.NotBlank;
 @Data
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserData {
 
     @Id
@@ -29,26 +33,9 @@ public class UserData {
     @NotBlank
     private String email;
 
-    @NotBlank
-    private String name; // chyba mozna pousuwac pola poza username i password potrzebne do logowania
-
-    @NotBlank
-    private String surname;
-
-    @NotBlank
-    private String telephone;
-
-    @NotBlank
-    private String pesel;
-
-    public UserData(@NotBlank String password, @NotBlank String username, @NotBlank String email, @NotBlank String name, @NotBlank String surname, @NotBlank String telephone, @NotBlank String pesel) {
+    public UserData(@NotBlank String password, @NotBlank String username) {
         this.password = password;
         this.username = username;
-        this.email = email;
-        this.name = name;
-        this.surname = surname;
-        this.telephone = telephone;
-        this.pesel = pesel;
     }
 
     public Long getId() {
@@ -81,37 +68,5 @@ public class UserData {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public String getPesel() {
-        return pesel;
-    }
-
-    public void setPesel(String pesel) {
-        this.pesel = pesel;
     }
 }

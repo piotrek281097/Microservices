@@ -1,6 +1,5 @@
 package pp.users.service;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pp.users.domain.UserData;
@@ -28,32 +27,34 @@ public class UserDataServiceImpl implements UserDataService {
     }
 
     @Override
-    public Optional<UserData> findByUsername(String email) {
-        return Optional.empty();
+    public Optional<UserData> findByUsername(String username) {
+        return userDataRepository.findByUsername(username);
     }
 
     @Override
     public List<UserData> getAllUsers() {
-        return null;
+        return (List<UserData>) userDataRepository.findAll();
     }
 
     @Override
     public void deleteUserById(long userId) {
-
+        userDataRepository.deleteById(userId);
     }
 
     @Override
     public UserData getUserById(long userId) {
-        return null;
+        Optional<UserData> user = userDataRepository.findById(userId);
+        return user.orElse(null);
     }
 
     @Override
     public UserData getUserByUsername(String username) {
-        return null;
+        Optional<UserData> user = userDataRepository.findByUsername(username);
+        return user.orElse(null);
     }
 
     @Override
     public void updateUser(UserData userData) {
-
+        userDataRepository.save(userData);
     }
 }

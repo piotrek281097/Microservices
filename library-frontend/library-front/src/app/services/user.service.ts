@@ -16,7 +16,7 @@ export class UserService {
   }
 
   register(user: UserData): Observable<any> {
-    return this.http.post(`${Api.USER_END_POINT}/register`, user);
+    return this.http.post(`${Api.USER_END_POINT}/users/register`, user);
   }
 
   login(user: UserData): Observable<any> {
@@ -24,7 +24,7 @@ export class UserService {
   }
 
   getAllUsers(): Observable<UserData[]> {
-    return this.http.get<UserData[]>(`${Api.USER_END_POINT}/users`);
+    return this.http.get<UserData[]>(`${Api.USER_END_POINT}/users/users`);
   }
 
   deleteUserById(userId: number): Observable<any> {

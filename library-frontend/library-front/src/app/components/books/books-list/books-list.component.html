@@ -36,9 +36,9 @@
     <th scope="col">Book kind</th>
     <th scope="col">Release date</th>
     <th scope="col">Owner</th>
-    <th *ngIf="role === 'USER'" scope="col">          </th>
+    <th *ngIf="role === 'ROLE_USER'" scope="col">          </th>
     <th *ngIf="checkIfDeleteVisible()" scope="col">          </th>
-    <th *ngIf="role === 'USER'" scope="col">          </th>
+    <th *ngIf="role === 'ROLE_USER'" scope="col">          </th>
 
   </tr>
   </thead>
@@ -52,11 +52,11 @@
     <td>{{ book.bookKind }}</td>
     <td>{{ book.releaseDate | date:'yyyy-MM-dd' }}</td>
     <td>{{ setOwnerName(book) }}</td>
-    <td *ngIf="role === 'USER'"><button [disabled]="checkIfReservePossible(book)" type="submit" class="btn btn-success" (click)="reserveBook(book.id)">Reserve</button></td>
+    <td *ngIf="role === 'ROLE_USER'"><button [disabled]="checkIfReservePossible(book)" type="submit" class="btn btn-success" (click)="reserveBook(book.id)">Reserve</button></td>
     <td *ngIf="checkIfDeleteVisible()">
       <button type="submit" class="btn btn-danger" [disabled]="checkIfDeletePossible(book)" (click)="deleteBook(book)">Delete</button>
     </td>
-    <td *ngIf="role === 'USER'"><button type="submit" class="btn btn-warning" (click)="rateBook(book)">Rate</button></td>
+    <td *ngIf="role === 'ROLE_USER'"><button type="submit" class="btn btn-warning" (click)="rateBook(book)">Rate</button></td>
   </tr>
 </table>
 </div>

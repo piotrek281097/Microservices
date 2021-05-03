@@ -1,58 +1,50 @@
 package pp.users.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserData {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String password;
 
-    @NotNull
+    @NotBlank
     private String username;
 
-    @NotNull
+    @NotBlank
     private String email;
 
-    public Long getId() {
-        return id;
-    }
+    @NotBlank
+    private String name;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @NotBlank //zmien na notNull?
+    private String surname;
 
-    public String getPassword() {
-        return password;
-    }
+    @NotBlank
+    private String telephone;
 
-    public void setPassword(String password) {
+    @NotBlank
+    private String pesel;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Address address;
+
+    public UserData(@NotBlank String password, @NotBlank String username) {
         this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

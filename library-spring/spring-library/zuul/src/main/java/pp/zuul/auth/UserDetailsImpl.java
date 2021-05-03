@@ -14,18 +14,21 @@ public class UserDetailsImpl implements UserDetails {
 
     private UserData user;
 
-    public UserDetailsImpl(UserData user) {
+    private String role;
+
+    public UserDetailsImpl(UserData user, String role) {
         this.user = user;
+        this.role = role;
     }
 
-    public static UserDetailsImpl build(UserData user) {
-        return new UserDetailsImpl(user);
+    public static UserDetailsImpl build(UserData user, String role) {
+        return new UserDetailsImpl(user, role);
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("USER"));
+        authorities.add(new SimpleGrantedAuthority(role));
 
         return authorities;
     }

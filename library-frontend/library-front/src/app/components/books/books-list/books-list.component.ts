@@ -49,8 +49,8 @@ export class BooksListComponent implements OnInit {
   }
 
   checkIfDeleteVisible(): boolean {
-    return !(this.role === 'USER' && this.libraryType === 'classic-library')
-      && !(this.role === 'ADMIN' && this.libraryType === 'rental-service');
+    return !(this.role === 'ROLE_USER' && this.libraryType === 'classic-library')
+      && !(this.role === 'ROLE_ADMIN' && this.libraryType === 'rental-service');
   }
 
   checkIfReservePossible(book: Book): boolean {
