@@ -13,4 +13,5 @@ public interface UserDataRepository extends CrudRepository<UserData,Long> {
 
     Optional<UserData> findByUsername(@NonNull @NotNull String username);
 
+    Optional<UserData> findByEmail(String email);
 }

@@ -3,6 +3,8 @@ package pp.users.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pp.users.domain.UserData;
+import pp.users.exception.EmailAlreadyExistsException;
+import pp.users.exception.UsernameAlreadyExistsException;
 import pp.users.repository.UserDataRepository;
 
 import java.util.List;
@@ -20,10 +22,29 @@ public class UserDataServiceImpl implements UserDataService {
         this.encoder = encoder;
     }
 
+//    @Override
+//    public void register(UserData userData) {
+//        userData.setPassword(encoder.encode(userData.getPassword()));
+//        this.userDataRepository.save(userData);
+//    }
+
     @Override
     public void register(UserData userData) {
-        userData.setPassword(encoder.encode(userData.getPassword()));
-        this.userDataRepository.save(userData);
+        Optional<UserData> userFoundByEmail = userDataRepository.findByEmail(userData.getEmail());
+        if (userFoundByEmail.isEmpty()) {
+            Optional<UserData> userFoundUsername = userDataRepository.findByUsername(userData.getUsername());
+            if (userFoundUsername.isEmpty()) {
+                final String encodedPassword = encoder.encode(userData.getPassword());
+                userData.setPassword(encodedPassword);
+                userDataRepository.save(userData);
+            }
+            else {
+                throw new UsernameAlreadyExistsException("Username already exists");
+            }
+        }
+        else {
+            throw new EmailAlreadyExistsException("Email already exists");
+        }
     }
 
     @Override
