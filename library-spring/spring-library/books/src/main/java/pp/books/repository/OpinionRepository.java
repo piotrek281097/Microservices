@@ -7,6 +7,6 @@ import pp.books.domain.Opinion;
 @Repository
 public interface OpinionRepository extends CrudRepository<Opinion, Long> {
 
-//    Iterable<Opinion> findByBookId(long bookId);
+    Iterable<Opinion> findByBookId(long bookId);
 
 }

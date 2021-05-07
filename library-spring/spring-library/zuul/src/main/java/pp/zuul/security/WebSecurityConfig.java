@@ -118,6 +118,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 //                .antMatchers("/courier/**", "/distancesBeetwenCities/**", "/distancesBeetwenCities**", "/route**").hasRole("MANAGER")
                 .antMatchers("/users/**").hasAnyRole("USER", "ADMIN", "ANONYMOUS")
+                .antMatchers("/books/**").hasAnyRole("USER", "ADMIN")
+
                 .and()
                 .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .httpBasic().disable()
