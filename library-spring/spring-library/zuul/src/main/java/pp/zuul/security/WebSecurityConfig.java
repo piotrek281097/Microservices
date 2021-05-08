@@ -117,8 +117,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
 //                .antMatchers("/courier/**", "/distancesBeetwenCities/**", "/distancesBeetwenCities**", "/route**").hasRole("MANAGER")
-                .antMatchers("/users/**").hasAnyRole("USER", "ADMIN", "ANONYMOUS")
-                .antMatchers("/books/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/users/register").permitAll()
+                .antMatchers("/users/users", "/users/delete/**").hasRole("ADMIN")
+                .antMatchers("/users/update").hasRole("USER") // do usuniecia cale jwt z mikroserwisu users? do sprawdzenia
+                .antMatchers("/users/**").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/books/**").hasRole("ADMIN")
+
+                .antMatchers("/books/add", "/books/classic-library", "/books/rental-service",
+                    "/books/delete/**", "/books/update", "/books/ratings").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/books/add-opinion", "/books/**").hasRole("USER")
+
+                .antMatchers("/reservations/update").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/reservations/classic-library", "/reservations/rental-service").hasRole("ADMIN")
+                .antMatchers("/reservations/add", "/reservations/classic-library/**",
+                    "/reservations/rental-service/**").hasRole("USER")
 
                 .and()
                 .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)

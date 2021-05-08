@@ -22,13 +22,13 @@ public class UserDataController {
     }
 
     @Secured("ROLE_USER")
-    @GetMapping("/users/users-list")
+//    @GetMapping("/users/users-list")
     String getUsersTest() {
         return String.format("users hello!");
     }
 
     @Secured("ROLE_ADMIN")
-    @GetMapping("/users/admin-list")
+//    @GetMapping("/users/admin-list")
     String getAdminsTest() {
         return String.format("admins hello!");
     }
@@ -41,7 +41,7 @@ public class UserDataController {
     }
 
     @GetMapping("/users/users")
-    @Secured("ROLE_ADMIN")
+//    @Secured("ROLE_ADMIN")
     public ResponseEntity<List<UserData>> getUsers() {
         return new ResponseEntity<>(userDataService.getAllUsers(), HttpStatus.OK);
     }
@@ -52,20 +52,20 @@ public class UserDataController {
 //    }
 
     @GetMapping("/users/{username}")
-    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
+//    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
     public ResponseEntity<UserData> getUserByUsername(@PathVariable String username) {
         return new ResponseEntity<>(userDataService.getUserByUsername(username), HttpStatus.OK);
     }
 
     @DeleteMapping("/users/delete/{userId}")
-    @Secured("ROLE_ADMIN")
+//    @Secured("ROLE_ADMIN")
     public ResponseEntity<?> deleteUserById(@PathVariable long userId) {
         userDataService.deleteUserById(userId);
         return new ResponseEntity<>(Collections.singletonMap("msg", "OK"), HttpStatus.OK);
     }
 
     @PostMapping("/users/update")
-    @Secured("ROLE_USER")
+//    @Secured("ROLE_USER")
     public ResponseEntity<?> updateUser(@RequestBody UserData userData) {
         userDataService.updateUser(userData);
         return new ResponseEntity<>(Collections.singletonMap("msg", "OK"), HttpStatus.OK);

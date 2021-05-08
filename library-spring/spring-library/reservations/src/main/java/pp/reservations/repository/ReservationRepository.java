@@ -8,13 +8,13 @@ import java.util.List;
 
 @Repository
 public interface ReservationRepository extends CrudRepository<Reservation, Long> {
-//
-//    List<Reservation> findByOwnerUsername(String ownerUsername);
-//
-//    List<Reservation> findByOwnerUsernameNotEquals(String ownerUsername);
-//
-//    List<Reservation> findByOwnerUsernameAndBorrowerUsername(String ownerUsername, String borrowerUsername);
-//
-//    List<Reservation> findByOwnerUsernameOrBorrowerUsername(String ownerUsername, String borrowerUsername);
+
+    List<Reservation> findByOwnerUsername(String ownerUsername);
+
+    List<Reservation> findByOwnerUsernameNotLike(String ownerUsername);
+
+    List<Reservation> findByOwnerUsernameAndBorrowerUsername(String ownerUsername, String borrowerUsername);
+
+    List<Reservation> findByOwnerUsernameOrBorrowerUsername(String ownerUsername, String borrowerUsername);
 
 }

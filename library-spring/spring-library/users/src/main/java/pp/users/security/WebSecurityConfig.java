@@ -16,8 +16,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import pp.users.security.jwt.AuthEntryPointJwt;
-import pp.users.security.jwt.AuthTokenFilter;
+//import pp.users.security.jwt.AuthEntryPointJwt;
+//import pp.users.security.jwt.AuthTokenFilter;
 
 import java.util.Arrays;
 
@@ -27,39 +27,39 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private AuthEntryPointJwt jwtAuthenticationEntryPoint;
-
-    private UserDetailsService jwtUserDetailsService;
-
-    @Autowired
-    public WebSecurityConfig(AuthEntryPointJwt jwtAuthenticationEntryPoint, UserDetailsService jwtUserDetailsService){
-        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
-        this.jwtUserDetailsService = jwtUserDetailsService;
-    }
-
-    @Bean
-    public AuthTokenFilter authenticationJwtTokenFilter() {
-        return new AuthTokenFilter();
-    }
-
+//    private AuthEntryPointJwt jwtAuthenticationEntryPoint;
+//
+//    private UserDetailsService jwtUserDetailsService;
+//
+//    @Autowired
+//    public WebSecurityConfig(AuthEntryPointJwt jwtAuthenticationEntryPoint, UserDetailsService jwtUserDetailsService){
+//        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+//        this.jwtUserDetailsService = jwtUserDetailsService;
+//    }
+//
+//    @Bean
+//    public AuthTokenFilter authenticationJwtTokenFilter() {
+//        return new AuthTokenFilter();
+//    }
+//
     @Bean
     BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder)
-            throws Exception {
-        authenticationManagerBuilder.userDetailsService(jwtUserDetailsService)
-                .passwordEncoder(bCryptPasswordEncoder());
-    }
+//
+//
+//    @Bean
+//    @Override
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
+//
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder)
+//            throws Exception {
+//        authenticationManagerBuilder.userDetailsService(jwtUserDetailsService)
+//                .passwordEncoder(bCryptPasswordEncoder());
+//    }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -68,9 +68,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
 //                .antMatchers("/courier/**", "/distancesBeetwenCities/**").hasRole("MANAGER")
-                .antMatchers( "/users/register").permitAll()
+                .antMatchers( "/users/**").permitAll()
                 .and()
-                .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+//                .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .httpBasic().disable()
                 .formLogin().disable();
     }

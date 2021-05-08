@@ -15,7 +15,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "books")
-@Data
 @NoArgsConstructor
 public class Book {
 
@@ -45,7 +44,7 @@ public class Book {
 
     private double avgRate;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "book")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
     private Set<Opinion> opinions = new HashSet<>();
 
     @Version
