@@ -10,6 +10,7 @@ import pp.books.dto.OpinionDto;
 import pp.books.dto.ReservationUpdateStatusDto;
 import pp.books.enums.BookStatus;
 import pp.books.exception.BookIdentifierAlreadyExists;
+import pp.books.kafka.ReservationsProducer;
 import pp.books.repository.BookRepository;
 import pp.books.repository.OpinionRepository;
 
@@ -20,20 +21,14 @@ import java.util.stream.Collectors;
 @Service
 public class BookServiceImpl implements BookService {
 
-//    protected ReservationsClient reservationsClient; // kafka
+    protected ReservationsProducer reservationsProducer;
 
     private BookRepository bookRepository;
 
     private OpinionRepository opinionRepository;
-//
-//    public BookServiceImpl(ReservationsClient reservationsClient, BookRepository bookRepository, OpinionRepository opinionRepository) {
-//        this.reservationsClient = reservationsClient;
-//        this.bookRepository = bookRepository;
-//        this.opinionRepository = opinionRepository;
-//    }
 
-
-    public BookServiceImpl(BookRepository bookRepository, OpinionRepository opinionRepository) {
+    public BookServiceImpl(ReservationsProducer reservationsProducer, BookRepository bookRepository, OpinionRepository opinionRepository) {
+        this.reservationsProducer = reservationsProducer;
         this.bookRepository = bookRepository;
         this.opinionRepository = opinionRepository;
     }
@@ -109,13 +104,13 @@ public class BookServiceImpl implements BookService {
 
         // kafka
 
-//        if (BookStatus.AVAILABLE.toString().equals(bookUpdateStatusDto.getNewBookStatus())) {
-//            reservationsClient.updateReservationStatus("key",
-//                    new ReservationUpdateStatusDto("FINISHED", bookUpdateStatusDto.getReservationId()));
-//        } else {
-//            reservationsClient.updateReservationStatus("key",
-//                    new ReservationUpdateStatusDto("ACTIVE", bookUpdateStatusDto.getReservationId()));
-//        }
+        if (BookStatus.AVAILABLE.toString().equals(bookUpdateStatusDto.getNewBookStatus())) {
+            reservationsProducer.sendMessage(
+                    new ReservationUpdateStatusDto("FINISHED", bookUpdateStatusDto.getReservationId()));
+        } else {
+            reservationsProducer.sendMessage(
+                    new ReservationUpdateStatusDto("ACTIVE", bookUpdateStatusDto.getReservationId()));
+        }
     }
 
     private Opinion convertToOpinion(OpinionDto opinionDto) {

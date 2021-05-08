@@ -2,8 +2,10 @@ package pp.reservations.service;
 
 import org.springframework.stereotype.Service;
 import pp.reservations.domain.Reservation;
+import pp.reservations.dto.BookUpdateStatusDto;
 import pp.reservations.dto.ReservationUpdateStatusDto;
 import pp.reservations.enums.ReservationStatus;
+import pp.reservations.kafka.BooksProducer;
 import pp.reservations.repository.ReservationRepository;
 
 import java.util.List;
@@ -14,18 +16,18 @@ import java.util.stream.Collectors;
 @Service
 public class ReservationServiceImpl implements ReservationService {
 
-    protected ReservationRepository reservationRepository;
-
-    public ReservationServiceImpl(ReservationRepository reservationRepository) {
-        this.reservationRepository = reservationRepository;
-    }
-
-    //    protected BooksClient booksClient;
-
-//    public ReservationServiceImpl(ReservationRepository reservationRepository, BooksClient booksClient) {
+    private final ReservationRepository reservationRepository;
+//
+//    public ReservationServiceImpl(ReservationRepository reservationRepository) {
 //        this.reservationRepository = reservationRepository;
-//        this.booksClient = booksClient;
 //    }
+
+    private final BooksProducer booksProducer;
+
+    public ReservationServiceImpl(ReservationRepository reservationRepository, BooksProducer booksProducer) {
+        this.reservationRepository = reservationRepository;
+        this.booksProducer = booksProducer;
+    }
 
     @Override
     public void addReservation(Reservation reservation) {
@@ -33,10 +35,10 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setReservationIdentifier(uuid.toString().substring(0,10));
         Reservation savedReservation = reservationRepository.save(reservation);
 
-//        booksClient.updateBookStatus("key", new BookUpdateStatusDto(reservation.getBookIdentifier(), "RESERVED",
-//                savedReservation.getId()));
+        booksProducer.sendMessage(new BookUpdateStatusDto(reservation.getBookIdentifier(), "RESERVED",
+                savedReservation.getId()));
 
-        System.out.println("MAKE RESERVATION");
+//        System.out.println("MAKE RESERVATION");
     }
 
     @Override

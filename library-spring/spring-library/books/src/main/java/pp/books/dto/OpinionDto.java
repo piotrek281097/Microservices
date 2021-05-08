@@ -4,8 +4,10 @@ package pp.books.dto;
 import lombok.Data;
 import pp.books.domain.Book;
 
+import java.io.Serializable;
+
 @Data
-public class OpinionDto {
+public class OpinionDto implements Serializable {
 
     private Long id;
 

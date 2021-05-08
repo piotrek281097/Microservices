@@ -1,7 +1,9 @@
 package pp.reservations.dto;
 
 
-public class ReservationUpdateStatusDto {
+import java.io.Serializable;
+
+public class ReservationUpdateStatusDto implements Serializable {
 
     private String newReservationStatus;
 
