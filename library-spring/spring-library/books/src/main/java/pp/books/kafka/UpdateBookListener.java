@@ -23,7 +23,7 @@ public class UpdateBookListener {
 
     @KafkaListener(topics = "update-book-status", groupId = "group_id")
     public void consume(BookUpdateStatusDto message) throws IOException {
-        logger.info(String.format("#### -> Consumed message -> %s", message.getNewBookStatus()));
+        logger.info(String.format("#### -> Consumed message -> %s", message));
         bookService.updateBookStatus(message);
     }
 }

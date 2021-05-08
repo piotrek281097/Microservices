@@ -1,6 +1,5 @@
 package pp.reservations.domain;
 
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import pp.reservations.enums.ReservationStatus;
 
@@ -40,13 +39,6 @@ public class Reservation {
 
     @NotNull
     private String ownerUsername;
-
-//    @ManyToOne
-//    private Book book;
-//
-//    @ManyToOne
-//    @JsonIgnore
-//    private Reader reader;
 
     @Version
     private int optLock;

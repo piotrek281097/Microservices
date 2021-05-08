@@ -1,7 +1,5 @@
 package pp.books.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import pp.books.enums.BookKind;
 import pp.books.enums.BookStatus;

@@ -21,11 +21,13 @@ import java.util.stream.Collectors;
 @Service
 public class BookServiceImpl implements BookService {
 
-    protected ReservationsProducer reservationsProducer;
+    private static final String ADMIN_USERNAME = "admin";
 
-    private BookRepository bookRepository;
+    private final ReservationsProducer reservationsProducer;
 
-    private OpinionRepository opinionRepository;
+    private final BookRepository bookRepository;
+
+    private final OpinionRepository opinionRepository;
 
     public BookServiceImpl(ReservationsProducer reservationsProducer, BookRepository bookRepository, OpinionRepository opinionRepository) {
         this.reservationsProducer = reservationsProducer;
@@ -45,19 +47,19 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getClassicLibraryBooks() {
-        return (List<Book>) bookRepository.findByOwnerUsername("admin");
+        return (List<Book>) bookRepository.findByOwnerUsername(ADMIN_USERNAME);
     }
 
     @Override
     public List<Book> getUserRentalServiceBooks() {
-        return (List<Book>) bookRepository.findByOwnerUsernameNotLike("admin");
+        return (List<Book>) bookRepository.findByOwnerUsernameNotLike(ADMIN_USERNAME);
     }
 
     @Override
     public void deleteBookById(long bookId) {
         Optional<Book> optionalBook = bookRepository.findById(bookId);
         if (optionalBook.isPresent() && BookStatus.AVAILABLE.equals(optionalBook.get().getBookStatus())) {
-            opinionRepository.findByBookId(bookId).forEach(opinion -> opinionRepository.delete(opinion));
+            opinionRepository.findByBookId(bookId).forEach(opinionRepository::delete);
             bookRepository.deleteById(bookId);
         }
     }
@@ -101,8 +103,6 @@ public class BookServiceImpl implements BookService {
             book.get().setBookStatus(BookStatus.valueOf(bookUpdateStatusDto.getNewBookStatus()));
             bookRepository.save(book.get());
         }
-
-        // kafka
 
         if (BookStatus.AVAILABLE.toString().equals(bookUpdateStatusDto.getNewBookStatus())) {
             reservationsProducer.sendMessage(

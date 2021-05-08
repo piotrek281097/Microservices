@@ -23,7 +23,7 @@ public class UpdateReservationListener {
 
     @KafkaListener(topics = "update-reservation-status", groupId = "group_id")
     public void consume(ReservationUpdateStatusDto message) throws IOException {
-        logger.info(String.format("#### -> Consumed message -> %s", message.getNewReservationStatus()));
+        logger.info(String.format("#### -> Consumed message -> %s", message));
         reservationService.updateReservationStatus(message);
     }
 }

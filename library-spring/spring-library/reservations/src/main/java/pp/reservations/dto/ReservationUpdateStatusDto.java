@@ -1,6 +1,5 @@
 package pp.reservations.dto;
 
-
 import java.io.Serializable;
 
 public class ReservationUpdateStatusDto implements Serializable {

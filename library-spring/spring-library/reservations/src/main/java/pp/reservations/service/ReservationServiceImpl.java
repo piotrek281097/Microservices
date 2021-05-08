@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
 @Service
 public class ReservationServiceImpl implements ReservationService {
 
+    private static final String ADMIN_USERNAME = "admin";
+
+    private static final String BOOK_STATUS_AVAILABLE = "AVAILABLE";
+
     private final ReservationRepository reservationRepository;
-//
-//    public ReservationServiceImpl(ReservationRepository reservationRepository) {
-//        this.reservationRepository = reservationRepository;
-//    }
 
     private final BooksProducer booksProducer;
 
@@ -37,36 +37,34 @@ public class ReservationServiceImpl implements ReservationService {
 
         booksProducer.sendMessage(new BookUpdateStatusDto(reservation.getBookIdentifier(), "RESERVED",
                 savedReservation.getId()));
-
-//        System.out.println("MAKE RESERVATION");
     }
 
     @Override
     public List<Reservation> getClassicLibraryReservations() {
-        return reservationRepository.findByOwnerUsername("admin");
+        return reservationRepository.findByOwnerUsername(ADMIN_USERNAME);
     }
 
     @Override
     public List<Reservation> getUserRentalServiceReservations() {
-        return reservationRepository.findByOwnerUsernameNotLike("admin");
+        return reservationRepository.findByOwnerUsernameNotLike(ADMIN_USERNAME);
     }
 
     @Override
     public List<Reservation> getClassicLibraryReservationsForUser(String username) {
-        return reservationRepository.findByOwnerUsernameAndBorrowerUsername("admin", username);
+        return reservationRepository.findByOwnerUsernameAndBorrowerUsername(ADMIN_USERNAME, username);
     }
 
     @Override
     public List<Reservation> getUserRentalServiceReservationsForUser(String username) {
         return reservationRepository.findByOwnerUsernameOrBorrowerUsername(username, username).stream()
-                .filter(reservation -> !reservation.getOwnerUsername().equals("admin"))
+                .filter(reservation -> !reservation.getOwnerUsername().equals(ADMIN_USERNAME))
                 .collect(Collectors.toList());
     }
 
     @Override
     public void updateReservation(Reservation reservation) {
-//        booksClient.updateBookStatus("key", new BookUpdateStatusDto(reservation.getBookIdentifier(), "AVAILABLE",
-//                reservation.getId()));
+        booksProducer.sendMessage(new BookUpdateStatusDto(reservation.getBookIdentifier(), BOOK_STATUS_AVAILABLE,
+                reservation.getId()));
     }
 
     @Override

@@ -1,6 +1,5 @@
 package pp.books.service;
 
-
 import pp.books.domain.Book;
 import pp.books.dto.BookUpdateStatusDto;
 import pp.books.dto.OpinionDto;

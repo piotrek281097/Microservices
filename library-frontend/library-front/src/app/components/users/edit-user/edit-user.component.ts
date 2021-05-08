@@ -65,6 +65,7 @@ export class EditUserComponent implements OnInit {
     userToUpdate.email = this.userEditForm.value.email;
     userToUpdate.telephone = this.userEditForm.value.telephone;
     userToUpdate.pesel = this.pesel;
+    userToUpdate.address = this.userFromDatabase.address;
 
     if (!this.userEditForm.invalid) {
       this.userService.updateUser(userToUpdate).toPromise()

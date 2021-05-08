@@ -13,9 +13,9 @@
   <h3>Telephone: <span class="text-secondary"> {{ userFromDatabase?.telephone }}</span></h3>
   <br>
   <h2> <span class="badge badge-secondary"> Adress</span></h2>
-  <h3>City: <span class="text-secondary"> Mock City</span></h3>
-  <h3>Postal code: <span class="text-secondary"> Mock postal code</span></h3>
-  <h3>Street: <span class="text-secondary"> Mock street</span></h3>
-  <h3>Apartment number: <span class="text-secondary"> Mock apartment number</span></h3>
+  <h3>City: <span class="text-secondary">{{ userFromDatabase?.address.city }}</span></h3>
+  <h3>Postal code: <span class="text-secondary"> {{ userFromDatabase?.address.postalCode }}</span></h3>
+  <h3>Street: <span class="text-secondary">{{ userFromDatabase?.address.street }}</span></h3>
+  <h3>Apartment number: <span class="text-secondary">{{ userFromDatabase?.address.apartmentNumber }}</span></h3>
 </div>
 

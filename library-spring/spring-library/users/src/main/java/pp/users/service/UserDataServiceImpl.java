@@ -22,12 +22,6 @@ public class UserDataServiceImpl implements UserDataService {
         this.encoder = encoder;
     }
 
-//    @Override
-//    public void register(UserData userData) {
-//        userData.setPassword(encoder.encode(userData.getPassword()));
-//        this.userDataRepository.save(userData);
-//    }
-
     @Override
     public void register(UserData userData) {
         Optional<UserData> userFoundByEmail = userDataRepository.findByEmail(userData.getEmail());
