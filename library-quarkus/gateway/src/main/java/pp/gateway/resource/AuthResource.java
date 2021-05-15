@@ -17,6 +17,9 @@ import java.util.Collections;
 @Produces(MediaType.APPLICATION_JSON)
 public class AuthResource {
 
+    private static final String ADMIN_USERNAME = "admin";
+    public static final String ADMIN_PASSWORD = "nimda";
+
     @Inject
     TokenService tokenService;
 
@@ -25,10 +28,19 @@ public class AuthResource {
 
     @POST
     @Path("/")
-    public Response login(UserData userData) {
+    public Response login(UserData userData) throws Exception {
+        if (ADMIN_USERNAME.equals(userData.getUsername())
+            && ADMIN_PASSWORD.equals(userData.getPassword())) {
+            return Response.ok(new JwtDto(tokenService.generateUserToken(userData.getUsername(), "ROLE_ADMIN"), Collections.singletonList("ROLE_ADMIN"))).build();
+
+//            UserData adminData = new UserData(
+//                    "$2a$10$PH0p2x2x8oi5bKx.80Bt7ubMAiHdZnqm9TC/Cpss9VoccyTYw1AoC", //nimda
+//                    "admin"
+//            );
+        }
         ResponseEntity responseEntity = responseEntityService.checkForUser(userData);
         if(responseEntity.isValid()){
-            return Response.ok(new JwtDto(tokenService.generateUserToken(userData.getUsername()), Collections.singletonList("ROLE_USER"))).build();
+            return Response.ok(new JwtDto(tokenService.generateUserToken(userData.getUsername(), "ROLE_USER"), Collections.singletonList("ROLE_USER"))).build();
         } else {
             throw new WebApplicationException(Response.status(404).entity(responseEntity.getMessage()).build());
         }

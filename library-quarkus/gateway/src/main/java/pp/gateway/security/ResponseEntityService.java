@@ -1,6 +1,5 @@
 package pp.gateway.security;
 
-import org.graalvm.compiler.lir.LIRInstruction;
 import org.jose4j.jwt.JwtClaims;
 import pp.gateway.domain.UserData;
 
@@ -42,11 +41,12 @@ public class ResponseEntityService {
 //    }
 
 
-    public ResponseEntity checkForUser(UserData userData){
+    public ResponseEntity checkForUser(UserData userData) throws Exception {
         UserData existingUser = UserData.find("username", userData.getUsername()).firstResult();
         if(existingUser == null){
             return new ResponseEntity(false, "Account with this username is not registered.");
         } else {
+
             if(existingUser.getPassword().equals(userData.getPassword())) {
                 return new ResponseEntity(true, "Everything is ok.");
             } else {

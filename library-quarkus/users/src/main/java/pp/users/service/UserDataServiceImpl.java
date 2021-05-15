@@ -1,6 +1,5 @@
 package pp.users.service;
 
-import io.vertx.ext.auth.User;
 import pp.users.domain.UserData;
 
 import javax.enterprise.context.ApplicationScoped;
