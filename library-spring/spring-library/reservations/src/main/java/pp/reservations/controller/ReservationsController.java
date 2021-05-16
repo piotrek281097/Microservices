@@ -46,7 +46,7 @@ public class ReservationsController {
 
     @GetMapping("/reservations/rental-service/{username}")
 //    @Secured("USER")
-    public ResponseEntity<List<Reservation>> getUserRentalServiceBooksForUser(@PathVariable String username) {
+    public ResponseEntity<List<Reservation>> getUserRentalServiceReservationsForUser(@PathVariable String username) {
         return new ResponseEntity<>(reservationService.getUserRentalServiceReservationsForUser(username), HttpStatus.OK);
     }
 
