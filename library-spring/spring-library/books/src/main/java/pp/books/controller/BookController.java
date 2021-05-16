@@ -69,7 +69,7 @@ public class BookController {
     }
 
     @GetMapping("/books/ratings")
-//    @Secured({"ADMIN", "USER"})
+//    @Secured({"ROLE_ADMIN", "USER"})
     public ResponseEntity<List<Book>> getBooksOrderedByAvgRate() {
         return new ResponseEntity<>(bookService.getBooksOrderedByAvgRate(), HttpStatus.OK);
     }
