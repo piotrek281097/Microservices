@@ -60,6 +60,6 @@ public class UserDataServiceImpl implements UserDataService {
     @Override
     @Transactional
     public void updateUser(UserData userData) {
-        userDataRepository.save(userData);
+        userDataRepository.update(userData);
     }
 }

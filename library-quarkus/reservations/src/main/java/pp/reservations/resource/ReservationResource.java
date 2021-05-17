@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +31,7 @@ public class ReservationResource {
     @GET
     @Path("/classic-library")
 //    @Secured("ADMIN")
+    @Produces({MediaType.APPLICATION_JSON})
     public Response getClassicLibraryReservations() {
         return Response.ok().entity(reservationService.getClassicLibraryReservations()).build();
     }
@@ -36,6 +39,7 @@ public class ReservationResource {
     @GET
     @Path("/rental-service")
 //    @Secured("ADMIN")
+    @Produces({MediaType.APPLICATION_JSON})
     public Response getUserRentalServiceReservations() {
         return Response.ok().entity(reservationService.getUserRentalServiceReservations()).build();
     }
@@ -43,6 +47,7 @@ public class ReservationResource {
     @GET
     @Path("/classic-library/{username}")
 //    @Secured("USER")
+    @Produces({MediaType.APPLICATION_JSON})
     public Response getClassicLibraryReservationsForUser(@PathParam String username) {
         return Response.ok().entity(reservationService.getClassicLibraryReservationsForUser(username)).build();
     }
@@ -50,6 +55,7 @@ public class ReservationResource {
     @GET
     @Path("/rental-service/{username}")
 //    @Secured("USER")
+    @Produces({MediaType.APPLICATION_JSON})
     public Response getUserRentalServiceReservationsForUser(@PathParam String username) {
         return Response.ok(reservationService.getUserRentalServiceReservationsForUser(username)).build();
     }

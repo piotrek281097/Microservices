@@ -83,6 +83,7 @@ export class BooksListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: Opinion) => {
         result.book = book;
+        console.log("book " + book.id)
         this.bookService.addOpinion(result).toPromise()
           .then((res: Response) => {
               this.toastrService.success('Opinion added');

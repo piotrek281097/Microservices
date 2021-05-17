@@ -29,6 +29,11 @@ public class BookRepository implements PanacheRepository<Book> {
         persist(book);
     }
 
+    public void update(Book book) {
+        entityManager.merge(book);
+//        persist(book);
+    }
+
     public List<Book> findByOwnerUsername(String ownerUsername) {
         return find("ownerUsername", ownerUsername).list();
     }

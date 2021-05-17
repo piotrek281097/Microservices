@@ -30,7 +30,7 @@ public class UserData extends PanacheEntity {
     @NotBlank
     public String pesel;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Address address;
 
     public UserData() {

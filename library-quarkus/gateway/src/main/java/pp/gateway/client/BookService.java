@@ -25,12 +25,12 @@ public interface BookService {
     @GET
     @Path("/classic-library")
 //    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
-    JsonArray getClassicLibraryBooks();
+    Response getClassicLibraryBooks();
 
     @GET
     @Path("/rental-service")
 //    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
-    JsonArray getUserRentalServiceBooks();
+    Response getUserRentalServiceBooks();
 
     @DELETE
     @Path("/delete/{bookId}")
@@ -40,7 +40,7 @@ public interface BookService {
     @GET
     @Path("/{bookId}")
 //    @Secured("ROLE_USER")
-    JsonStructure getBookById(@PathParam long bookId);
+    Response getBookById(@PathParam long bookId);
 
     @POST
     @Path("/update")
@@ -55,6 +55,6 @@ public interface BookService {
     @GET
     @Path("/ratings")
 //    @Secured({"ADMIN", "USER"})
-    JsonArray getBooksOrderedByAvgRate();
+    Response getBooksOrderedByAvgRate();
 
 }

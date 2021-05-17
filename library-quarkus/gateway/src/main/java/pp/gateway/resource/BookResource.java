@@ -36,14 +36,14 @@ public class BookResource {
     @GET
     @Path("/classic-library")
     @RolesAllowed({ "ROLE_USER", "ROLE_ADMIN" })
-    public JsonArray getClassicLibraryBooks() {
+    public Response getClassicLibraryBooks() {
         return bookService.getClassicLibraryBooks();
     }
 
     @GET
     @Path("/rental-service")
     @RolesAllowed({ "ROLE_USER", "ROLE_ADMIN" })
-    public JsonArray getUserRentalServiceBooks() {
+    public Response getUserRentalServiceBooks() {
         return bookService.getUserRentalServiceBooks();
     }
 
@@ -58,7 +58,7 @@ public class BookResource {
     @GET
     @Path("/{bookId}")
     @RolesAllowed("ROLE_USER")
-    public JsonStructure getBookById(@PathParam long bookId) {
+    public Response getBookById(@PathParam long bookId) {
         return bookService.getBookById(bookId);
     }
 
@@ -81,7 +81,7 @@ public class BookResource {
     @GET
     @Path("/ratings")
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
-    public JsonArray getBooksOrderedByAvgRate() {
+    public Response getBooksOrderedByAvgRate() {
         return bookService.getBooksOrderedByAvgRate();
     }
 

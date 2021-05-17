@@ -95,7 +95,7 @@ public class BookServiceImpl implements BookService {
         } else {
             book.setAvgRate(opinion.getGrade());
         }
-        bookRepository.save(book); //update naprawic
+        bookRepository.update(book); //update naprawic
         opinionRepository.save(opinion);
     }
 

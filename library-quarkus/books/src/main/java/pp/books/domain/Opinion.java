@@ -3,6 +3,7 @@ package pp.books.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 @Entity
@@ -14,7 +15,7 @@ public class Opinion extends PanacheEntity {
     private String review;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonbTransient
     private Book book;
 
     public Opinion() {

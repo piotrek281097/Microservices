@@ -46,14 +46,14 @@ public class UserDataResource {
     @GET
     @Path("/users")
     @RolesAllowed("ROLE_ADMIN")
-    public JsonArray getUsers() {
+    public Response getUsers() {
         return userDataService.getUsers();
     }
 
     @GET
     @Path("/{username}")
     @RolesAllowed({ "ROLE_USER", "ROLE_ADMIN" })
-    public JsonStructure getUserByUsername(@PathParam String username) {
+    public Response getUserByUsername(@PathParam String username) {
         return userDataService.getUserByUsername(username);
     }
 

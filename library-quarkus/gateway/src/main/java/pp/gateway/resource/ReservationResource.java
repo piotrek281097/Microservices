@@ -33,28 +33,28 @@ public class ReservationResource {
     @GET
     @Path("/classic-library")
     @RolesAllowed("ROLE_ADMIN")
-    public JsonArray getClassicLibraryReservations() {
+    public Response getClassicLibraryReservations() {
         return reservationService.getClassicLibraryReservations();
     }
 
     @GET
     @Path("/rental-service")
     @RolesAllowed("ROLE_ADMIN")
-    public JsonArray getUserRentalServiceReservations() {
+    public Response getUserRentalServiceReservations() {
         return reservationService.getUserRentalServiceReservations();
     }
 
     @GET
     @Path("/classic-library/{username}")
     @RolesAllowed("ROLE_USER")
-    public JsonArray getClassicLibraryReservationsForUser(@PathParam String username) {
+    public Response getClassicLibraryReservationsForUser(@PathParam String username) {
         return reservationService.getClassicLibraryReservationsForUser(username);
     }
 
     @GET
     @Path("/rental-service/{username}")
     @RolesAllowed("ROLE_USER")
-    public JsonArray getUserRentalServiceBooksForUser(@PathParam String username) {
+    public Response getUserRentalServiceBooksForUser(@PathParam String username) {
         return reservationService.getUserRentalServiceReservationsForUser(username);
     }
 

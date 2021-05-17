@@ -29,13 +29,13 @@ public interface UserDataService {
     @GET
     @Path("/users")
 //    @Secured("ROLE_ADMIN")
-    JsonArray getUsers();
+    Response getUsers();
 
 
     @GET
     @Path("/{username}")
 //    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
-    JsonStructure getUserByUsername(@PathParam String username);
+    Response getUserByUsername(@PathParam String username);
 
     @DELETE
     @Path("/delete/{userId}")

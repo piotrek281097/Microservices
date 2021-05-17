@@ -5,11 +5,11 @@ import pp.books.dto.OpinionDto;
 import pp.books.service.BookService;
 
 import javax.inject.Inject;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
+
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
+
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +31,7 @@ public class BookResource {
     @GET
     @Path("/classic-library")
 //    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
+    @Produces({MediaType.APPLICATION_JSON})
     public Response getClassicLibraryBooks() {
         return Response.ok().entity(bookService.getClassicLibraryBooks()).build();
     }
@@ -38,6 +39,7 @@ public class BookResource {
     @GET
     @Path("/rental-service")
 //    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
+    @Produces({MediaType.APPLICATION_JSON})
     public Response getUserRentalServiceBooks() {
         return Response.ok().entity(bookService.getUserRentalServiceBooks()).build();
     }
@@ -53,6 +55,7 @@ public class BookResource {
     @GET
     @Path("/{bookId}")
 //    @Secured("ROLE_USER")
+    @Produces({MediaType.APPLICATION_JSON})
     public Response getBookById(@PathParam long bookId) {
         return Response.ok(bookService.getBookById(bookId)).build();
     }
@@ -76,6 +79,7 @@ public class BookResource {
     @GET
     @Path("/ratings")
 //    @Secured({"ADMIN", "USER"})
+    @Produces({MediaType.APPLICATION_JSON})
     public Response getBooksOrderedByAvgRate() {
         return Response.ok(bookService.getBooksOrderedByAvgRate()).build();
     }

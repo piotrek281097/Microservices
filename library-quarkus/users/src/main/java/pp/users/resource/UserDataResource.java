@@ -6,6 +6,7 @@ import pp.users.service.UserDataService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collections;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
@@ -27,12 +28,14 @@ public class UserDataResource {
     @GET
     @Path("/users")
 //    @Secured("ROLE_ADMIN")
+    @Produces({MediaType.APPLICATION_JSON})
     public Response getUsers() {
         return Response.ok().entity(userDataService.getAllUsers()).build();
     }
     @GET
     @Path("/{username}")
 //    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
+    @Produces({MediaType.APPLICATION_JSON})
     public Response getUserByUsername(@PathParam String username) {
         return Response.ok().entity(userDataService.getUserByUsername(username)).build();
     }

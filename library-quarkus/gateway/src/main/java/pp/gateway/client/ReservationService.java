@@ -21,19 +21,19 @@ public interface ReservationService {
 
     @GET
     @Path("/classic-library")
-    JsonArray getClassicLibraryReservations();
+    Response getClassicLibraryReservations();
 
     @GET
     @Path("/rental-service")
-    JsonArray getUserRentalServiceReservations();
+    Response getUserRentalServiceReservations();
 
     @GET
     @Path("/classic-library/{username}")
-    JsonArray getClassicLibraryReservationsForUser(@PathParam String username);
+    Response getClassicLibraryReservationsForUser(@PathParam String username);
 
     @GET
     @Path("/rental-service/{username}")
-    JsonArray getUserRentalServiceReservationsForUser(@PathParam String username);
+    Response getUserRentalServiceReservationsForUser(@PathParam String username);
 
     @POST
     @Path("/update")
