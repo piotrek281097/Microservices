@@ -8,9 +8,6 @@ import pp.reservations.dto.BookUpdateStatusDto;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-//@Path("/")
-//@Consumes(MediaType.APPLICATION_JSON)
-//@Produces(MediaType.APPLICATION_JSON)
 @ApplicationScoped
 public class BooksToReservedProducer {
 
@@ -19,7 +16,6 @@ public class BooksToReservedProducer {
     Emitter<Record<Long, String>> emitterBookReserved;
 
     public void updateBookReserved(BookUpdateStatusDto book) {
-        System.out.println("Send message reserved");
         emitterBookReserved.send(Record.of(book.getReservationId(), book.getBookIdentifier()));
     }
 

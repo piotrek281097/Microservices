@@ -16,12 +16,12 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-
 public class ReservationServiceImpl implements ReservationService {
 
     private static final String ADMIN_USERNAME = "admin";
 
     private static final String BOOK_STATUS_AVAILABLE = "AVAILABLE";
+    public static final String BOOK_STATUS_RESERVED = "RESERVED";
 
     private final ReservationRepository reservationRepository;
 
@@ -42,7 +42,7 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setReservationIdentifier(uuid.toString().substring(0,10));
         long reservationId = reservationRepository.save(reservation);
 
-        booksToReservedProducer.updateBookReserved(new BookUpdateStatusDto(reservation.getBookIdentifier(), "RESERVED",
+        booksToReservedProducer.updateBookReserved(new BookUpdateStatusDto(reservation.getBookIdentifier(), BOOK_STATUS_RESERVED,
                 reservationId));
     }
 
@@ -78,7 +78,6 @@ public class ReservationServiceImpl implements ReservationService {
     @Transactional
     public void updateReservationStatus(ReservationUpdateStatusDto reservationUpdateStatusDto) {
         Optional<Reservation> reservation = reservationRepository.findByIdOptional(reservationUpdateStatusDto.getReservationId());
-        System.out.println(reservation);
         if (reservation.isPresent()) {
             reservation.get().setReservationStatus(ReservationStatus.valueOf(reservationUpdateStatusDto.getNewReservationStatus()));
             reservationRepository.update(reservation.get());

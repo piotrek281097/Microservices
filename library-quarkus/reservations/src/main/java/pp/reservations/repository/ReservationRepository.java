@@ -7,7 +7,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,7 +20,6 @@ public class ReservationRepository implements PanacheRepository<Reservation> {
         persist(reservation);
         flush();
         return reservation.getId();
-//        return find("reservationIdentifier", reservation.getReservationIdentifier()).firstResult();
     }
 
     public void update(Reservation reservation) {

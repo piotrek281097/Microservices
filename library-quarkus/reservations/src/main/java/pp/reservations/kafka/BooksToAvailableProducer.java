@@ -16,7 +16,6 @@ public class BooksToAvailableProducer {
     Emitter<Record<Long, String>> emitterBookAvailable;
 
     public void updateBookAvailable(BookUpdateStatusDto book) {
-        System.out.println("Send message available");
         emitterBookAvailable.send(Record.of(book.getReservationId(), book.getBookIdentifier()));
     }
 }
