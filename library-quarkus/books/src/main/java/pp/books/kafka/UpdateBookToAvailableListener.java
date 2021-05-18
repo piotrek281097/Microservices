@@ -23,7 +23,6 @@ public class UpdateBookToAvailableListener {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                System.out.println("RUN RUN ava");
                 bookService.updateBookStatus(new BookUpdateStatusDto(record.value(), "AVAILABLE", record.key()));
             }
         };

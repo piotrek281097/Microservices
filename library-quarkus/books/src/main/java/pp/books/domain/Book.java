@@ -1,6 +1,5 @@
 package pp.books.domain;
 
-
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import pp.books.enums.BookKind;
 import pp.books.enums.BookStatus;
@@ -9,10 +8,8 @@ import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 
 @Entity
 @Table(name = "books")

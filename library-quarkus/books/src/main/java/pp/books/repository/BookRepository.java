@@ -1,6 +1,5 @@
 package pp.books.repository;
 
-import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import pp.books.domain.Book;
 
@@ -29,7 +28,6 @@ public class BookRepository implements PanacheRepository<Book> {
 
     public void update(Book book) {
         entityManager.merge(book);
-//        persist(book);
     }
 
     public List<Book> findByOwnerUsername(String ownerUsername) {

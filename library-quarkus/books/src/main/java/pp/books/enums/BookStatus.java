@@ -6,7 +6,7 @@ public enum BookStatus {
 
     public final String status;
 
-    private BookStatus(String status) {
+    BookStatus(String status) {
         this.status = status;
     }
 

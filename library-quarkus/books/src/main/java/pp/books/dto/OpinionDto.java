@@ -1,8 +1,6 @@
 package pp.books.dto;
 
-
 import pp.books.domain.Book;
-
 import java.io.Serializable;
 
 public class OpinionDto implements Serializable {

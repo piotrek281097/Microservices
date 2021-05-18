@@ -1,6 +1,5 @@
 package pp.books.service;
 
-
 import pp.books.domain.Book;
 import pp.books.domain.Opinion;
 import pp.books.dto.BookUpdateStatusDto;
@@ -13,8 +12,6 @@ import pp.books.repository.OpinionRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.control.ActivateRequestContext;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
@@ -26,12 +23,11 @@ import java.util.stream.Collectors;
 @ActivateRequestContext
 public class BookServiceImpl implements BookService {
 
-    @Inject
-    EntityManager entityManager;
-
     private static final String ADMIN_USERNAME = "admin";
+    public static final String RESERVATION_STATUS_FINISHED = "FINISHED";
+    public static final String RESERVATION_STATUS_ACTIVE = "ACTIVE";
 
-    private final ReservationsProducer reservationsProducer; // kafka
+    private final ReservationsProducer reservationsProducer;
 
     private final BookRepository bookRepository;
 
@@ -114,13 +110,12 @@ public class BookServiceImpl implements BookService {
             book.get().setBookStatus(BookStatus.valueOf(bookUpdateStatusDto.getNewBookStatus()));
             bookRepository.update(book.get());
         }
-        System.out.println("status " + bookUpdateStatusDto.getNewBookStatus());
         if (BookStatus.AVAILABLE.toString().equals(bookUpdateStatusDto.getNewBookStatus())) {
             reservationsProducer.updateReservationStatus(
-                    new ReservationUpdateStatusDto("FINISHED", bookUpdateStatusDto.getReservationId()));
+                    new ReservationUpdateStatusDto(RESERVATION_STATUS_FINISHED, bookUpdateStatusDto.getReservationId()));
         } else {
             reservationsProducer.updateReservationStatus(
-                    new ReservationUpdateStatusDto("ACTIVE", bookUpdateStatusDto.getReservationId()));
+                    new ReservationUpdateStatusDto(RESERVATION_STATUS_ACTIVE, bookUpdateStatusDto.getReservationId()));
         }
     }
 

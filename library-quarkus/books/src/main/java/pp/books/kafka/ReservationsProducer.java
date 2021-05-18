@@ -16,7 +16,6 @@ public class ReservationsProducer {
     Emitter<Record<Long, String>> emitter;
 
     public void updateReservationStatus(ReservationUpdateStatusDto reservationUpdateStatusDto) {
-        System.out.println("Send message");
         emitter.send(Record.of(reservationUpdateStatusDto.getReservationId(), reservationUpdateStatusDto.getNewReservationStatus()));
     }
 

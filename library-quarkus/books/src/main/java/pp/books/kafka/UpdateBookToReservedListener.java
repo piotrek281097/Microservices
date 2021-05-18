@@ -25,17 +25,6 @@ public class UpdateBookToReservedListener {
     public void receiveBookReserved(Record<Long, String> record) {
         logger.infof("Got a reserved book: %d - %s", record.key(), record.value());
 
-        // UPDATE NIE DZIALA!!!
-
-//        Optional<Book> book = Optional.of(bookRepository.findByIdentifier(record.value()));
-//        book.get().setBookStatus(BookStatus.valueOf("RESERVED"));
-//        bookRepository.update(book.get());
-
-//        String value = record.value();
-//
-//        String jql = "update Book as b set b.bookStatus='RESERVED' where b.identifier = " + value;
-//        entityManager.createQuery(jql);
-
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -46,7 +35,5 @@ public class UpdateBookToReservedListener {
 
         Thread thread = new Thread(runnable);
         thread.start();
-
-//        bookService.updateBookStatus(new BookUpdateStatusDto(record.value(), "RESERVED", record.key()));
     }
 }
