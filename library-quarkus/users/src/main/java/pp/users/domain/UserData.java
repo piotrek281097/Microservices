@@ -21,7 +21,7 @@ public class UserData extends PanacheEntity {
     @NotBlank
     public String name;
 
-    @NotBlank //zmien na notNull?
+    @NotBlank
     public String surname;
 
     @NotBlank
