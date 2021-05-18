@@ -20,8 +20,6 @@ public class ErrorFilter extends ZuulFilter {
 
     @Override
     public Object run() {
-        System.out.println("Using error Filter");
-
         return null;
     }
 }

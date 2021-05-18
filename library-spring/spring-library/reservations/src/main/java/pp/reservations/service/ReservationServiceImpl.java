@@ -32,7 +32,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void addReservation(Reservation reservation) {
         UUID uuid = UUID.randomUUID();
-        reservation.setReservationIdentifier(uuid.toString().substring(0,10));
+        reservation.setReservationIdentifier(uuid.toString().substring(0, 10));
         Reservation savedReservation = reservationRepository.save(reservation);
 
         booksProducer.sendMessage(new BookUpdateStatusDto(reservation.getBookIdentifier(), "RESERVED",

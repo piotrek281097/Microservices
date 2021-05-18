@@ -15,7 +15,7 @@ public class UpdateBookListener {
 
     private final Logger logger = LoggerFactory.getLogger(Producer.class);
 
-    private BookService bookService;
+    private final BookService bookService;
 
     public UpdateBookListener(BookService bookService) {
         this.bookService = bookService;

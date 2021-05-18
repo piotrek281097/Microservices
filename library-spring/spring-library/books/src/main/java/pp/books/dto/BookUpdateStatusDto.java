@@ -1,6 +1,5 @@
 package pp.books.dto;
 
-
 import lombok.Data;
 
 import java.io.Serializable;

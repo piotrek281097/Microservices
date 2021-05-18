@@ -25,10 +25,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         try{
             String jwt = parseJwt(httpServletRequest);
-            System.out.println("Filter test");
             if(jwt != null && jwtUtils.validateJwtToken(jwt)){
                 UserDetails userDetails = userDetailServiceImpl.loadUserByUsername(jwtUtils.getUsernameByToken(jwt));
-                System.out.println(userDetails.getAuthorities().size() + " " + userDetails.getUsername());
                 UsernamePasswordAuthenticationToken passwordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails.getUsername(), null, userDetails.getAuthorities()
                 );
@@ -44,7 +42,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     }
 
     public String parseJwt(HttpServletRequest httpServletRequest) {
-        System.out.println("Authorization test");
         String headerAuthentication = httpServletRequest.getHeader("Authorization");
 
         if(StringUtils.hasText(headerAuthentication) && headerAuthentication.startsWith("Bearer ")){

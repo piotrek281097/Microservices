@@ -30,7 +30,7 @@ public class UserData {
     @NotBlank
     private String name;
 
-    @NotBlank //zmien na notNull?
+    @NotBlank
     private String surname;
 
     @NotBlank

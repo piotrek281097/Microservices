@@ -1,7 +1,6 @@
 package pp.books.service;
 
 
-
 import org.springframework.stereotype.Service;
 import pp.books.domain.Book;
 import pp.books.domain.Opinion;

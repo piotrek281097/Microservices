@@ -20,8 +20,6 @@ public class PostFilter extends ZuulFilter {
 
     @Override
     public Object run() {
-        System.out.println("Using Post Filter");
-
         return null;
     }
 }

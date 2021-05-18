@@ -26,26 +26,22 @@ public class UserDataController {
     }
 
     @GetMapping("/users/users")
-//    @Secured("ROLE_ADMIN")
     public ResponseEntity<List<UserData>> getUsers() {
         return new ResponseEntity<>(userDataService.getAllUsers(), HttpStatus.OK);
     }
 
     @GetMapping("/users/{username}")
-//    @Secured({ "ROLE_USER", "ROLE_ADMIN" })
     public ResponseEntity<UserData> getUserByUsername(@PathVariable String username) {
         return new ResponseEntity<>(userDataService.getUserByUsername(username), HttpStatus.OK);
     }
 
     @DeleteMapping("/users/delete/{userId}")
-//    @Secured("ROLE_ADMIN")
     public ResponseEntity<?> deleteUserById(@PathVariable long userId) {
         userDataService.deleteUserById(userId);
         return new ResponseEntity<>(Collections.singletonMap("msg", "OK"), HttpStatus.OK);
     }
 
     @PostMapping("/users/update")
-//    @Secured("ROLE_USER")
     public ResponseEntity<?> updateUser(@RequestBody UserData userData) {
         userDataService.updateUser(userData);
         return new ResponseEntity<>(Collections.singletonMap("msg", "OK"), HttpStatus.OK);

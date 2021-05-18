@@ -15,7 +15,7 @@ public class UpdateReservationListener {
 
     private final Logger logger = LoggerFactory.getLogger(Producer.class);
 
-    private ReservationService reservationService;
+    private final ReservationService reservationService;
 
     public UpdateReservationListener(ReservationService reservationService) {
         this.reservationService = reservationService;
