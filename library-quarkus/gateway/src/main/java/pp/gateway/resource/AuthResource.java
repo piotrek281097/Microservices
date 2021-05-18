@@ -32,11 +32,6 @@ public class AuthResource {
         if (ADMIN_USERNAME.equals(userData.getUsername())
             && ADMIN_PASSWORD.equals(userData.getPassword())) {
             return Response.ok(new JwtDto(tokenService.generateUserToken(userData.getUsername(), "ROLE_ADMIN"), Collections.singletonList("ROLE_ADMIN"))).build();
-
-//            UserData adminData = new UserData(
-//                    "$2a$10$PH0p2x2x8oi5bKx.80Bt7ubMAiHdZnqm9TC/Cpss9VoccyTYw1AoC", //nimda
-//                    "admin"
-//            );
         }
         ResponseEntity responseEntity = responseEntityService.checkForUser(userData);
         if(responseEntity.isValid()){

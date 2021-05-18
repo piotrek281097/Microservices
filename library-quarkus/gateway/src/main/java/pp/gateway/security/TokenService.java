@@ -9,7 +9,6 @@ import org.jose4j.jwt.consumer.JwtConsumer;
 import org.jose4j.jwt.consumer.JwtConsumerBuilder;
 
 import javax.enterprise.context.RequestScoped;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 
