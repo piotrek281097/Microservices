@@ -8,6 +8,14 @@ public class ReservationUpdateStatusDto implements Serializable {
 
     private Long reservationId;
 
+    public ReservationUpdateStatusDto() {
+    }
+
+    public ReservationUpdateStatusDto(Long reservationId, String newReservationStatus) {
+        this.newReservationStatus = newReservationStatus;
+        this.reservationId = reservationId;
+    }
+
     public String getNewReservationStatus() {
         return newReservationStatus;
     }

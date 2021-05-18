@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,11 +19,8 @@ public class BookRepository implements PanacheRepository<Book> {
     @Inject
     EntityManager entityManager;
 
-    public Book findByIdentifier(String identifier){
-        PanacheQuery<Book> query = find("identifier", identifier);
-        return query != null
-                ? query.firstResult()
-                : null;
+    public Optional<Book> findByIdentifier(String identifier){
+        return find("identifier", identifier).firstResultOptional();
     }
 
     public void save(Book book) {

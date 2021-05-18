@@ -1,8 +1,6 @@
 package pp.books.repository;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
-import org.graalvm.compiler.nodes.calc.IntegerDivRemNode;
-import pp.books.domain.Book;
 import pp.books.domain.Opinion;
 
 import javax.enterprise.context.ApplicationScoped;

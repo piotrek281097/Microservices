@@ -13,6 +13,12 @@ public class BookUpdateStatusDto implements Serializable {
     public BookUpdateStatusDto() {
     }
 
+    public BookUpdateStatusDto(String bookIdentifier, String newBookStatus, Long reservationId) {
+        this.bookIdentifier = bookIdentifier;
+        this.newBookStatus = newBookStatus;
+        this.reservationId = reservationId;
+    }
+
     public String getBookIdentifier() {
         return bookIdentifier;
     }

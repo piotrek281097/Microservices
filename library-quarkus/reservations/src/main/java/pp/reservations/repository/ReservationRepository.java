@@ -24,6 +24,10 @@ public class ReservationRepository implements PanacheRepository<Reservation> {
 //        return find("reservationIdentifier", reservation.getReservationIdentifier()).firstResult();
     }
 
+    public void update(Reservation reservation) {
+        entityManager.merge(reservation);
+    }
+
     public List<Reservation> findByOwnerUsername(String ownerUsername) {
         return find("ownerUsername", ownerUsername).list();
     }

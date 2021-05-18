@@ -60,7 +60,7 @@ public class ReservationResource {
 
     @POST
     @Path("/update")
-    @RolesAllowed({"ADMIN", "USER"})
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     public Response updateReservation(String reservation) {
         reservationService.updateReservation(reservation);
         return Response.ok(Collections.singletonMap("msg", "OK")).build();

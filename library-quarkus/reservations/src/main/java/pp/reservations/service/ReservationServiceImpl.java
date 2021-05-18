@@ -4,6 +4,8 @@ import pp.reservations.domain.Reservation;
 import pp.reservations.dto.BookUpdateStatusDto;
 import pp.reservations.dto.ReservationUpdateStatusDto;
 import pp.reservations.enums.ReservationStatus;
+import pp.reservations.kafka.BooksToAvailableProducer;
+import pp.reservations.kafka.BooksToReservedProducer;
 import pp.reservations.repository.ReservationRepository;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -23,16 +25,14 @@ public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationRepository reservationRepository;
 
-//    private final BooksProducer booksProducer; kafka
+    private final BooksToReservedProducer booksToReservedProducer;
 
-//    public ReservationServiceImpl(ReservationRepository reservationRepository, BooksProducer booksProducer) {
-//        this.reservationRepository = reservationRepository;
-//        this.booksProducer = booksProducer;
-//    }
+    private final BooksToAvailableProducer booksToAvailableProducer;
 
-
-    public ReservationServiceImpl(ReservationRepository reservationRepository) {
+    public ReservationServiceImpl(ReservationRepository reservationRepository, BooksToReservedProducer booksToReservedProducer, BooksToAvailableProducer booksToAvailableProducer) {
         this.reservationRepository = reservationRepository;
+        this.booksToReservedProducer = booksToReservedProducer;
+        this.booksToAvailableProducer = booksToAvailableProducer;
     }
 
     @Override
@@ -42,8 +42,8 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setReservationIdentifier(uuid.toString().substring(0,10));
         long reservationId = reservationRepository.save(reservation);
 
-//        booksProducer.sendMessage(new BookUpdateStatusDto(reservation.getBookIdentifier(), "RESERVED",
-//                reservationId));
+        booksToReservedProducer.updateBookReserved(new BookUpdateStatusDto(reservation.getBookIdentifier(), "RESERVED",
+                reservationId));
     }
 
     @Override
@@ -70,17 +70,18 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public void updateReservation(Reservation reservation) {
-//        kafka
-//        booksProducer.sendMessage(new BookUpdateStatusDto(reservation.getBookIdentifier(), BOOK_STATUS_AVAILABLE,
-//                reservation.getId()));
+        booksToAvailableProducer.updateBookAvailable(new BookUpdateStatusDto(reservation.getBookIdentifier(), BOOK_STATUS_AVAILABLE,
+                reservation.getId()));
     }
 
     @Override
+    @Transactional
     public void updateReservationStatus(ReservationUpdateStatusDto reservationUpdateStatusDto) {
         Optional<Reservation> reservation = reservationRepository.findByIdOptional(reservationUpdateStatusDto.getReservationId());
+        System.out.println(reservation);
         if (reservation.isPresent()) {
             reservation.get().setReservationStatus(ReservationStatus.valueOf(reservationUpdateStatusDto.getNewReservationStatus()));
-            reservationRepository.save(reservation.get());
+            reservationRepository.update(reservation.get());
         }
     }
 }
