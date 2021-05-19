@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ReservationDto} from '../../../models/reservationDto';
 import {ReservationService} from '../../../services/reservation.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-classic-library-user-reservations-list',
@@ -10,7 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class ClassicLibraryUserReservationsListComponent implements OnInit {
 
-  reservations: ReservationDto[];
+  public dataSource = new MatTableDataSource<ReservationDto>();
   username: string;
 
   constructor(private reservationService: ReservationService,
@@ -21,7 +22,9 @@ export class ClassicLibraryUserReservationsListComponent implements OnInit {
     this.username = this.route.snapshot.paramMap.get('username');
 
     this.reservationService.getClassicLibraryReservationsForUser(this.username).subscribe(data => {
-      this.reservations = data;
+      if (data.length > 0) {
+        this.dataSource.data = data;
+      }
     });
   }
 

@@ -17,7 +17,7 @@ public class BooksController {
     }
 
     @Post("/books/add")
-    @Secured({"ADMIN", "USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public HttpResponse addBook(@Body String book) {
         try {
             return booksOperations.addBook(book);
@@ -27,43 +27,43 @@ public class BooksController {
     }
 
     @Get("/books/classic-library")
-    @Secured({"ADMIN", "USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public HttpResponse getClassicLibraryBooks() {
         return booksOperations.getClassicLibraryBooks();
     }
 
     @Get("/books/rental-service")
-    @Secured({"ADMIN", "USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public HttpResponse getUserRentalServiceBooks() {
         return booksOperations.getUserRentalServiceBooks();
     }
 
     @Delete("/books/delete/{bookId}")
-    @Secured({"ADMIN", "USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public HttpResponse deleteBookById(@PathVariable long bookId) {
         return booksOperations.deleteBookById(bookId);
     }
 
     @Get("/books/{bookId}")
-    @Secured("USER")
+    @Secured("ROLE_USER")
     public HttpResponse getBookById(@PathVariable long bookId) {
         return booksOperations.getBookById(bookId);
     }
 
     @Post("/books/update")
-    @Secured({"ADMIN", "USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public HttpResponse updateBook(@Body String book) {
         return booksOperations.updateBook(book);
     }
 
     @Post("/books/add-opinion")
-    @Secured("USER")
+    @Secured("ROLE_USER")
     public HttpResponse addOpinion(@Body String opinionDto) {
         return booksOperations.addOpinion(opinionDto);
     }
 
     @Get("/books/ratings")
-    @Secured({"ADMIN", "USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public HttpResponse getBooksOrderedByAvgRate() {
         return booksOperations.getBooksOrderedByAvgRate();
     }

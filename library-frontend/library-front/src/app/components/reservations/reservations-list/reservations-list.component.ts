@@ -6,6 +6,7 @@ import {Book} from '../../../models/book';
 import {UserService} from '../../../services/user.service';
 import {ToastrService} from 'ngx-toastr';
 import {BookService} from '../../../services/book.service';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-reservations-list',
@@ -14,14 +15,28 @@ import {BookService} from '../../../services/book.service';
 })
 export class ReservationsListComponent implements OnInit {
 
-  @Input() reservations: ReservationDto[];
-
+  // @Input() reservations: ReservationDto[];
+  @Input() dataSource: MatTableDataSource<ReservationDto>;
   configReservationsPage: any;
   role: string;
   username: string;
 
+  displayedColumns: string[] = [
+    'No',
+    'Identifier',
+    'BookTitle',
+    'StartDate',
+    'EndDate',
+    'From',
+    'To',
+    'Status',
+    'Return',
+  ];
+
   reservationToUpdate: ReservationDto;
   bookToUpdate: Book;
+  rowNumberStart = 1;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -32,7 +47,7 @@ export class ReservationsListComponent implements OnInit {
     private router: Router
   ) {
     this.configReservationsPage = {
-      itemsPerPage: 5,
+      itemsPerPage: 10,
       currentPage: 1,
       totalItems: 0,
       id: 'pagination1'
@@ -42,9 +57,10 @@ export class ReservationsListComponent implements OnInit {
   ngOnInit() {
     this.role = localStorage.getItem('role');
     this.username = this.userService.getUserDetails().sub;
+    this.rowNumberStart = 1;
 
-    if (this.reservations !== undefined) {
-      this.configReservationsPage.totalItems = this.reservations.length;
+    if (this.dataSource.data !== undefined) {
+      this.configReservationsPage.totalItems = this.dataSource.data.length;
     }
   }
 
@@ -70,6 +86,7 @@ export class ReservationsListComponent implements OnInit {
   }
 
   pageChangedReservations(event) {
-    this.configReservationsPage.currentPage = event;
+    this.configReservationsPage.currentPage = event.pageIndex;
+    this.configReservationsPage.itemsPerPage = event.pageSize;
   }
 }

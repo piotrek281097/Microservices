@@ -4,10 +4,11 @@ import {Book} from '../../../models/book';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {UserService} from '../../../services/user.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatTableDataSource} from '@angular/material';
 import {RateBookComponent} from '../rate-book/rate-book.component';
 import {Opinion} from '../../../models/opinion';
 import {ConfirmDeleteBookComponent} from '../../confirm-delete-book/confirm-delete-book.component';
+import {UserData} from '../../../models/user-data';
 
 @Component({
   selector: 'app-books-list',
@@ -16,13 +17,30 @@ import {ConfirmDeleteBookComponent} from '../../confirm-delete-book/confirm-dele
 })
 export class BooksListComponent implements OnInit {
 
-  @Input() books: Book[];
+  @Input() dataSource: MatTableDataSource<Book>;
   @Input() libraryType: string;
+
+  displayedColumns: string[] = [
+    'No',
+    'Title',
+    'Author',
+    'Identifier',
+    'BookKind',
+    'ReleaseDate',
+    'Owner',
+    'Reserve',
+    'Rate',
+    'Delete'
+  ];
+
+  // public dataSource = new MatTableDataSource<Book>();
 
   config: any;
 
   pageSize = 2;
   pageNumber = 0;
+
+  rowNumberStart = 1;
 
   searchText: any = { title: '', author: '', identifier: '', bookKind: ''};
   role: string;
@@ -33,6 +51,8 @@ export class BooksListComponent implements OnInit {
               private toastrService: ToastrService,
               private dialog: MatDialog,
               private router: Router) {
+    // this.dataSource.data = this.books;
+
     this.config = {
       itemsPerPage: 10,
       currentPage: 1,
@@ -43,8 +63,14 @@ export class BooksListComponent implements OnInit {
   ngOnInit() {
     this.role = localStorage.getItem('role');
     this.username = this.userService.getUserDetails().sub;
-    if (this.books !== undefined) {
-      this.config.totalItems = this.books.length;
+    this.rowNumberStart = 1;
+    // this.dataSource.data = this.books;
+    // console.log(this.books[0].title)
+
+    if (this.dataSource.data !== undefined) {
+      // console.log(this.books[0].title)
+      // this.dataSource.data = this.books;
+      this.config.totalItems = this.dataSource.data.length;
     }
   }
 
@@ -73,7 +99,9 @@ export class BooksListComponent implements OnInit {
   }
 
   pageChanged(event) {
-    this.config.currentPage = event;
+    this.config.currentPage = event.pageIndex;
+    this.config.itemsPerPage = event.pageSize;
+    this.pageSize = event.pageSize;
   }
 
   rateBook(book: Book): void {

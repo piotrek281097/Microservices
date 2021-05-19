@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ReservationDto} from '../../../models/reservationDto';
 import {ReservationService} from '../../../services/reservation.service';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-rental-service-reservations-list',
@@ -10,12 +11,15 @@ import {ReservationService} from '../../../services/reservation.service';
 export class RentalServiceReservationsListComponent implements OnInit {
 
   reservations: ReservationDto[];
+  public dataSource = new MatTableDataSource<ReservationDto>();
 
   constructor(private reservationService: ReservationService) { }
 
   ngOnInit() {
     this.reservationService.getUserRentalServiceReservations().subscribe(data => {
-      this.reservations = data;
+      if (data.length > 0) {
+        this.dataSource.data = data;
+      }
     });
   }
 

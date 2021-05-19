@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Book} from '../../../models/book';
 import {BookService} from '../../../services/book.service';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-rental-service-books-list',
@@ -9,15 +10,19 @@ import {BookService} from '../../../services/book.service';
 })
 export class RentalServiceBooksListComponent implements OnInit {
 
-  private books: Book[];
   private libraryType: string;
+
+  public dataSource = new MatTableDataSource<Book>();
+
 
   constructor(private bookService: BookService) { }
 
   ngOnInit() {
     this.bookService.getUserRentalServiceBooks().subscribe(data => {
-      this.books = data;
       this.libraryType = 'rental-service';
+      if (data.length > 0) {
+        this.dataSource.data = data;
+      }
     });
   }
 

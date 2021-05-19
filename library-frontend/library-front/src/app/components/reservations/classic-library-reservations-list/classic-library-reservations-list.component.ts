@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ReservationDto} from '../../../models/reservationDto';
 import {ReservationService} from '../../../services/reservation.service';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-classic-library-reservations-list',
@@ -8,13 +9,16 @@ import {ReservationService} from '../../../services/reservation.service';
   styleUrls: ['./classic-library-reservations-list.component.css']
 })
 export class ClassicLibraryReservationsListComponent implements OnInit {
-  reservations: ReservationDto[];
+
+  public dataSource = new MatTableDataSource<ReservationDto>();
 
   constructor(private reservationService: ReservationService) { }
 
   ngOnInit() {
     this.reservationService.getClassicLibraryReservations().subscribe(data => {
-      this.reservations = data;
+      if (data.length > 0) {
+        this.dataSource.data = data;
+      }
     });
   }
 

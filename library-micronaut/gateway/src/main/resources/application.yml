@@ -59,9 +59,9 @@ micronaut:
 #end::httpservices[]
 credentials:
   users:
-    admin: admin123
+    admin: nimda
   roles:
-    admin: ADMIN
+    admin: ROLE_ADMIN
 datasources:
   default:
     url: jdbc:mysql://localhost:3306/micronaut_users?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC

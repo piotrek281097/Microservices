@@ -28,7 +28,7 @@ public class UserDataController {
     }
 
     @Get("/users")
-    @Secured("ADMIN")
+    @Secured("ROLE_ADMIN")
     public HttpResponse<List<UserData>> getUsers() {
         return HttpResponse.ok(userDataService.getAllUsers());
     }
@@ -40,14 +40,14 @@ public class UserDataController {
     }
 
     @Delete("/users/delete/{userId}")
-    @Secured("ADMIN")
+    @Secured("ROLE_ADMIN")
     public HttpResponse<?> deleteUserById(@PathVariable long userId) {
         userDataService.deleteUserById(userId);
         return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
     }
 
     @Post("/users/update")
-    @Secured("USER")
+    @Secured("ROLE_USER")
     public HttpResponse updateUser(@Body UserData userData) {
         userDataService.updateUser(userData);
         return HttpResponse.ok(Collections.singletonMap("msg", "OK"));

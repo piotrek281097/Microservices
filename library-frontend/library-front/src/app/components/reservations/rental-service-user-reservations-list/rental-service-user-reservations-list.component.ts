@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ReservationDto} from '../../../models/reservationDto';
 import {ReservationService} from '../../../services/reservation.service';
 import {ActivatedRoute} from '@angular/router';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-rental-service-user-reservations-list',
@@ -10,7 +11,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class RentalServiceUserReservationsListComponent implements OnInit {
 
-  reservations: ReservationDto[];
+  public dataSource = new MatTableDataSource<ReservationDto>();
   username: string;
 
   constructor(private reservationService: ReservationService,
@@ -21,7 +22,9 @@ export class RentalServiceUserReservationsListComponent implements OnInit {
     this.username = this.route.snapshot.paramMap.get('username');
 
     this.reservationService.getUserRentalServiceReservationsForUser(this.username).subscribe(data => {
-      this.reservations = data;
+      if (data.length > 0) {
+        this.dataSource.data = data;
+      }
     });
   }
 

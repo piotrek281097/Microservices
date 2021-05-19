@@ -8,7 +8,15 @@ import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import {MatNativeDateModule} from '@angular/material/core';
 
-import {MatMenuModule, MatIconModule, MatTableModule, MatGridListModule, MatRadioModule} from '@angular/material';
+import {
+  MatMenuModule,
+  MatIconModule,
+  MatTableModule,
+  MatGridListModule,
+  MatRadioModule,
+  MatPaginatorModule,
+  MatSortModule
+} from '@angular/material';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -113,6 +121,8 @@ import { ConfirmDeleteBookComponent } from './components/confirm-delete-book/con
     MatGridListModule,
     MatRadioModule,
     NgbRatingModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   entryComponents: [RateBookComponent, ConfirmDeleteUserComponent, ConfirmDeleteBookComponent],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }],

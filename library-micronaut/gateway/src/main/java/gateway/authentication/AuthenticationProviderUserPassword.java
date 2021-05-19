@@ -34,13 +34,12 @@ public class AuthenticationProviderUserPassword implements AuthenticationProvide
         return Maybe.<AuthenticationResponse>create(emitter -> {
             if (foundUser.isEmpty()) {
                 if (!usersStore.users.get(username).isEmpty() && usersStore.users.get(username).equals(authenticationRequest.getSecret().toString())) {
-                    System.out.println("ADMIN");
                     emitter.onSuccess(new UserDetails(username, Collections.singletonList(usersStore.roles.get(username))));
                 } else {
                     emitter.onError(new AuthenticationException(new AuthenticationFailed()));
                 }
             } else if (passwordEncoder.matches(authenticationRequest.getSecret().toString(), foundUser.get().getPassword())) {
-                emitter.onSuccess(new UserDetails(foundUser.get().getUsername(), Collections.singletonList("USER")));
+                emitter.onSuccess(new UserDetails(foundUser.get().getUsername(), Collections.singletonList("ROLE_USER")));
             } else {
                 emitter.onError(new AuthenticationException(new AuthenticationFailed()));
             }

@@ -19,38 +19,38 @@ public class ReservationController {
     }
 
     @Post("/reservations/add")
-    @Secured("USER")
+    @Secured("ROLE_USER")
     public HttpResponse addReservation(@Body Reservation reservation) {
         reservationService.addReservation(reservation);
         return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
     }
 
     @Get("/reservations/classic-library")
-    @Secured("ADMIN")
+    @Secured("ROLE_ADMIN")
     public HttpResponse<List<Reservation>> getClassicLibraryReservations() {
         return HttpResponse.ok(reservationService.getClassicLibraryReservations());
     }
 
     @Get("/reservations/rental-service")
-    @Secured("ADMIN")
+    @Secured("ROLE_ADMIN")
     public HttpResponse<List<Reservation>> getUserRentalServiceReservations() {
         return HttpResponse.ok(reservationService.getUserRentalServiceReservations());
     }
 
     @Get("/reservations/classic-library/{username}")
-    @Secured("USER")
+    @Secured("ROLE_USER")
     public HttpResponse<List<Reservation>> getClassicLibraryReservationsForUser(@PathVariable String username) {
         return HttpResponse.ok(reservationService.getClassicLibraryReservationsForUser(username));
     }
 
     @Get("/reservations/rental-service/{username}")
-    @Secured("USER")
+    @Secured("ROLE_USER")
     public HttpResponse<List<Reservation>> getUserRentalServiceBooksForUser(@PathVariable String username) {
         return HttpResponse.ok(reservationService.getUserRentalServiceReservationsForUser(username));
     }
 
     @Post("/reservations/update")
-    @Secured({"ADMIN", "USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public HttpResponse updateReservation(@Body Reservation reservation) {
         reservationService.updateReservation(reservation);
         return HttpResponse.ok(Collections.singletonMap("msg", "OK"));

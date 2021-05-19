@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {UserData} from '../../../models/user-data';
 import {ToastrService} from 'ngx-toastr';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatTableDataSource} from '@angular/material';
 import {ConfirmDeleteUserComponent} from '../../confirm-delete-user/confirm-delete-user.component';
 
 @Component({
@@ -13,10 +13,22 @@ import {ConfirmDeleteUserComponent} from '../../confirm-delete-user/confirm-dele
 })
 export class UsersListComponent implements OnInit {
 
+
+  displayedColumns: string[] = [
+    'No',
+    'Name',
+    'Surname',
+    'Pesel',
+    'Telephone',
+    'Details'
+  ];
+
+  public dataSource = new MatTableDataSource<UserData>();
   users: UserData[];
 
+  rowNumberStart = 1;
+  searchTitle: '';
   config: any;
-
   pageSize = 2;
   pageNumber = 0;
 
@@ -33,8 +45,12 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getAllUsers().subscribe(data => {
+      this.dataSource.data = data;
       this.users = data;
-      this.config.totalItems = data.length;
+      this.rowNumberStart = 1;
+      if (data != null) {
+        this.config.totalItems = data.length;
+      }
     });
   }
 
@@ -54,7 +70,10 @@ export class UsersListComponent implements OnInit {
   }
 
   pageChanged(event) {
-    this.config.currentPage = event;
+    // this.config.currentPage = event;
+    this.config.currentPage = event.pageIndex;
+    this.config.itemsPerPage = event.pageSize;
+    this.pageSize = event.pageSize;
   }
 
 }

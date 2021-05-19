@@ -20,53 +20,53 @@ public class BookController {
     }
 
     @Post("/books/add")
-    @Secured({"ADMIN", "USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public HttpResponse addBook(@Body Book book) {
         bookService.addBook(book);
         return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
     }
 
     @Get("/books/classic-library")
-    @Secured({"ADMIN", "USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public HttpResponse<List<Book>> getClassicLibraryBooks() {
         return HttpResponse.ok(bookService.getClassicLibraryBooks());
     }
 
     @Get("/books/rental-service")
-    @Secured({"ADMIN", "USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public HttpResponse<List<Book>> getUserRentalServiceBooks() {
         return HttpResponse.ok(bookService.getUserRentalServiceBooks());
     }
 
     @Delete("/books/delete/{bookId}")
-    @Secured({"ADMIN", "USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public HttpResponse deleteBookById(@PathVariable long bookId) {
         bookService.deleteBookById(bookId);
         return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
     }
 
     @Get("/books/{bookId}")
-    @Secured("USER")
+    @Secured("ROLE_USER")
     public HttpResponse<Book> getBookById(@PathVariable long bookId) {
         return HttpResponse.ok(bookService.getBookById(bookId));
     }
 
     @Post("/books/update")
-    @Secured({"ADMIN", "USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public HttpResponse updateBook(@Body Book book) {
         bookService.updateBook(book);
         return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
     }
 
     @Post("/books/add-opinion")
-    @Secured("USER")
+    @Secured("ROLE_USER")
     public HttpResponse addOpinion(@Body OpinionDto opinionDto) {
         bookService.addOpinion(opinionDto);
         return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
     }
 
     @Get("/books/ratings")
-    @Secured({"ADMIN", "USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public HttpResponse<List<Book>> getBooksOrderedByAvgRate() {
         return HttpResponse.ok(bookService.getBooksOrderedByAvgRate());
     }

@@ -34,7 +34,7 @@
 .form-control{
   height: 40px;
   padding: 0px;
-  font-size: 30px;
+  font-size: 20px;
   margin: 5px 0;
 }
 
@@ -69,4 +69,12 @@
   padding-left: 5px;
   padding-top: 2px;
   color: #401F7C
+}
+
+.mat-row:nth-child(even){
+  background-color: white;
+}
+
+.mat-row:nth-child(odd){
+  background-color: #F0F8FF;
 }

@@ -1,36 +1,103 @@
 <div class="main">
   <h2 style="text-align: center">Reservations</h2>
-  <br>
-  <table class="table table-bordered table-striped">
-    <thead class="thead-dark">
-    <tr>
-      <th scope="col">No</th>
-      <th scope="col">Identifier</th>
-      <th scope="col">Book title</th>
-      <th scope="col">Start date</th>
-      <th scope="col">End date</th>
-      <th scope="col">From</th>
-      <th scope="col">To</th>
-      <th scope="col">Status</th>
-      <th scope="col">Actions</th>
-    </tr>
-    </thead>
+<!--  <br>-->
+<!--  <table class="table table-bordered table-striped">-->
+<!--    <thead class="thead-dark">-->
+<!--    <tr>-->
+<!--      <th scope="col">No</th>-->
+<!--      <th scope="col">Identifier</th>-->
+<!--      <th scope="col">Book title</th>-->
+<!--      <th scope="col">Start date</th>-->
+<!--      <th scope="col">End date</th>-->
+<!--      <th scope="col">From</th>-->
+<!--      <th scope="col">To</th>-->
+<!--      <th scope="col">Status</th>-->
+<!--      <th scope="col">Actions</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
 
-    <tr *ngFor="let reservation of reservations | paginate: configReservationsPage; let i=index">
-      <ng-container>
-        <td>{{ i + 1 }}</td>
-        <td>{{ reservation.reservationIdentifier }}</td>
-        <td>{{ reservation.bookTitle }}</td>
-        <td>{{ reservation.startDate | date:'yyyy-MM-dd' }}</td>
-        <td>{{ reservation.endDate | date:'yyyy-MM-dd' }}</td>
-        <td>{{ reservation.ownerUsername }}</td>
-        <td *ngIf="reservation.borrowerUsername !== 'admin'">{{ reservation.borrowerUsername }}</td>
-        <td *ngIf="reservation.borrowerUsername === 'admin'">Library</td>
-        <td>{{ reservation.reservationStatus }}</td>
-        <td><button *ngIf="reservation.reservationStatus === 'ACTIVE' && reservation.ownerUsername === 'admin' && role ==='ROLE_ADMIN'
-                    || reservation.reservationStatus === 'ACTIVE' && reservation.ownerUsername === username && role ==='ROLE_USER'" class="btn btn-success" (click)="returnBook(reservation)">Return book</button></td>
-      </ng-container>
-    </tr>
+<!--    <tr *ngFor="let reservation of reservations | paginate: configReservationsPage; let i=index">-->
+<!--      <ng-container>-->
+<!--        <td>{{ i + 1 }}</td>-->
+<!--        <td>{{ reservation.reservationIdentifier }}</td>-->
+<!--        <td>{{ reservation.bookTitle }}</td>-->
+<!--        <td>{{ reservation.startDate | date:'yyyy-MM-dd' }}</td>-->
+<!--        <td>{{ reservation.endDate | date:'yyyy-MM-dd' }}</td>-->
+<!--        <td>{{ reservation.ownerUsername }}</td>-->
+<!--        <td *ngIf="reservation.borrowerUsername !== 'admin'">{{ reservation.borrowerUsername }}</td>-->
+<!--        <td *ngIf="reservation.borrowerUsername === 'admin'">Library</td>-->
+<!--        <td>{{ reservation.reservationStatus }}</td>-->
+<!--        <td><button *ngIf="reservation.reservationStatus === 'ACTIVE' && reservation.ownerUsername === 'admin' && role ==='ROLE_ADMIN'-->
+<!--                    || reservation.reservationStatus === 'ACTIVE' && reservation.ownerUsername === username && role ==='ROLE_USER'" class="btn btn-success" (click)="returnBook(reservation)">Return book</button></td>-->
+<!--      </ng-container>-->
+<!--    </tr>-->
+<!--  </table>-->
+<!--  <pagination-controls id="pagination1" previousLabel="Previous" nextLabel="Next" (pageChange)="pageChangedReservations($event)"></pagination-controls>-->
+<!--</div>-->
+  <table mat-table [dataSource]="dataSource" [tabIndex]="dataSource" class="w-100" matSort style="margin-top: 20px">
+    <ng-container matColumnDef="No">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>No</th>
+      <td mat-cell *matCellDef="let element; let i = index">{{ rowNumberStart + i }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Identifier">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Identifier</th>
+      <td mat-cell *matCellDef="let element">{{ element.reservationIdentifier }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="BookTitle">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Book title</th>
+      <td mat-cell *matCellDef="let element">{{ element.bookTitle }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="StartDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Start date</th>
+      <td mat-cell *matCellDef="let element">{{ element.startDate | date:'yyyy-MM-dd' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="EndDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>End date</th>
+      <td mat-cell *matCellDef="let element">{{ element.endDate | date:'yyyy-MM-dd' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="From">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>From</th>
+      <td mat-cell *matCellDef="let element">
+        <div *ngIf="element.ownerUsername !== 'admin'">
+          {{ element.ownerUsername }}
+        </div>
+        <div *ngIf="element.ownerUsername === 'admin'">
+          Library
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="To">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>To</th>
+      <td mat-cell *matCellDef="let element">{{element.borrowerUsername}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <td mat-cell *matCellDef="let element">{{ element.reservationStatus }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Return">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button *ngIf="element.reservationStatus === 'ACTIVE' && element.ownerUsername === 'admin' && role ==='ROLE_ADMIN'
+                    || element.reservationStatus === 'ACTIVE' && element.ownerUsername === username && role ==='ROLE_USER'" mat-raised-button color="primary" (click)="returnBook(element)">Return book</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
-  <pagination-controls id="pagination1" previousLabel="Previous" nextLabel="Next" (pageChange)="pageChangedReservations($event)"></pagination-controls>
+  <div *ngIf="dataSource === undefined" class="text-center pt-3 mb-4">No reservations found</div>
+
+
+  <mat-paginator [length]="dataSource.data.length" [pageSize]="configReservationsPage.itemsPerPage"
+                 (page)="pageChangedReservations($event)" [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons="true"></mat-paginator>
 </div>
