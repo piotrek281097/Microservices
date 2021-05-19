@@ -6,9 +6,6 @@ import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.*;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.security.annotation.Secured;
-import io.micronaut.security.rules.SecurityRule;
-
-import java.util.Collections;
 
 @Controller("/")
 public class BooksController {

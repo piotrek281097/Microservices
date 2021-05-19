@@ -3,13 +3,10 @@ package gateway.controller;
 import gateway.auth.AuthorizationOperations;
 import gateway.exception.RegisterException;
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
-
-import java.util.Collections;
 
 @Controller("/")
 public class AuthorizationController {
@@ -41,19 +38,12 @@ public class AuthorizationController {
         return authorizationOperations.deleteUserById(userId);
     }
 
-//    @Get("/users/{userId}")
-//    @Secured(SecurityRule.IS_AUTHENTICATED)
-//    public HttpResponse getUserById(@PathVariable long userId) {
-//        return authorizationOperations.getUserById(userId);
-//    }
-
     @Get("/users/{username}")
     @Secured(SecurityRule.IS_AUTHENTICATED)
     public HttpResponse getUserByUsername(@PathVariable String username) {
         return authorizationOperations.getUserByUsername(username);
     }
 
-    // 2 wersja
     @Post("/users/update")
     @Secured("USER")
     public HttpResponse updateUser(@Body String userData) {

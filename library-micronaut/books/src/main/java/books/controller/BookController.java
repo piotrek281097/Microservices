@@ -1,7 +1,6 @@
 package books.controller;
 
 import books.domain.Book;
-import books.domain.Opinion;
 import books.dto.OpinionDto;
 import books.service.BookService;
 import io.micronaut.http.HttpResponse;

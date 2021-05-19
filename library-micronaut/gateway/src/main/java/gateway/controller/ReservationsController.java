@@ -5,8 +5,6 @@ import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.*;
 import io.micronaut.security.annotation.Secured;
 
-import java.util.List;
-
 @Controller("/")
 public class ReservationsController {
 

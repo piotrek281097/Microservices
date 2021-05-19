@@ -1,10 +1,8 @@
 package reservations.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import reservations.enums.ReservationStatus;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -38,13 +36,6 @@ public class Reservation {
 
     @NotNull
     private String ownerUsername;
-
-//    @ManyToOne
-//    private Book book;
-//
-//    @ManyToOne
-//    @JsonIgnore
-//    private Reader reader;
 
     @Version
     private int optLock;

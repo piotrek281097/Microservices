@@ -2,14 +2,11 @@ package books.domain;
 
 import books.enums.BookKind;
 import books.enums.BookStatus;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -38,10 +35,6 @@ public class Book {
 
     @NotNull
     private String ownerUsername;
-
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "book")
-//    private Set<Reservation> reservations;
 
     private double avgRate;
 

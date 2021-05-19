@@ -1,8 +1,6 @@
 package registration.controller;
 
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.HttpStatus;
-import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
@@ -35,11 +33,6 @@ public class UserDataController {
         return HttpResponse.ok(userDataService.getAllUsers());
     }
 
-//    @Get("/users/{userId}")
-//    public HttpResponse<UserData> getUserById(@PathVariable long userId) {
-//        return HttpResponse.ok(userDataService.getUserById(userId));
-//    }
-
     @Get("/users/{username}")
     @Secured(SecurityRule.IS_AUTHENTICATED)
     public HttpResponse<UserData> getUserByUsername(@PathVariable String username) {
@@ -60,16 +53,4 @@ public class UserDataController {
         return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
     }
 
-//    @Post("/test-admin")
-//    public HttpResponse testAdmin() {
-//        System.out.println("TEST____________");
-//        return HttpResponse.ok(Collections.singletonMap("msg", "admin-test"));
-//    }
-//
-//
-//    @Post("/test-user")
-//    public HttpResponse testUser() {
-//        System.out.println("TEST____________");
-//        return HttpResponse.ok(Collections.singletonMap("msg", "user-test"));
-//    }
 }

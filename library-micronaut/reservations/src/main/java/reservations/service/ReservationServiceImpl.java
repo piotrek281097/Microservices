@@ -28,20 +28,18 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void addReservation(Reservation reservation) {
         UUID uuid = UUID.randomUUID();
-        reservation.setReservationIdentifier(uuid.toString().substring(0,10));
+        reservation.setReservationIdentifier(uuid.toString().substring(0, 10));
         Reservation savedReservation = reservationRepository.save(reservation);
 
         booksClient.updateBookStatus("key", new BookUpdateStatusDto(reservation.getBookIdentifier(), "RESERVED",
                 savedReservation.getId()));
-
-        System.out.println("MAKE RESERVATION");
-
     }
 
     @Override
     public List<Reservation> getClassicLibraryReservations() {
         return reservationRepository.findByOwnerUsername("admin");
     }
+
 
     @Override
     public List<Reservation> getUserRentalServiceReservations() {

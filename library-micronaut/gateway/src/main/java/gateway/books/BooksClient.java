@@ -1,12 +1,9 @@
 package gateway.books;
 
-import gateway.auth.AuthorizationOperations;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.*;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.retry.annotation.Recoverable;
-
-import java.util.Collections;
 
 
 @Client(id = "books")

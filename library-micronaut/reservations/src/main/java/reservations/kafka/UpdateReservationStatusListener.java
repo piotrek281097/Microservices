@@ -23,6 +23,5 @@ public class UpdateReservationStatusListener {
     @Topic("update-reservation-status")
     public void receive(@KafkaKey String key, ReservationUpdateStatusDto reservationUpdateStatusDto) {
         reservationService.updateReservationStatus(reservationUpdateStatusDto);
-        System.out.println("Reservation status update");
     }
 }

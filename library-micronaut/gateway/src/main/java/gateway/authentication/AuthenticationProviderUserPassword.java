@@ -9,7 +9,6 @@ import org.reactivestreams.Publisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.inject.Singleton;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -40,8 +39,7 @@ public class AuthenticationProviderUserPassword implements AuthenticationProvide
                 } else {
                     emitter.onError(new AuthenticationException(new AuthenticationFailed()));
                 }
-            }
-            else if (passwordEncoder.matches(authenticationRequest.getSecret().toString(), foundUser.get().getPassword())) {
+            } else if (passwordEncoder.matches(authenticationRequest.getSecret().toString(), foundUser.get().getPassword())) {
                 emitter.onSuccess(new UserDetails(foundUser.get().getUsername(), Collections.singletonList("USER")));
             } else {
                 emitter.onError(new AuthenticationException(new AuthenticationFailed()));

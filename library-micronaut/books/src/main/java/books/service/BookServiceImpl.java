@@ -5,18 +5,15 @@ import books.domain.Opinion;
 import books.dto.BookUpdateStatusDto;
 import books.dto.OpinionDto;
 import books.dto.ReservationUpdateStatusDto;
-import books.enums.BookKind;
 import books.enums.BookStatus;
 import books.exception.BookIdentifierAlreadyExists;
 import books.kafka.ReservationsClient;
 import books.repository.BookRepository;
 import books.repository.OpinionRepository;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Singleton

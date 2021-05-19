@@ -23,6 +23,5 @@ public class UpdateBookListener {
     @Topic("update-book-status")
     public void receive(@KafkaKey String key, BookUpdateStatusDto bookUpdateStatusDto) {
         bookService.updateBookStatus(bookUpdateStatusDto);
-        System.out.println("Book status update");
     }
 }

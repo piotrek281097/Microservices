@@ -32,12 +32,10 @@ public class UserDataServiceImpl implements UserDataService {
                 final String encodedPassword = passwordEncoder.encode(userData.getPassword());
                 userData.setPassword(encodedPassword);
                 userDataRepository.save(userData);
-            }
-            else {
+            } else {
                 throw new UsernameAlreadyExistsException();
             }
-        }
-        else {
+        } else {
             throw new UserEmailAlreadyExistsException();
         }
     }
