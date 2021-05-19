@@ -15,7 +15,6 @@ import {MatTableDataSource} from '@angular/material';
 })
 export class ReservationsListComponent implements OnInit {
 
-  // @Input() reservations: ReservationDto[];
   @Input() dataSource: MatTableDataSource<ReservationDto>;
   configReservationsPage: any;
   role: string;

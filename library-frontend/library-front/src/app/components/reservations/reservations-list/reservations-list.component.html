@@ -1,39 +1,5 @@
 <div class="main">
   <h2 style="text-align: center">Reservations</h2>
-<!--  <br>-->
-<!--  <table class="table table-bordered table-striped">-->
-<!--    <thead class="thead-dark">-->
-<!--    <tr>-->
-<!--      <th scope="col">No</th>-->
-<!--      <th scope="col">Identifier</th>-->
-<!--      <th scope="col">Book title</th>-->
-<!--      <th scope="col">Start date</th>-->
-<!--      <th scope="col">End date</th>-->
-<!--      <th scope="col">From</th>-->
-<!--      <th scope="col">To</th>-->
-<!--      <th scope="col">Status</th>-->
-<!--      <th scope="col">Actions</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-
-<!--    <tr *ngFor="let reservation of reservations | paginate: configReservationsPage; let i=index">-->
-<!--      <ng-container>-->
-<!--        <td>{{ i + 1 }}</td>-->
-<!--        <td>{{ reservation.reservationIdentifier }}</td>-->
-<!--        <td>{{ reservation.bookTitle }}</td>-->
-<!--        <td>{{ reservation.startDate | date:'yyyy-MM-dd' }}</td>-->
-<!--        <td>{{ reservation.endDate | date:'yyyy-MM-dd' }}</td>-->
-<!--        <td>{{ reservation.ownerUsername }}</td>-->
-<!--        <td *ngIf="reservation.borrowerUsername !== 'admin'">{{ reservation.borrowerUsername }}</td>-->
-<!--        <td *ngIf="reservation.borrowerUsername === 'admin'">Library</td>-->
-<!--        <td>{{ reservation.reservationStatus }}</td>-->
-<!--        <td><button *ngIf="reservation.reservationStatus === 'ACTIVE' && reservation.ownerUsername === 'admin' && role ==='ROLE_ADMIN'-->
-<!--                    || reservation.reservationStatus === 'ACTIVE' && reservation.ownerUsername === username && role ==='ROLE_USER'" class="btn btn-success" (click)="returnBook(reservation)">Return book</button></td>-->
-<!--      </ng-container>-->
-<!--    </tr>-->
-<!--  </table>-->
-<!--  <pagination-controls id="pagination1" previousLabel="Previous" nextLabel="Next" (pageChange)="pageChangedReservations($event)"></pagination-controls>-->
-<!--</div>-->
   <table mat-table [dataSource]="dataSource" [tabIndex]="dataSource" class="w-100" matSort style="margin-top: 20px">
     <ng-container matColumnDef="No">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>No</th>

@@ -1,35 +1,5 @@
 <div class="main">
   <h1 style="text-align: center">Ratings list</h1>
-<!--  <table class="table table-bordered table-striped">-->
-<!--    <thead class="thead-dark">-->
-<!--    <tr>-->
-<!--      <th scope="col">No</th>-->
-<!--      <th scope="col">Rate</th>-->
-<!--      <th scope="col">Title</th>-->
-<!--      <th scope="col">Author</th>-->
-<!--      <th scope="col">Book kind</th>-->
-<!--      <th scope="col">Identifier</th>-->
-<!--      <th scope="col">Owner</th>-->
-<!--      <th scope="col">          </th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-
-<!--    <tr *ngFor="let book of books | paginate: config; let i=index">-->
-<!--      &lt;!&ndash;  <tr *ngFor="let book of books | paginate: config; let i=index">&ndash;&gt;-->
-<!--      <td>{{ i + 1 }} </td>-->
-<!--      <td>{{ book.avgRate }} </td>-->
-<!--      <td>{{ book.title }}</td>-->
-<!--      <td>{{ book.author}}</td>-->
-<!--      <td>{{ book.bookKind }}</td>-->
-<!--      <td>{{ book.identifier }}</td>-->
-<!--      <td>{{ setOwnerName(book) }}</td>-->
-<!--      <td><button class="btn btn-primary" (click)="showReviews(book)">Reviews</button></td>-->
-<!--    </tr>-->
-<!--  </table>-->
-<!--</div>-->
-
-<!--<pagination-controls previousLabel="Previous" nextLabel="Next" (pageChange)="pageChanged($event)"></pagination-controls>-->
-
   <table mat-table [dataSource]="dataSource" [tabIndex]="dataSource" class="w-100" matSort style="margin-top: 20px">
     <ng-container matColumnDef="No">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>No</th>

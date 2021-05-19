@@ -48,7 +48,8 @@ export class RatingsComponent implements OnInit {
   }
 
   pageChanged(event) {
-    this.config.currentPage = event;
+    this.config.currentPage = event.pageIndex;
+    this.config.itemsPerPage = event.pageSize;
   }
 
   showReviews(book: Book) {

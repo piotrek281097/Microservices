@@ -1,5 +1,4 @@
 <div class="main">
-<!--  <h4>Search book by field:</h4>-->
   <mat-tab-group >
     <mat-tab label="Title">
       <div >
@@ -23,52 +22,8 @@
     </mat-tab>
   </mat-tab-group>
   <br>
-<!--<br>-->
-
-<!--  <form class="search-input-form">-->
-<!--    <mat-form-field class="input-search-field" >-->
-<!--      <mat-label>Search by title</mat-label>-->
-<!--      <input class="input-search" matInput (keydown.enter)="searchByTitle($event)">-->
-<!--    </mat-form-field>-->
-<!--  </form>-->
 
 <h1 style="text-align: center">Books list</h1>
-<!--<table class="table table-bordered table-striped">-->
-<!--  <thead class="thead-dark">-->
-<!--  <tr>-->
-<!--    <th scope="col">No</th>-->
-<!--    <th scope="col">Title</th>-->
-<!--    <th scope="col">Author</th>-->
-<!--    <th scope="col">Identifier</th>-->
-<!--    <th scope="col">Book kind</th>-->
-<!--    <th scope="col">Release date</th>-->
-<!--    <th scope="col">Owner</th>-->
-<!--    <th *ngIf="role === 'ROLE_USER'" scope="col">          </th>-->
-<!--    <th *ngIf="checkIfDeleteVisible()" scope="col">          </th>-->
-<!--    <th *ngIf="role === 'ROLE_USER'" scope="col">          </th>-->
-
-<!--  </tr>-->
-<!--  </thead>-->
-
-<!--  <tr *ngFor="let book of books | paginate: config | filterBy: searchText; let i=index">-->
-<!--&lt;!&ndash;  <tr *ngFor="let book of books | paginate: config; let i=index">&ndash;&gt;-->
-<!--    <td>{{ i + 1 }} </td>-->
-<!--    <td>{{ book.title }}</td>-->
-<!--    <td>{{ book.author}}</td>-->
-<!--    <td>{{ book.identifier }}</td>-->
-<!--    <td>{{ book.bookKind }}</td>-->
-<!--    <td>{{ book.releaseDate | date:'yyyy-MM-dd' }}</td>-->
-<!--    <td>{{ setOwnerName(book) }}</td>-->
-<!--    <td *ngIf="role === 'ROLE_USER'"><button [disabled]="checkIfReservePossible(book)" type="submit" class="btn btn-success" (click)="reserveBook(book.id)">Reserve</button></td>-->
-<!--    <td *ngIf="checkIfDeleteVisible()">-->
-<!--      <button type="submit" class="btn btn-danger" [disabled]="checkIfDeletePossible(book)" (click)="deleteBook(book)">Delete</button>-->
-<!--    </td>-->
-<!--    <td *ngIf="role === 'ROLE_USER'"><button type="submit" class="btn btn-warning" (click)="rateBook(book)">Rate</button></td>-->
-<!--  </tr>-->
-<!--</table>-->
-<!--</div>-->
-
-<!--<pagination-controls previousLabel="Previous" nextLabel="Next" (pageChange)="pageChanged($event)"></pagination-controls>-->
   <table mat-table [dataSource]="dataSource" [tabIndex]="dataSource" class="w-100" matSort style="margin-top: 20px">
     <ng-container matColumnDef="No">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>No</th>

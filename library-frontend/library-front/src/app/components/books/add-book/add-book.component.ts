@@ -72,7 +72,6 @@ export class AddBookComponent implements OnInit {
           }
         )
         .catch(error => {
-          // do poprawy, moze error ze bookIdentifier istnieje
           if (error instanceof HttpErrorResponse && (error.status === 409 || error.status === 400)) {
             if (error.status === 409) {
               this.toastrService.error('Error! Book with this identifier already exists!');
