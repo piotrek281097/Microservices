@@ -47,7 +47,7 @@ micronaut:
 micronaut:
   http:
     services:
-      users:
+      registration:
         urls:
           - "http://localhost:8080"
       books:
