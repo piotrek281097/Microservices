@@ -60,4 +60,10 @@ public class ReservationResource {
         reservationService.updateReservation(reservation);
         return Response.ok(Collections.singletonMap("msg", "OK")).build();
     }
+
+    @GET
+    @Path("/save-test-data")
+    public String saveTestData() {
+        return reservationService.saveTestData();
+    }
 }

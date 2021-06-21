@@ -25,4 +25,8 @@ public interface BookService {
     List<Book> getBooksOrderedByAvgRate();
 
     void updateBookStatus(BookUpdateStatusDto bookUpdateStatusDto);
+
+    String savePerformanceTest();
+
+    String readPerformanceTest();
 }

@@ -2,6 +2,7 @@ package pp.books.controller;
 
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pp.books.domain.Book;
@@ -63,6 +64,16 @@ public class BookController {
     @GetMapping("/books/ratings")
     public ResponseEntity<List<Book>> getBooksOrderedByAvgRate() {
         return new ResponseEntity<>(bookService.getBooksOrderedByAvgRate(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/save-test", produces = MediaType.TEXT_PLAIN_VALUE)
+    public String savePerformanceTest() {
+        return bookService.savePerformanceTest();
+    }
+
+    @GetMapping(value = "/read-test", produces = MediaType.TEXT_PLAIN_VALUE)
+    public String readPerformanceTest() {
+        return bookService.readPerformanceTest();
     }
 
 }

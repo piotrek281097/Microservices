@@ -5,7 +5,7 @@
       <input matInput placeholder="Username" formControlName="username" id="username" class="form-control"
              [errorStateMatcher]="matcher">
       <mat-error *ngIf="FormControl.hasError('required')">
-        Username is <strong>required!</strong> Length: <strong>2-30 signs</strong>, only letters and digits
+        Username is <strong>required!</strong> Length: <strong>2-30 characters</strong>, only letters and digits
       </mat-error>
     </mat-form-field>
 

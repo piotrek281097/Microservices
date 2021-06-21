@@ -1,8 +1,10 @@
 package reservations.controller;
 
 import io.micronaut.http.HttpResponse;
+import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
 import reservations.domain.Reservation;
 import reservations.service.ReservationService;
 
@@ -54,5 +56,11 @@ public class ReservationController {
     public HttpResponse updateReservation(@Body Reservation reservation) {
         reservationService.updateReservation(reservation);
         return HttpResponse.ok(Collections.singletonMap("msg", "OK"));
+    }
+
+    @Get(value = "/save-test-data", produces = MediaType.TEXT_PLAIN)
+    @Secured(SecurityRule.IS_ANONYMOUS)
+    public String savePerformanceTest() {
+        return reservationService.saveTestData();
     }
 }

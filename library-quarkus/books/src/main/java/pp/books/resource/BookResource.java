@@ -75,4 +75,17 @@ public class BookResource {
         return Response.ok(bookService.getBooksOrderedByAvgRate()).build();
     }
 
+    @GET
+    @Path("/save-test")
+    @Produces({MediaType.TEXT_PLAIN})
+    public String savePerformanceTest() {
+        return bookService.savePerformanceTest();
+    }
+
+    @GET
+    @Path("/read-test")
+    @Produces({MediaType.TEXT_PLAIN})
+    public String readPerformanceTest() {
+        return bookService.readPerformanceTest();
+    }
 }

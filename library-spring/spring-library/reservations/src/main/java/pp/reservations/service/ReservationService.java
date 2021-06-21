@@ -21,4 +21,5 @@ public interface ReservationService {
 
     void updateReservationStatus(ReservationUpdateStatusDto reservationUpdateStatusDto);
 
+    String saveTestData();
 }

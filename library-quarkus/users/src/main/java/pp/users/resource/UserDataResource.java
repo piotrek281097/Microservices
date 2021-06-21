@@ -50,4 +50,10 @@ public class UserDataResource {
         return Response.ok(Collections.singletonMap("msg", "OK")).build();
     }
 
+    @GET
+    @Path("/save-test-data")
+    @Produces({MediaType.TEXT_PLAIN})
+    public String savePerformanceTest() {
+        return userDataService.saveTestData();
+    }
 }

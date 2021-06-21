@@ -34,12 +34,12 @@
     <ng-container matColumnDef="Owner">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Owner</th>
       <td mat-cell *matCellDef="let element">{{ setOwnerName(element) }}</td>
-    </ng-container>
+    </ng-container>si
 
     <ng-container matColumnDef="Reviews">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <button mat-raised-button color="primary" (click)="showReviews(element)">Reviews</button>
+        <button mat-raised-button color="accent" (click)="showReviews(element)">Reviews</button>
       </td>
     </ng-container>
 

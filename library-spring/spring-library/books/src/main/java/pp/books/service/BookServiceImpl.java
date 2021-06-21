@@ -7,14 +7,15 @@ import pp.books.domain.Opinion;
 import pp.books.dto.BookUpdateStatusDto;
 import pp.books.dto.OpinionDto;
 import pp.books.dto.ReservationUpdateStatusDto;
+import pp.books.enums.BookKind;
 import pp.books.enums.BookStatus;
 import pp.books.exception.BookIdentifierAlreadyExists;
 import pp.books.kafka.ReservationsProducer;
 import pp.books.repository.BookRepository;
 import pp.books.repository.OpinionRepository;
 
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -110,6 +111,45 @@ public class BookServiceImpl implements BookService {
             reservationsProducer.sendMessage(
                     new ReservationUpdateStatusDto("ACTIVE", bookUpdateStatusDto.getReservationId()));
         }
+    }
+
+    @Override
+    public String savePerformanceTest() {
+        List<Book> books = new ArrayList<>();
+        for (int i = 0; i < 3000; i++) {
+            UUID uuid = UUID.randomUUID();
+            books.add(
+                    Book.builder()
+                            .title("title" + i)
+                            .author("author" + i)
+                            .identifier(uuid.toString().substring(0, 10))
+                            .bookKind(BookKind.ACTION)
+                            .bookStatus(BookStatus.AVAILABLE)
+                            .releaseDate(new Date())
+                            .ownerUsername("admin")
+                            .avgRate(5.0)
+                            .opinions(Collections.emptySet())
+                            .build()
+            );
+        }
+
+        long startTime = System.currentTimeMillis();
+        for (Book book : books) {
+            bookRepository.save(book);
+        }
+        long duration = System.currentTimeMillis() - startTime;
+
+
+        return "saving finished - " + duration + " ms";
+    }
+
+    @Override
+    public String readPerformanceTest() {
+        long startTime = System.currentTimeMillis();
+        Iterable<Book> all = bookRepository.findAll();
+        long duration = System.currentTimeMillis() - startTime;
+
+        return "reading books finished - " + duration + " ms, size: " + ((Collection<?>) all).size();
     }
 
     private Opinion convertToOpinion(OpinionDto opinionDto) {

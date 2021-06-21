@@ -8,9 +8,7 @@ import reservations.kafka.BooksClient;
 import reservations.repository.ReservationRepository;
 
 import javax.inject.Singleton;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Singleton
@@ -71,5 +69,30 @@ public class ReservationServiceImpl implements ReservationService {
             reservation.get().setReservationStatus(ReservationStatus.valueOf(reservationUpdateStatusDto.getNewReservationStatus()));
             reservationRepository.update(reservation.get());
         }
+    }
+
+    @Override
+    public String saveTestData() {
+        List<Reservation> reservations = new ArrayList<>();
+        for (int i = 0; i < 1000; i++) {
+            UUID uuid = UUID.randomUUID();
+            Reservation reservation = new Reservation();
+            reservation.setReservationIdentifier(uuid.toString().substring(0, 10));
+            reservation.setStartDate(new Date());
+            reservation.setEndDate(new Date());
+            reservation.setReservationStatus(ReservationStatus.ACTIVE);
+            reservation.setBookTitle("title" + i);
+            reservation.setBookIdentifier(uuid.toString().substring(0, 10));
+            reservation.setBorrowerUsername("username" + i);
+            reservation.setOwnerUsername("admin");
+            reservations.add(reservation);
+        }
+
+        long startTime = System.currentTimeMillis();
+        for (Reservation reservation : reservations) {
+            reservationRepository.save(reservation);
+        }
+        long duration = System.currentTimeMillis() - startTime;
+        return "saving reservations finished - " + duration + " ms";
     }
 }

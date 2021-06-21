@@ -1,15 +1,19 @@
 package pp.reservations.domain;
 
+import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import pp.reservations.enums.ReservationStatus;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
 @Table(name = "reservations")
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Reservation {
 
     @Id

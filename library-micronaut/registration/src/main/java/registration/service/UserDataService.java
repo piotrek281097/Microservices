@@ -19,5 +19,7 @@ public interface UserDataService {
     UserData getUserByUsername(String username);
 
     void updateUser(UserData userData);
+
+    String saveTestData();
 }
 

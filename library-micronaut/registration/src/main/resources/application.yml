@@ -6,14 +6,14 @@ micronaut:
     cors:
       enabled: true
 ---
-micronaut:
-  security:
-    token:
-      jwt:
-        signatures:
-          secret:
-            validation:
-              secret: '"${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecretForANewOne}"'
+#micronaut:
+#  security:
+#    token:
+#      jwt:
+#        signatures:
+#          secret:
+#            validation:
+#              secret: '"${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecretForANewOne}"'
 datasources:
   default:
     url: jdbc:mysql://localhost:3306/micronaut_users?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC

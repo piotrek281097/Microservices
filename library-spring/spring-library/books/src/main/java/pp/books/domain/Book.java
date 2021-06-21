@@ -1,11 +1,13 @@
 package pp.books.domain;
 
+import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import pp.books.enums.BookKind;
 import pp.books.enums.BookStatus;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +16,8 @@ import java.util.Set;
 @Entity
 @Table(name = "books")
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Book {
 
     @Id

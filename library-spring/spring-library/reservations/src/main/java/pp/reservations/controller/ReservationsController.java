@@ -1,6 +1,7 @@
 package pp.reservations.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pp.reservations.domain.Reservation;
@@ -49,5 +50,10 @@ public class ReservationsController {
     public ResponseEntity<?> updateReservation(@RequestBody Reservation reservation) {
         reservationService.updateReservation(reservation);
         return new ResponseEntity<>(Collections.singletonMap("msg", "OK"), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/save-test-data", produces = MediaType.TEXT_PLAIN_VALUE)
+    public String saveTestData() {
+        return reservationService.saveTestData();
     }
 }

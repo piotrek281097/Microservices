@@ -10,9 +10,8 @@ import pp.reservations.repository.ReservationRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
@@ -82,5 +81,31 @@ public class ReservationServiceImpl implements ReservationService {
             reservation.get().setReservationStatus(ReservationStatus.valueOf(reservationUpdateStatusDto.getNewReservationStatus()));
             reservationRepository.update(reservation.get());
         }
+    }
+
+    @Override
+    @Transactional
+    public String saveTestData() {
+        List<Reservation> reservations = new ArrayList<>();
+        for (int i = 0; i < 1; i++) {
+            UUID uuid = UUID.randomUUID();
+            Reservation reservation = new Reservation();
+            reservation.setReservationIdentifier(uuid.toString().substring(0, 10));
+            reservation.setStartDate(LocalDate.now());
+            reservation.setEndDate(LocalDate.now());
+            reservation.setReservationStatus(ReservationStatus.ACTIVE);
+            reservation.setBookTitle("title" + i);
+            reservation.setBookIdentifier(uuid.toString().substring(0, 10));
+            reservation.setBorrowerUsername("username" + i);
+            reservation.setOwnerUsername("admin");
+            reservations.add(reservation);
+        }
+
+        long startTime = System.currentTimeMillis();
+        for (Reservation reservation : reservations) {
+            reservationRepository.save(reservation);
+        }
+        long duration = System.currentTimeMillis() - startTime;
+        return "saving reservations finished - " + duration + " ms";
     }
 }

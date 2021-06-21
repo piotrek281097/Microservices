@@ -20,4 +20,6 @@ public interface ReservationService {
     void updateReservation(Reservation reservation);
 
     void updateReservationStatus(ReservationUpdateStatusDto reservationUpdateStatusDto);
+
+    String saveTestData();
 }

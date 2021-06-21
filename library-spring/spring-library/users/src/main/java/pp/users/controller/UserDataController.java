@@ -1,6 +1,7 @@
 package pp.users.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pp.users.domain.UserData;
@@ -45,6 +46,11 @@ public class UserDataController {
     public ResponseEntity<?> updateUser(@RequestBody UserData userData) {
         userDataService.updateUser(userData);
         return new ResponseEntity<>(Collections.singletonMap("msg", "OK"), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/save-test-data", produces = MediaType.TEXT_PLAIN_VALUE)
+    public String saveTestData() {
+        return userDataService.saveTestData();
     }
 }
 

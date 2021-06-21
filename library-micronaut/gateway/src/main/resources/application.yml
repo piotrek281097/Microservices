@@ -47,15 +47,15 @@ micronaut:
 micronaut:
   http:
     services:
-      registration:
+      users:
         urls:
-          - "http://localhost:8080" # <1>
+          - "http://localhost:8080"
       books:
         urls:
-          - - "http://localhost:8082" # <1>
+          - - "http://localhost:8082"
       reservations:
         urls:
-          - - "http://localhost:8083" # <1>
+          - - "http://localhost:8083"
 #end::httpservices[]
 credentials:
   users:

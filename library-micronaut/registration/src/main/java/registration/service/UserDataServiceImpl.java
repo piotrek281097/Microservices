@@ -2,12 +2,14 @@ package registration.service;
 
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import registration.domain.Address;
 import registration.domain.UserData;
 import registration.exception.UserEmailAlreadyExistsException;
 import registration.exception.UsernameAlreadyExistsException;
 import registration.repository.UserDataRepository;
 
 import javax.inject.Singleton;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,5 +72,34 @@ public class UserDataServiceImpl implements UserDataService {
     @Override
     public void updateUser(UserData userData) {
         userDataRepository.update(userData);
+    }
+
+    @Override
+    public String saveTestData() {
+        List<UserData> users = new ArrayList<>();
+        for (int i = 0; i < 500; i++) {
+            UserData userData = new UserData();
+            userData.setUsername("username" + i);
+            userData.setPassword(passwordEncoder.encode("password" + i));
+            userData.setEmail("email" + i);
+            userData.setName("name" + i);
+            userData.setSurname("surname" + i);
+            userData.setPesel("11111111111");
+            userData.setTelephone("12345678" + i);
+            Address address = new Address();
+            address.setStreet("street");
+            address.setPostalCode("12-234");
+            address.setCity("city" + i);
+            address.setApartmentNumber("" + i);
+            userData.setAddress(address);
+            users.add(userData);
+        }
+
+        long startTime = System.currentTimeMillis();
+        for (UserData user : users) {
+            userDataRepository.save(user);
+        }
+        long duration = System.currentTimeMillis() - startTime;
+        return "saving users finished - " + duration + " ms";
     }
 }

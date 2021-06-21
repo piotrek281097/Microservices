@@ -5,6 +5,7 @@ import books.domain.Opinion;
 import books.dto.BookUpdateStatusDto;
 import books.dto.OpinionDto;
 import books.dto.ReservationUpdateStatusDto;
+import books.enums.BookKind;
 import books.enums.BookStatus;
 import books.exception.BookIdentifierAlreadyExists;
 import books.kafka.ReservationsClient;
@@ -12,8 +13,7 @@ import books.repository.BookRepository;
 import books.repository.OpinionRepository;
 
 import javax.inject.Singleton;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Singleton
@@ -108,6 +108,42 @@ public class BookServiceImpl implements BookService {
             reservationsClient.updateReservationStatus("key",
                     new ReservationUpdateStatusDto("ACTIVE", bookUpdateStatusDto.getReservationId()));
         }
+    }
+
+    @Override
+    public String savePerformanceTest() {
+        List<Book> books = new ArrayList<>();
+        for (int i = 0; i < 2000; i++) {
+            UUID uuid = UUID.randomUUID();
+            Book book = new Book();
+            book.setTitle("title" + i);
+            book.setAuthor("author" + i);
+            book.setIdentifier(uuid.toString().substring(0, 10));
+            book.setBookKind(BookKind.ACTION);
+            book.setBookStatus(BookStatus.AVAILABLE);
+            book.setReleaseDate(new Date());
+            book.setOwnerUsername("admin");
+            book.setAvgRate(5.0);
+            book.setOpinions(Collections.emptySet());
+            books.add(book);
+        }
+
+        long startTime = System.currentTimeMillis();
+        for (Book book : books) {
+            bookRepository.save(book);
+        }
+        long duration = System.currentTimeMillis() - startTime;
+
+        return "saving finished - " + duration + " ms";
+    }
+
+    @Override
+    public String readPerformanceTest() {
+        long startTime = System.currentTimeMillis();
+        Iterable<Book> all = bookRepository.findAll();
+        long duration = System.currentTimeMillis() - startTime;
+
+        return "reading books finished - " + duration + " ms, size: " + ((Collection<?>) all).size();
     }
 
     private Opinion convertToOpinion(OpinionDto opinionDto) {

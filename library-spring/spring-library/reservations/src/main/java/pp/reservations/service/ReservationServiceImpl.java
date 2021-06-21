@@ -8,9 +8,7 @@ import pp.reservations.enums.ReservationStatus;
 import pp.reservations.kafka.BooksProducer;
 import pp.reservations.repository.ReservationRepository;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -74,5 +72,32 @@ public class ReservationServiceImpl implements ReservationService {
             reservation.get().setReservationStatus(ReservationStatus.valueOf(reservationUpdateStatusDto.getNewReservationStatus()));
             reservationRepository.save(reservation.get());
         }
+    }
+
+    @Override
+    public String saveTestData() {
+        List<Reservation> reservations = new ArrayList<>();
+        for (int i = 0; i < 1000; i++) {
+            UUID uuid = UUID.randomUUID();
+            reservations.add(
+                    Reservation.builder()
+                            .reservationIdentifier(uuid.toString().substring(0, 10))
+                            .startDate(new Date())
+                            .endDate(new Date())
+                            .reservationStatus(ReservationStatus.ACTIVE)
+                            .bookTitle("title" + i)
+                            .bookIdentifier(uuid.toString().substring(0, 10))
+                            .borrowerUsername("username" + i)
+                            .ownerUsername("admin")
+                            .build()
+            );
+        }
+
+        long startTime = System.currentTimeMillis();
+        for (Reservation reservation : reservations) {
+            reservationRepository.save(reservation);
+        }
+        long duration = System.currentTimeMillis() - startTime;
+        return "saving reservations finished - " + duration + " ms";
     }
 }

@@ -1,10 +1,12 @@
 package pp.books.service;
 
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import pp.books.domain.Book;
 import pp.books.domain.Opinion;
 import pp.books.dto.BookUpdateStatusDto;
 import pp.books.dto.OpinionDto;
 import pp.books.dto.ReservationUpdateStatusDto;
+import pp.books.enums.BookKind;
 import pp.books.enums.BookStatus;
 import pp.books.kafka.ReservationsProducer;
 import pp.books.repository.BookRepository;
@@ -15,8 +17,8 @@ import javax.enterprise.context.control.ActivateRequestContext;
 import javax.transaction.Transactional;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
@@ -118,6 +120,44 @@ public class BookServiceImpl implements BookService {
                     new ReservationUpdateStatusDto(RESERVATION_STATUS_ACTIVE, bookUpdateStatusDto.getReservationId()));
         }
     }
+
+    @Override
+    @Transactional
+    public String savePerformanceTest() {
+        List<Book> books = new ArrayList<>();
+        for (int i = 0; i < 4000; i++) {
+            UUID uuid = UUID.randomUUID();
+            Book book = new Book();
+            book.setTitle("title" + i);
+            book.setAuthor("author" + i);
+            book.setIdentifier(uuid.toString().substring(0, 10));
+            book.setBookKind(BookKind.ACTION);
+            book.setBookStatus(BookStatus.AVAILABLE);
+            book.setReleaseDate(LocalDate.now());
+            book.setOwnerUsername("admin");
+            book.setAvgRate(5.0);
+            book.setOpinions(Collections.emptySet());
+            books.add(book);
+        }
+
+        long startTime = System.currentTimeMillis();
+        for (Book book : books) {
+            bookRepository.save(book);
+        }
+        long duration = System.currentTimeMillis() - startTime;
+
+        return "saving finished - " + duration + " ms";
+    }
+
+    @Override
+    public String readPerformanceTest() {
+        long startTime = System.nanoTime();
+        PanacheQuery<Book> all = bookRepository.findAll();
+        long duration = System.nanoTime() - startTime;
+
+        return "reading books finished - " + duration + " ns, size: " + all.stream().count();
+    }
+
 
     private Opinion convertToOpinion(OpinionDto opinionDto) {
         Opinion opinion = new Opinion();
